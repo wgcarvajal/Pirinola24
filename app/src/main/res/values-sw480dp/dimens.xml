@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="tam_titulo_vista">50sp</dimen>
+    <dimen name="margin_small">20dp</dimen>
+    <dimen name="ancho_btn_menu_principal">50dp</dimen>
+    <dimen name="alto_btn_menu_principal">50dp</dimen>
+    <dimen name="tam_titulo_subcategoria">45sp</dimen>
+    <dimen name="super_margin_small">10dp</dimen>
+    <dimen name="alto_template_producto">250dp</dimen>
+    <dimen name="alto_campo_nombre_producto">100dp</dimen>
+    <dimen name="tam_imagen_producto_grid">200dp</dimen>
+    <dimen name="alto_campo_descripcion_producto">75dp</dimen>
+    <dimen name="tamano_icono_menu_principal">60dp</dimen>
+    <dimen name="tamano_icono_carro_pedido">80dp</dimen>
+    <dimen name="tam_logo_menu_header">100dp</dimen>
+    <dimen name="tam_titulo_menu_header">100dp</dimen>
+    <dimen name="tam_letra_titulo_menu_header">50sp</dimen>
+    <dimen name="tam_letra_veinticuatro_header">40sp</dimen>
+    <dimen name="tam_btn_cantidad_producto">75dp</dimen>
+    <dimen name="tam_text_cantidad_producto">60sp</dimen>
+    <dimen name="tam_btn_cantidad_prod_grid">45dp</dimen>
+    <dimen name="tam_text_cantidad_producto_grid">32sp</dimen>
+    <dimen name="tam_ancho_icono_carro_pedido">100dp</dimen>
+    <dimen name="tam_text_total_pedido">45sp</dimen>
+    <dimen name="tam_text_btn_finalizar_pedido">35sp</dimen>
+    <dimen name="navigation_icon_size">108dp</dimen>
+    <dimen name="tam_letra_item_menu">35sp</dimen>
+    <dimen name="tam_text_nombre_producto_pedido">100dp</dimen>
+    <dimen name="size_text_nombre_producto_pedido">21sp</dimen>
+    <dimen name="tam_imagen_producto_pedido">180dp</dimen>
+    <dimen name="size_text_precio_producto_pedido">28sp</dimen>
+    <dimen name="tam_btn_producto_pedido">50dp</dimen>
+    <dimen name="size_text_btn_producto_pedido">37sp</dimen>
+    <dimen name="size_tex_domicilio_incluido">17sp</dimen>
+    <dimen name="tam_imagen_gorra">70dp</dimen>
+    <dimen name="tam_text_mensaje_dialog_vaciar">70dp</dimen>
+    <dimen name="size_text_mensaje_dialog_vaciar">20sp</dimen>
+    <dimen name="size_text_btn_dialog_vaciar">20sp</dimen>
+    <dimen name="size_text_mensaje_toast">20sp</dimen>
+    <dimen name="radio_corners_toast">15dp</dimen>
+    <dimen name="tam_flecha_atras">65dp</dimen>
+    <dimen name="tam_ancho_flecha_atras">75dp</dimen>
+    <dimen name="tam_ancho_imagen_login">150dp</dimen>
+    <dimen name="tam_alto_imagen_login">80dp</dimen>
+    <dimen name="margin_top_imagen_login">30dp</dimen>
+    <dimen name="margin_imagen_login">30dp</dimen>
+    <dimen name="margin_text_correo_electronico">20dp</dimen>
+    <dimen name="size_text_caja_texto">20sp</dimen>
+    <dimen name="tam_alto_caja_texto">35dp</dimen>
+    <dimen name="tam_alto_btn">40dp</dimen>
+    <dimen name="tam_icono_caja_text">20dp</dimen>
+    <dimen name="margin_top_password">20dp</dimen>
+    <dimen name="margin_top_btn">20dp</dimen>
+    <dimen name="margin_top_link">20dp</dimen>
+    <dimen name="size_text_btn_continuar_no_registrado">15sp</dimen>
+    <dimen name="margin_muy_poca">3dp</dimen>
+    <dimen name="tam_scrollview_observaciones">120dp</dimen>
+    <dimen name="size_text_compruebe_conexion">25sp</dimen>
+    <dimen name="margin_input_registrase">26dp</dimen>
+    <dimen name="margin_medium">30dp</dimen>
+
+
+
+    <dimen name="tam_nombre_producto">32sp</dimen>
+    <dimen name="tam_descripcion_producto">22sp</dimen>
+    <dimen name="tam_precio_producto">28sp</dimen>
+
+    <dimen name="tam_nombre_productogrid">26sp</dimen>
+    <dimen name="tam_descripcion_productogrid">20sp</dimen>
+    <dimen name="tam_precio_productogrid">28sp</dimen>
+
+    <dimen name="tam_img_icono_menu_carro">40dp</dimen>
+    <dimen name="tam_img_titulo_subcategoria">50dp</dimen>
+    <dimen name="size_radio_indicator_circulo">4dp</dimen>
+    <dimen name="size_borde_indicator_circulo">2dp</dimen>
+    <dimen name="size_radio_btn_realizarpedido">10dp</dimen>
+    <dimen name="tam_btn_realizarpedido">250dp</dimen>
+
+
+    <dimen name="icono_ingrese_margin_bottom">9dp</dimen>
+    <dimen name="icono_ingrese_margin_rigth">6dp</dimen>
+    <dimen name="size_link_ingresar">26sp</dimen>
+
+</resources>

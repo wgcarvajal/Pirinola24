@@ -1,0 +1,75 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity"
+    android:background="@color/vinotintoapp">
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txt_sin_conexion"
+                    android:layout_width="match_parent"
+                    android:text="Compruebe su conexión a internet...."
+                    android:textSize="@dimen/size_text_compruebe_conexion"
+                    android:textColor="@color/blanco"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_marginRight="@dimen/margin_small"
+                    android:background="@drawable/background_mensaje_toast"
+                    android:padding="@dimen/margin_small"
+                    />
+                <Button
+                    android:id="@+id/volver_cargar"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/tam_alto_btn"
+                    android:text="@string/volver_cargar_vista"
+                    android:textColor="@color/blanco"
+                    android:background="@drawable/bordes_redondos_pequno_fondo_rojo"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="@dimen/margin_small"
+                    />
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    >
+
+                </android.support.v4.view.ViewPager>
+
+                <com.viewpagerindicator.CirclePageIndicator
+                    android:id="@+id/pagerIndicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:padding="3dp"
+                    android:layout_alignParentBottom="true"
+                    />
+        </RelativeLayout>
+
+        <android.support.design.widget.NavigationView
+
+            android:id="@+id/nav"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_gravity="start"
+            app:menu="@menu/main_nav"
+            android:background="@color/vinotintoapptrasparente"
+            app:itemIconTint="#ffffff"
+            app:headerLayout="@layout/navigation_header"
+            app:itemTextAppearance="@style/NavDrawerTextStyle"
+            />
+    </android.support.v4.widget.DrawerLayout>
+</RelativeLayout>

@@ -1,0 +1,28 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="android:textColorSecondary">#ff0000</item>
+        <item name="android:background">#00000000</item>
+        <item name="vpiCirclePageIndicatorStyle">@style/CustomCirclePageIndicator</item>
+    </style>
+
+    <style name="NavDrawerTextStyle" parent="Base.TextAppearance.AppCompat">
+        <item name="android:textColor">@color/amarilloapp</item>
+        <item name="android:textSize">@dimen/tam_letra_item_menu</item>
+    </style>
+
+    <style name="CustomCirclePageIndicator">
+        <item name="fillColor">#033a0f</item>
+        <item name="strokeColor">#9f0606</item>
+        <item name="strokeWidth">@dimen/size_borde_indicator_circulo</item>
+        <item name="radius">@dimen/size_radio_indicator_circulo</item>
+        <item name="centered">true</item>
+    </style>
+
+
+
+
+
+</resources>

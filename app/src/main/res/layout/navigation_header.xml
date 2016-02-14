@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#00000000">
+
+    <ImageView
+        android:layout_width="@dimen/tam_logo_menu_header"
+        android:layout_height="@dimen/tam_logo_menu_header"
+        android:src="@mipmap/ic_logo_gorra"
+        android:layout_margin="@dimen/margin_small"/>
+
+    <TextView
+        android:id="@+id/titulo_header_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/tam_titulo_menu_header"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small"
+        android:text="Pirinola"
+        android:textSize="@dimen/tam_letra_titulo_menu_header"
+        android:gravity="center_vertical"
+        android:textColor="@color/amarilloapp"
+        />
+    <TextView
+        android:id="@+id/veinticuatro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="24"
+        android:layout_marginTop="@dimen/margin_small"
+        android:textColor="@color/amarilloapp"
+        android:textSize="@dimen/tam_letra_veinticuatro_header"
+        />
+
+</LinearLayout>

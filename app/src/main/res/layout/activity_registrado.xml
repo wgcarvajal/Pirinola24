@@ -1,0 +1,220 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pirinola24.com.pirinola24.RegistradoActivity"
+    android:background="@color/negro"
+    >
+
+    <ImageView
+        android:id="@+id/flecha_atras"
+        android:layout_width="@dimen/tam_ancho_flecha_atras"
+        android:layout_height="@dimen/tam_flecha_atras"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_atras"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_below="@id/flecha_atras"
+        android:layout_marginBottom="@dimen/margin_small"
+        >
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <ImageView
+                android:id="@+id/imagen_login"
+                android:layout_width="@dimen/tam_ancho_imagen_login"
+                android:layout_height="@dimen/tam_alto_imagen_login"
+                android:layout_marginTop="@dimen/margin_top_imagen_login"
+                android:layout_marginBottom="@dimen/margin_imagen_login"
+                android:src="@drawable/gorrita_grande"
+                android:scaleType="fitXY"
+                android:layout_centerHorizontal="true"
+
+                />
+
+            <LinearLayout
+                android:id="@+id/espacio_spinner_direccion"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imagen_login">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6">
+                    <Spinner
+                        android:id="@+id/sp_direccion"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/bordes_redondeados_pequenos"
+                        android:layout_height="@dimen/tam_alto_caja_texto"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:layout_marginRight="@dimen/margin_small"
+                        android:popupBackground="@color/negro"
+                        />
+                    <ImageView
+                        android:layout_width="@dimen/tam_icono_caja_text"
+                        android:layout_height="@dimen/tam_icono_caja_text"
+                        android:src="@mipmap/ic_icono_spinner"
+                        android:layout_alignBottom="@id/sp_direccion"
+                        android:layout_alignRight="@id/sp_direccion"/>
+
+
+                </RelativeLayout>
+                <ImageView
+                    android:id="@+id/btn_agregar_direccion"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_menu_add"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/margin_small"
+                    android:background="@drawable/bordes_redondos_pequno_fondo_rojo"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/espacio_spinner_telefono"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/espacio_spinner_direccion"
+                android:layout_marginTop="@dimen/margin_top_btn">
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6">
+                    <Spinner
+                        android:id="@+id/sp_telefono"
+                        android:layout_width="match_parent"
+                        android:background="@drawable/bordes_redondeados_pequenos"
+                        android:layout_height="@dimen/tam_alto_caja_texto"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:layout_marginRight="@dimen/margin_small"
+                        android:popupBackground="@color/negro"
+                        />
+                    <ImageView
+                        android:layout_width="@dimen/tam_icono_caja_text"
+                        android:layout_height="@dimen/tam_icono_caja_text"
+                        android:src="@mipmap/ic_icono_spinner"
+                        android:layout_alignBottom="@id/sp_telefono"
+                        android:layout_alignRight="@id/sp_telefono"/>
+
+
+                </RelativeLayout>
+                <ImageView
+                    android:id="@+id/btn_agregar_telefono"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:src="@android:drawable/ic_menu_add"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:layout_marginRight="@dimen/margin_small"
+                    android:background="@drawable/bordes_redondos_pequno_fondo_rojo"/>
+
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/sp_forma_pago"
+                android:layout_width="match_parent"
+                android:background="@drawable/bordes_redondeados_pequenos"
+                android:layout_height="@dimen/tam_alto_caja_texto"
+                android:layout_below="@id/espacio_spinner_telefono"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_top_btn"
+                android:popupBackground="@color/negro"
+                />
+
+            <ImageView
+                android:id="@+id/icon_sp_forma_pago"
+                android:layout_width="@dimen/tam_icono_caja_text"
+                android:layout_height="@dimen/tam_icono_caja_text"
+                android:src="@mipmap/ic_icono_spinner"
+                android:layout_alignBottom="@id/sp_forma_pago"
+                android:layout_alignRight="@id/sp_forma_pago"/>
+
+            <ScrollView
+                android:id="@+id/scrollView_observaciones"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tam_scrollview_observaciones"
+                android:layout_marginTop="@dimen/margin_top_btn"
+                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_below="@id/sp_forma_pago"
+                android:scrollbars="none"
+                android:background="@drawable/bordes_redondeados_pequenos"
+                >
+
+                <EditText
+                    android:id="@+id/txt_observaciones"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_muy_poca"
+                    android:maxLength="300"
+                    android:minHeight="@dimen/tam_scrollview_observaciones"
+                    android:inputType="textMultiLine"
+                    android:hint="@string/text_hint_observaciones"
+                    android:textSize="@dimen/size_text_caja_texto"
+                    android:textColor="@color/blanco"
+                    android:textColorHint="@color/gris"
+                    android:gravity="center"
+                    android:ellipsize="end"/>
+
+            </ScrollView>
+
+
+            <Button
+                android:id="@+id/btn_enviar_pedido"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tam_alto_btn"
+                android:text="@string/text_enviar_pedido"
+                android:textSize="@dimen/size_text_btn_continuar_no_registrado"
+                android:textColor="@color/blanco"
+                android:layout_below="@id/scrollView_observaciones"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/margin_imagen_login"
+                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:background="@drawable/bordes_redondos_pequno_fondo_rojo"
+                />
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/txt_sin_conexion"
+        android:layout_width="match_parent"
+        android:text="Compruebe su conexión a internet...."
+        android:textSize="@dimen/size_text_compruebe_conexion"
+        android:textColor="@color/blanco"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginRight="@dimen/margin_small"
+        android:background="@drawable/background_mensaje_toast"
+        android:padding="@dimen/margin_small"
+        />
+    <Button
+        android:id="@+id/btn_volver_cargar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tam_alto_btn"
+        android:text="@string/volver_cargar_vista"
+        android:textColor="@color/blanco"
+        android:background="@drawable/bordes_redondos_pequno_fondo_rojo"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/margin_small"
+
+        />
+
+</RelativeLayout>

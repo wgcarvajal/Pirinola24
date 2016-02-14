@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <string name="la_carta">La Carta</string>
+
+    <string name="comida">Comidas</string>
+    <string name="bebida">Bebidas</string>
+    <string name="hamburguesas">Hamburguesas</string>
+    <string name="idioma">es</string>
+    <string name="texto_menu_mi_pedido">Tu pedido</string>
+    <string name="vaciar_pedido">Vaciar carrito</string>
+    <string name="regresar_a_carta">Atras</string>
+    <string name="text_total_pedido">Total: </string>
+    <string name="text_btn_finalizar_pedido">Realizar pedido</string>
+    <string name="domicilio_incluido">(Domicilio incluido $2.000)</string>
+    <string name="menaje_desea_vaciar_pedido">Deseas vaciar el pedido?</string>
+    <string name="mensaje_pedido_vacio">Se ha vaciado el pedido.</string>
+    <string name="mensaje_pedido_minimo">Valor minimo del pedido $10.000</string>
+    <string name="txt_hint_correo_electronico">Correo electrónico</string>
+    <string name="text_autenticarse">Iniciar sesión</string>
+    <string name="text_recuperar_clave">¿Olvidaste tu clave?</string>
+    <string name="text_registrarse">Registrarse</string>
+    <string name="text_clave">Clave</string>
+    <string name="text_continuar_no_registrado">Continuar como no registrado</string>
+    <string name="txt_nombre">Nombre</string>
+    <string name="txt_direccion">Dirección</string>
+    <string name="txt_barrio">Barrio</string>
+    <string name="txt_telefono">Teléfono</string>
+    <string name="text_enviar_pedido">Enviar pedido</string>
+    <string name="text_hint_observaciones">Observaciones (Opcional).\n ejemplo: Hamburguesa sin cebolla.</string>
+    <string name="campos_obligatorios">Todos los campos son obligatorios menos el de observaciones</string>
+    <string name="seleccione_forma_pago">Seleccione una forma de pago</string>
+    <string name="compruebe_conexion">Compruebe su conexión a internet...</string>
+    <string name="enviando_pedido">Enviando pedido</string>
+    <string name="por_favor_espere">Por favor espere....</string>
+    <string name="confirmacion_pedido_enviado">Su pedido ha sido enviado con éxito, en contados minutos le llamaremos a confirmarlo. ¡Gracias por su compra....!</string>
+    <string name="volver_cargar_vista">Volver a cargar la vista</string>
+    <string name="txt_repetir_password">Repetir clave</string>
+    <string name="todos_campos_obligatorios">Todos los campos son obligatorios.</string>
+    <string name="campo_nombre">Nombre mínimo tres caracteres</string>
+    <string name="campo_correo">Formato de correo electrónico no valido.</string>
+    <string name="campo_password">Clave entre 4 y 20 caracteres.</string>
+    <string name="campo_repetir_password">Las claves no coinciden.</string>
+    <string name="campo_telefono">Teléfono mínimo 6 numeros.</string>
+    <string name="enviando_datos">Enviando datos</string>
+    <string name="correo_ya_esta">Ya se encuentra el correo electrónico registrado.</string>
+    <string name="confirmar_registro">Gracias por registrarte....Ya puedes iniciar sesion con tu cuenta.</string>
+    <string name="campos_obligatorios_inicio_session">Ingrese email y clave</string>
+    <string name="campo_obligatorio_correo_inicio_session">Ingrese clave.</string>
+    <string name="txt_cuenta">Cuenta</string>
+    <string name="txt_cerrar_sesion">Cerrar sesión</string>
+    <string name="txt_iniciando">Iniciando</string>
+    <string name="txt_email_clave_incorrectos">Email o clave incorrectos</string>
+    <string name="txt_sesion_cerrada">Sesión cerrada</string>
+    <string name="txt_cargando_vista">Cargando vista....</string>
+    <string name="txt_seleccione_telefono">Seleccione teléfono</string>
+    <string name="txt_seleccione_direccion">Seleccione dirección</string>
+    <string name="txt_enviando">Enviando...</string>
+    <string name="txt_registro_exitoso">Registro exitoso</string>
+    <string name="btn_facebook">Iniciar sesión con facebook</string>
+    <string name="txt_iniciando_con_facebook">Iniciando sesión con facebook</string>
+    <string name="txt_contacto_sugerencias">Contacto y sugerencias</string>
+    <string name="txt_cancelar">Cancelar</string>
+    <string name="txt_aceptar">Aceptar</string>
+    <string name="txt_enviar">Enviar</string>
+    <string name="txt_ingrese_correo">Ingrese correo</string>
+    <string name="confirmacion_envio_email">Solicitud enviada, revice su correo electrónico</string>
+    <string name="correo_no_se_encuentra">Correo no se encuentra registrado</string>
+    <string name="txt_tu_opinion_importante">Tú opinión es muy importante para nosotros.</string>
+    <string name="txt_mensaje_contacto">Mensaje</string>
+    <string name="txt_mensaje_enviado">Mensaje enviado</string>
+
+
+
+    <string-array name="forma_pago">
+        <item>Seleccione forma de pago</item>
+        <item>Tarjeta</item>
+        <item>Efectivo</item>
+    </string-array>
+
+
+
+
+
+
+</resources>

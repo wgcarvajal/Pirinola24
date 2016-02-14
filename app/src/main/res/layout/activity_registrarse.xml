@@ -1,0 +1,160 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pirinola24.com.pirinola24.RegistrarseActivity"
+    android:background="@color/negro"
+    >
+
+    <ImageView
+        android:id="@+id/flecha_atras"
+        android:layout_width="@dimen/tam_ancho_flecha_atras"
+        android:layout_height="@dimen/tam_flecha_atras"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_atras"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_below="@id/flecha_atras"
+        android:layout_marginBottom="@dimen/margin_small"
+        >
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <ImageView
+                android:id="@+id/imagen_login"
+                android:layout_width="@dimen/tam_ancho_imagen_login"
+                android:layout_height="@dimen/tam_alto_imagen_login"
+                android:layout_marginTop="@dimen/margin_top_imagen_login"
+                android:layout_marginBottom="@dimen/margin_imagen_login"
+                android:src="@drawable/gorrita_grande"
+                android:scaleType="fitXY"
+                android:layout_centerHorizontal="true"
+
+                />
+
+            <EditText
+                android:id="@+id/txt_nombre"
+                android:maxLength="40"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tam_alto_caja_texto"
+                android:layout_below="@id/imagen_login"
+                android:hint="@string/txt_nombre"
+                android:textColorHint="@color/gris"
+                android:textColor="@color/blanco"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                android:textSize="@dimen/size_text_caja_texto"
+                android:background="@drawable/bordes_redondeados_pequenos"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:inputType="textPersonName"
+                />
+
+            <EditText
+                android:id="@+id/txt_email"
+                android:maxLength="100"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tam_alto_caja_texto"
+                android:layout_below="@id/txt_nombre"
+                android:textColor="@color/blanco"
+                android:hint="@string/txt_hint_correo_electronico"
+                android:layout_marginTop="@dimen/margin_input_registrase"
+                android:textColorHint="@color/gris"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                android:textSize="@dimen/size_text_caja_texto"
+                android:background="@drawable/bordes_redondeados_pequenos"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:inputType="textEmailAddress"
+                />
+
+            <EditText
+                android:id="@+id/txt_password"
+                android:maxLength="20"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tam_alto_caja_texto"
+                android:layout_below="@id/txt_email"
+                android:textColor="@color/blanco"
+                android:hint="@string/text_clave"
+                android:layout_marginTop="@dimen/margin_input_registrase"
+                android:textColorHint="@color/gris"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                android:textSize="@dimen/size_text_caja_texto"
+                android:background="@drawable/bordes_redondeados_pequenos"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:inputType="textPassword"
+                />
+
+            <EditText
+                android:id="@+id/txt_repetirpassword"
+                android:maxLength="20"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tam_alto_caja_texto"
+                android:layout_below="@id/txt_password"
+                android:textColor="@color/blanco"
+                android:hint="@string/txt_repetir_password"
+                android:layout_marginTop="@dimen/margin_input_registrase"
+                android:textColorHint="@color/gris"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                android:textSize="@dimen/size_text_caja_texto"
+                android:background="@drawable/bordes_redondeados_pequenos"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:inputType="textPassword"
+                />
+            <EditText
+                android:id="@+id/txt_telefono"
+                android:layout_width="match_parent"
+                android:maxLength="12"
+                android:layout_height="@dimen/tam_alto_caja_texto"
+                android:layout_below="@id/txt_repetirpassword"
+                android:textColor="@color/blanco"
+                android:hint="@string/txt_telefono"
+                android:layout_marginTop="@dimen/margin_input_registrase"
+                android:textColorHint="@color/gris"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                android:textSize="@dimen/size_text_caja_texto"
+                android:background="@drawable/bordes_redondeados_pequenos"
+                android:gravity="center"
+                android:ellipsize="end"
+                android:inputType="phone"
+                />
+
+
+            <Button
+                android:id="@+id/btnRegistrarse"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tam_alto_btn"
+                android:text="@string/text_registrarse"
+                android:textSize="@dimen/size_text_btn_continuar_no_registrado"
+                android:textColor="@color/blanco"
+                android:layout_below="@id/txt_telefono"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/margin_top_btn"
+                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:background="@drawable/bordes_redondos_pequno_fondo_rojo"
+                />
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
+
+
+
+</RelativeLayout>

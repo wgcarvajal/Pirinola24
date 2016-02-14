@@ -1,0 +1,59 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="pirinola24.com.pirinola24.fragments.ProductoGridFragment"
+    android:background="@drawable/fondo"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_medium"
+        >
+        <ImageView
+            android:id="@+id/btn_menu_principal"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/tam_img_icono_menu_carro"
+            android:layout_weight="1"
+            android:src="@drawable/iconomenu"
+            />
+
+        <ImageView
+            android:id="@+id/tituloSubcategoria"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="@dimen/tam_img_titulo_subcategoria"
+            android:scaleType="fitCenter"/>
+
+        <ImageView
+            android:id="@+id/carrito_compras"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/tam_img_icono_menu_carro"
+            android:src="@drawable/carrocompras"
+            />
+
+    </LinearLayout>
+
+
+
+    <GridView
+        android:id="@+id/gridProductos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="3"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginRight="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:verticalSpacing="@dimen/margin_medium"
+        android:background="@color/transparente"
+        android:backgroundTint="@color/transparente"
+        android:scrollbars="none">
+
+    </GridView>
+
+</LinearLayout>

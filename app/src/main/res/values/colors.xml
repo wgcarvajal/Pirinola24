@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="blanco">#ffffff</color>
+    <color name="rojoTransparente">#66ff0000</color>
+    <color name="rojo_mas_Transparente">#88ff0000</color>
+    <color name="rojo">#ff0000</color>
+    <color name="negro">#000000</color>
+    <color name="transparente">#00000000</color>
+    <color name="grisTransparente">#66555555</color>
+    <color name="gris">#999999</color>
+    <color name="grisoscuro">#555555</color>
+    <color name="vinotinto">#7C0808</color>
+
+    <color name="negroTransparente">#BB000000</color>
+    <color name="vinotintoapp">#9f0606</color>
+    <color name="vinotintoapptrasparente">#BB9f0606</color>
+    <color name="verdeapp">#033a0f</color>
+    <color name="verdeapptransparente">#CC033a0f</color>
+
+    <color name="blancoTranparente">#BBFFFFFF</color>
+    <color name="amarilloapp">#FFFF00</color>
+</resources>

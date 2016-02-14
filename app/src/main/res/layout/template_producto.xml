@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/transparente"
+
+    >
+
+    <TextView
+        android:id="@+id/txtnombreproducto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hawaiana"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/tam_nombre_producto"
+
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#00000000">
+
+        <TextView
+            android:id="@+id/txtdescripcionproducto"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="#ffffff"
+            android:text="Carne de res, piña, doble queso, cebolla, tomate, lechuga, salsas"
+            android:textSize="@dimen/tam_descripcion_producto"/>
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/img_producto"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/alto_template_producto"
+            android:scaleType="fitXY"
+            />
+
+        <TextView
+            android:id="@+id/txtconteo"
+            android:layout_width="@dimen/tam_btn_cantidad_producto"
+            android:layout_height="@dimen/tam_btn_cantidad_producto"
+            android:text="0"
+            android:textSize="@dimen/tam_text_cantidad_producto"
+            android:textColor="#ffffff"
+            android:layout_alignRight="@id/img_producto"
+            android:layout_alignBottom="@id/img_producto"
+            android:background="@drawable/text_view_redondo"
+            android:gravity="center"
+
+            />
+        <ImageView
+            android:id="@+id/btn_disminuir"
+            android:layout_width="@dimen/tam_btn_cantidad_producto"
+            android:layout_height="@dimen/tam_btn_cantidad_producto"
+            android:layout_marginRight="@dimen/super_margin_small"
+            android:layout_alignBottom="@id/img_producto"
+            android:layout_toLeftOf="@id/txtconteo"
+            android:src="@mipmap/ic_disminuir"
+            android:background="@drawable/img_view_redondo"
+            />
+
+
+    </RelativeLayout>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/txtprecioproducto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:text="$7500"
+        android:textSize="@dimen/tam_precio_producto"
+        android:gravity="center"
+        />
+
+ </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

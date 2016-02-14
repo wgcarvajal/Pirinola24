@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+
+
+    <LinearLayout
+        android:id="@+id/contenedor_mensaje"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/margin_small">
+
+        <ImageView
+            android:id="@+id/img_gorrita"
+            android:layout_width="@dimen/tam_imagen_gorra"
+            android:layout_height="@dimen/tam_imagen_gorra"
+            android:src="@mipmap/ic_gorrita"/>
+
+        <TextView
+            android:id="@+id/txtmensaje"
+            android:layout_toRightOf="@id/img_gorrita"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/confirmacion_pedido_enviado"
+            android:textColor="@color/blanco"
+            android:textSize="@dimen/size_text_mensaje_dialog_vaciar"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contenedor_mensaje"
+        android:gravity="center"
+        >
+
+
+        <Button
+            android:id="@+id/btn_aceptar"
+            android:text="@string/txt_aceptar"
+            android:gravity="center"
+            android:textSize="@dimen/size_text_btn_dialog_vaciar"
+            android:background="@drawable/bordes_redondos"
+            android:textColor="@color/blanco"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/super_margin_small"
+            android:layout_marginTop="@dimen/super_margin_small"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginLeft="@dimen/margin_small"
+            />
+
+
+    </LinearLayout>
+</RelativeLayout>

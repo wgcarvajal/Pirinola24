@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/txt_item_spinner_forma_pago"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tam_alto_caja_texto"
+        android:text="hola"
+        android:textSize="@dimen/size_text_caja_texto"
+        android:textColor="@color/blanco"
+        android:gravity="center"/>
+
+
+
+
+</LinearLayout>

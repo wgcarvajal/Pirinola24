@@ -1,0 +1,89 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="tam_titulo_vista">30sp</dimen>
+    <dimen name="margin_small">10dp</dimen>
+    <dimen name="ancho_btn_menu_principal">30dp</dimen>
+    <dimen name="alto_btn_menu_principal">30dp</dimen>
+    <dimen name="tam_titulo_subcategoria">25sp</dimen>
+    <dimen name="super_margin_small">5dp</dimen>
+    <dimen name="alto_template_producto">160dp</dimen>
+    <dimen name="alto_campo_nombre_producto">60dp</dimen>
+    <dimen name="tam_imagen_producto_grid">130dp</dimen>
+    <dimen name="alto_campo_descripcion_producto">45dp</dimen>
+    <dimen name="tamano_icono_menu_principal">40dp</dimen>
+    <dimen name="tamano_icono_carro_pedido">60dp</dimen>
+    <dimen name="tam_logo_menu_header">70dp</dimen>
+    <dimen name="tam_titulo_menu_header">70dp</dimen>
+    <dimen name="tam_letra_titulo_menu_header">30sp</dimen>
+    <dimen name="tam_letra_veinticuatro_header">25sp</dimen>
+    <dimen name="tam_letra_item_menu">25sp</dimen>
+    <dimen name="tam_btn_cantidad_producto">48dp</dimen>
+    <dimen name="tam_text_cantidad_producto">30sp</dimen>
+    <dimen name="tam_btn_cantidad_prod_grid">35dp</dimen>
+    <dimen name="tam_text_cantidad_producto_grid">25sp</dimen>
+    <dimen name="tam_ancho_icono_carro_pedido">80dp</dimen>
+    <dimen name="margin_veinte_dp">20dp</dimen>
+    <dimen name="tam_text_total_pedido">30sp</dimen>
+    <dimen name="tam_text_btn_finalizar_pedido">25sp</dimen>
+    <dimen name="navigation_icon_size">48dp</dimen>
+    <dimen name="tam_text_nombre_producto_pedido">50dp</dimen>
+    <dimen name="size_text_nombre_producto_pedido">20sp</dimen>
+    <dimen name="tam_imagen_producto_pedido">120dp</dimen>
+    <dimen name="size_text_precio_producto_pedido">15sp</dimen>
+    <dimen name="tam_btn_producto_pedido">35dp</dimen>
+    <dimen name="size_text_btn_producto_pedido">27sp</dimen>
+    <dimen name="size_tex_domicilio_incluido">13sp</dimen>
+    <dimen name="tam_imagen_gorra">45dp</dimen>
+    <dimen name="tam_text_mensaje_dialog_vaciar">45dp</dimen>
+    <dimen name="size_text_mensaje_dialog_vaciar">15sp</dimen>
+    <dimen name="size_text_btn_dialog_vaciar">15sp</dimen>
+    <dimen name="size_text_mensaje_toast">15sp</dimen>
+    <dimen name="radio_corners_toast">10dp</dimen>
+    <dimen name="padding_small">10dp</dimen>
+    <dimen name="tam_flecha_atras">45dp</dimen>
+    <dimen name="tam_ancho_flecha_atras">55dp</dimen>
+    <dimen name="tam_ancho_imagen_login">90dp</dimen>
+    <dimen name="tam_alto_imagen_login">50dp</dimen>
+    <dimen name="margin_top_imagen_login">20dp</dimen>
+    <dimen name="margin_imagen_login">20dp</dimen>
+    <dimen name="margin_text_correo_electronico">15dp</dimen>
+    <dimen name="size_text_caja_texto">14sp</dimen>
+    <dimen name="tam_alto_caja_texto">30dp</dimen>
+    <dimen name="tam_alto_btn">30dp</dimen>
+    <dimen name="tam_icono_caja_text">15dp</dimen>
+    <dimen name="margin_top_password">15dp</dimen>
+    <dimen name="margin_top_btn">12dp</dimen>
+    <dimen name="margin_top_link">15dp</dimen>
+    <dimen name="size_text_btn_continuar_no_registrado">10sp</dimen>
+    <dimen name="margin_muy_poca">2dp</dimen>
+    <dimen name="tam_scrollview_observaciones">70dp</dimen>
+    <dimen name="size_text_compruebe_conexion">15sp</dimen>
+    <dimen name="margin_input_registrase">20dp</dimen>
+    <dimen name="margin_medium">20dp</dimen>
+
+
+
+
+
+    <dimen name="tam_nombre_producto">19sp</dimen>
+    <dimen name="tam_descripcion_producto">14sp</dimen>
+    <dimen name="tam_precio_producto">19sp</dimen>
+
+    <dimen name="tam_nombre_productogrid">16sp</dimen>
+    <dimen name="tam_descripcion_productogrid">13sp</dimen>
+    <dimen name="tam_precio_productogrid">16sp</dimen>
+    <dimen name="tam_img_icono_menu_carro">30dp</dimen>
+    <dimen name="tam_img_titulo_subcategoria">40dp</dimen>
+    <dimen name="size_radio_indicator_circulo">3dp</dimen>
+    <dimen name="size_borde_indicator_circulo">1dp</dimen>
+    <dimen name="size_radio_btn_realizarpedido">6dp</dimen>
+    <dimen name="tam_btn_realizarpedido">200dp</dimen>
+    <dimen name="icono_ingrese_margin_bottom">8dp</dimen>
+    <dimen name="icono_ingrese_margin_rigth">5dp</dimen>
+    <dimen name="size_link_ingresar">20sp</dimen>
+
+
+</resources>

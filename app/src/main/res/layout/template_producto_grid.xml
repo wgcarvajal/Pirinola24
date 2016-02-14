@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparente"
+    >
+
+    <ImageView
+        android:id="@+id/img_producto"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tam_imagen_producto_grid"
+        />
+
+    <TextView
+        android:id="@+id/txtconteo"
+        android:layout_width="@dimen/tam_btn_cantidad_prod_grid"
+        android:layout_height="@dimen/tam_btn_cantidad_prod_grid"
+        android:text="0"
+        android:textSize="@dimen/tam_text_cantidad_producto_grid"
+        android:textColor="#ffffff"
+        android:layout_alignRight="@id/img_producto"
+        android:layout_alignBottom="@id/img_producto"
+        android:background="@drawable/text_view_redondo"
+        android:gravity="center"
+        />
+    <ImageView
+        android:id="@+id/btn_disminuir"
+        android:layout_width="@dimen/tam_btn_cantidad_prod_grid"
+        android:layout_height="@dimen/tam_btn_cantidad_prod_grid"
+        android:layout_marginRight="@dimen/super_margin_small"
+        android:layout_alignBottom="@id/img_producto"
+        android:layout_toLeftOf="@id/txtconteo"
+        android:src="@mipmap/ic_disminuir"
+        android:background="@drawable/img_view_redondo"
+        />
+</RelativeLayout>

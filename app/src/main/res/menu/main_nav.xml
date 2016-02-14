@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+
+        <item
+            android:id="@+id/nav_mi_pedido"
+            android:title="@string/texto_menu_mi_pedido"
+            />
+        <item
+            android:id="@+id/nav_contacto_sugerencias"
+            android:title="@string/txt_contacto_sugerencias"
+            />
+
+        <item android:title="@string/txt_cuenta">
+            <menu>
+                <item android:title="@string/txt_cerrar_sesion"
+                    android:id="@+id/nav_cerrar_sesion"/>
+            </menu>
+        </item>
+
+</menu>
