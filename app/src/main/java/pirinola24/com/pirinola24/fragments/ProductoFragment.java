@@ -20,6 +20,7 @@ import android.view.SoundEffectConstants;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,15 +43,14 @@ import pirinola24.com.pirinola24.util.AppUtil;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProductoFragment extends FragmentGeneric implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class ProductoFragment extends FragmentGeneric implements AdapterView.OnItemClickListener, View.OnClickListener,AdaptadorProducto.OnComunicationAdaptador {
     private static final String LIST_STATE = "listState";
 
     private Parcelable mListState = null;
-    private String subcategoriaing;
-    private String subcategoriaesp;
+    private String subcategoria;
     private String urlimagen;
     private ImageView titulo;
-    private ListView listaProductos;
+    private GridView gridProductos;
     private List<Producto> data= new ArrayList<>();
     private AdaptadorProducto adapter;
     private String font_path = "font/2-4ef58.ttf";
@@ -83,10 +83,17 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
         }
     }
 
+    @Override
+    public void onMostrarDescripcionProducto(String nombre,String descripcion)
+    {
+        onComunicationFragment.onAbrirDescripcionProducto(nombre,descripcion);
+    }
+
     public interface OnComunicationFragment
     {
         void onIrAlPedidoFragment();
         void onAbrirMenuPrincipalFragment();
+        void onAbrirDescripcionProducto(String nombre,String descripcion);
     }
     OnComunicationFragment onComunicationFragment;
     @Override
@@ -95,8 +102,7 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         if(savedInstanceState!=null)
         {
-            subcategoriaing=savedInstanceState.getString("subcategoriaing");
-            subcategoriaesp=savedInstanceState.getString("subcategoriaesp");
+            subcategoria=savedInstanceState.getString("subcategoria");
             urlimagen=savedInstanceState.getString("urlimagen");
             mListState=savedInstanceState.getParcelable(LIST_STATE);
         }
@@ -107,12 +113,12 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
                              Bundle savedInstanceState)
     {
         View v= inflater.inflate(R.layout.fragment_producto, container, false);
-        listaProductos= (ListView) v.findViewById(R.id.lstproductos);
+        gridProductos= (GridView) v.findViewById(R.id.gridProductos);
         titulo=(ImageView)v.findViewById(R.id.tituloSubcategoria);
 
-        adapter= new AdaptadorProducto(v.getContext(),data);
-        listaProductos.setAdapter(adapter);
-        listaProductos.setOnItemClickListener(this);
+        adapter= new AdaptadorProducto(v.getContext(),data,this);
+        gridProductos.setAdapter(adapter);
+        gridProductos.setOnItemClickListener(this);
 
         carritoCompras=(ImageView)v.findViewById(R.id.carrito_compras);
         menuPrincipal=(ImageView)v.findViewById(R.id.btn_menu_principal);
@@ -142,19 +148,18 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
         }
     }
 
-    public void init(String subcategoriaing,String subcategoriaesp,String urlimagen)
+    public void init(String subcategoria,String urlimagen)
     {
-        this.subcategoriaing=subcategoriaing;
-        this.subcategoriaesp=subcategoriaesp;
+
+        this.subcategoria=subcategoria;
         this.urlimagen=urlimagen;
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState)
     {
-        mListState = listaProductos.onSaveInstanceState();
-        outState.putString("subcategoriaing", subcategoriaing);
-        outState.putString("subcategoriaesp", subcategoriaesp);
+        mListState = gridProductos.onSaveInstanceState();
+        outState.putString("subcategoria", subcategoria);
         outState.putString("urlimagen", urlimagen);
         outState.putParcelable(LIST_STATE, mListState);
         super.onSaveInstanceState(outState);
@@ -210,10 +215,8 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
             {
                 registroPedido.put("prodid",params[0].getId());
                 registroPedido.put("prodprecio",params[0].getPrecio());
-                registroPedido.put("prodnombreesp",params[0].getNombreesp());
-                registroPedido.put("prodnombreing",params[0].getNombreing());
-                registroPedido.put("proddescripcioning",params[0].getDescripcionIng());
-                registroPedido.put("proddescripcionesp",params[0].getDescripcionesp());
+                registroPedido.put("prodnombre",params[0].getNombre());
+                registroPedido.put("proddescripcion",params[0].getDescripcion());
                 registroPedido.put("prodcantidad",conteo);
                 db.insert("pedido",null,registroPedido);
             }
@@ -247,7 +250,7 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
         {
             for(Producto prod: AppUtil.data)
             {
-                if(prod.getSubcategoriaing().equals(subcategoriaing))
+                if(prod.getSubcategoria().equals(subcategoria))
                 {
                     data.add(prod);
 
@@ -261,7 +264,7 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
             super.onPostExecute(aVoid);
             if (mListState != null)
             {
-                listaProductos.onRestoreInstanceState(mListState);
+                gridProductos.onRestoreInstanceState(mListState);
             }
             adapter.notifyDataSetChanged();
             mListState = null;

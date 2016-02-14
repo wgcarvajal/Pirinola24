@@ -10,80 +10,21 @@ import com.parse.ParseFile;
 public class Producto
 {
     public static String TABLA="Producto";
-    public static String TABLAIMAGEN="Imagen";
-    public static String TABLAPRECIO="Precio";
-    public static String TABLACATEGORIA="Categoria";
     public static String TABLASUBCATEGORIA="Subcategoria";
-    public static String NOMBREING="prodnombre";
-    public static String NOMBREESP="prodnombreesp";
-    public static String DESCRIPCIONING="proddescripcion";
-    public static String DESCRIPCIONESP="proddescripcionesp";
-    public static String CATEGORIANOMBRE="catnombre";
-    public static String TBLSUBCATEGORIA_CATEGORIA="categoria";
+    public static String NOMBRE="prodnombre";
+    public static String DESCRIPCION="proddescripcion";
     public static String TBLSUBCATEGORIA_NOMBRE="subcatnombre";
-    public static String TBLSUBCATEGORIA_NOMBREESP="subcatnombresp";
     public static String SUBCATEGORIA="subcategoria";
-    public static String TBLPRECIO_PRODUCTO="producto";
-    public static String TBLPRECIO_FECHACREACION="createdAt";
-    public static String TBLPRECIO_VALOR="prevalor";
     public static String ID="objectId";
-    public static String TBLIMAGEN_PRODUCTO="producto";
-    public static String TBLIMAGEN_IMGFILE="imgFile";
-    public static String TBLPRECIO_PREFECHAFIN="prefechafin";
-    public static String TBLSUBCATEGORIA_FECHACREACION="createdAt";
 
 
     private String id;
-    private String nombreesp;
-    private String nombreing;
+    private String nombre;
     private int precio;
-    private String descripcionesp;
-    private String descripcionIng;
-    private String categoria;
-    private String subcategoriaing;
-    private String subcategoriaesp;
+    private String descripcion;
+    private String subcategoria;
     private String urlImagen;
     private String urlImagenPedido;
-
-    public String getNombreesp()
-    {
-        return nombreesp;
-    }
-
-    public void setNombreesp(String nombreesp)
-    {
-        this.nombreesp = nombreesp;
-    }
-
-    public String getNombreing()
-    {
-        return nombreing;
-    }
-
-    public void setNombreing(String nombreing)
-    {
-        this.nombreing = nombreing;
-    }
-
-    public String getDescripcionesp()
-    {
-        return descripcionesp;
-    }
-
-    public void setDescripcionesp(String descripcionesp)
-    {
-        this.descripcionesp = descripcionesp;
-    }
-
-    public String getDescripcionIng()
-    {
-        return descripcionIng;
-    }
-
-    public void setDescripcionIng(String descripcionIng)
-    {
-        this.descripcionIng = descripcionIng;
-    }
 
     public String getId()
     {
@@ -95,6 +36,15 @@ public class Producto
         this.id = id;
     }
 
+    public String getNombre()
+    {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public int getPrecio() {
         return precio;
     }
@@ -103,39 +53,21 @@ public class Producto
         this.precio = precio;
     }
 
-    public String getCategoria()
-    {
-        return categoria;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setCategoria(String categoria)
-    {
-        this.categoria = categoria;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-
-
-    public String getSubcategoriaing()
-    {
-        return subcategoriaing;
+    public String getSubcategoria() {
+        return subcategoria;
     }
 
-    public void setSubcategoriaing(String subcategoriaing)
-    {
-        this.subcategoriaing = subcategoriaing;
+    public void setSubcategoria(String subcategoria) {
+        this.subcategoria = subcategoria;
     }
-
-    public String getSubcategoriaesp()
-    {
-        return subcategoriaesp;
-    }
-
-    public void setSubcategoriaesp(String subcategoriaesp)
-    {
-        this.subcategoriaesp = subcategoriaesp;
-    }
-
-
 
     public String getUrlImagen() {
         return urlImagen;
@@ -152,6 +84,10 @@ public class Producto
     public void setUrlImagenPedido(String urlImagenPedido) {
         this.urlImagenPedido = urlImagenPedido;
     }
+
+
+
+
 
 
 

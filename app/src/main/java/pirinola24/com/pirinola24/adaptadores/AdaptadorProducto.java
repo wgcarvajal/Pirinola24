@@ -13,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,18 +51,23 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
 
     public class ViewHolder
     {
-        public TextView txtnombreProducto;
         public ImageView imagenProducto;
         public TextView txtconteo;
         public ImageView btnDisminuir;
-        public TextView txtPrecioProducto;
-        public TextView txtDescripcionProducto;
+        public ImageView btnDescripcion;
     }
 
-    public AdaptadorProducto(Context context, List<Producto> data)
+    public interface OnComunicationAdaptador
+    {
+        void onMostrarDescripcionProducto(String nombre,String descripcion);
+    }
+    OnComunicationAdaptador onComunicationAdaptador;
+
+    public AdaptadorProducto(Context context, List<Producto> data,Object fragment)
     {
         mInflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
+        onComunicationAdaptador=(OnComunicationAdaptador)fragment;
         this.data = data;
     }
     @Override
@@ -100,19 +106,15 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
         {
             v = mInflater.inflate(R.layout.template_producto,parent,false);
             viewHolder=new ViewHolder();
-            viewHolder.txtnombreProducto=(TextView) v.findViewById(R.id.txtnombreproducto);
             viewHolder.imagenProducto=(ImageView) v.findViewById(R.id.img_producto);
             viewHolder.txtconteo=(TextView) v.findViewById(R.id.txtconteo);
             viewHolder.btnDisminuir=(ImageView) v.findViewById(R.id.btn_disminuir);
-            viewHolder.txtPrecioProducto=(TextView) v.findViewById(R.id.txtprecioproducto);
-            viewHolder.txtDescripcionProducto=(TextView) v.findViewById(R.id.txtdescripcionproducto);
+            viewHolder.btnDescripcion=(ImageView)v.findViewById(R.id.btn_descripcion);
             TF = Typeface.createFromAsset(context.getAssets(), font_path);
-            viewHolder.txtnombreProducto.setTypeface(TF);
             TF = Typeface.createFromAsset(context.getAssets(),font_pathOds);
             viewHolder.txtconteo.setTypeface(TF);
             viewHolder.txtconteo.setText("0");
             TF = Typeface.createFromAsset(context.getAssets(),font_path_ASimple);
-            viewHolder.txtDescripcionProducto.setTypeface(TF);
             viewHolder.btnDisminuir.setTag(R.id.txtconteo,viewHolder.txtconteo);
             v.setTag(viewHolder);
         }
@@ -123,7 +125,7 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
         }
 
         final Producto p = (Producto) getItem(position);
-        fijarDatos(p, viewHolder, context.getResources().getString(R.string.idioma), position);
+        fijarDatos(p, viewHolder, position);
         viewHolder.imagenProducto.setImageBitmap(null);
         final View fv=v;
 
@@ -134,26 +136,15 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
         return v;
     }
 
-    private void fijarDatos(Producto producto,ViewHolder viewHolder,String idioma,int position)
+    private void fijarDatos(Producto producto,ViewHolder viewHolder,int position)
     {
-        DecimalFormat format =new DecimalFormat("###,###.##");
-        String valorProducto=format.format(producto.getPrecio());
-        valorProducto=valorProducto.replace(",",".");
-        viewHolder.txtPrecioProducto.setText("$" + valorProducto);
-        if(idioma.equals("es"))
-        {
-            viewHolder.txtnombreProducto.setText(producto.getNombreesp());
-            viewHolder.txtDescripcionProducto.setText(producto.getDescripcionesp());
-        }
-        else
-        {
-            viewHolder.txtnombreProducto.setText(producto.getNombreing());
-            viewHolder.txtDescripcionProducto.setText(producto.getDescripcionIng());
-        }
+
         viewHolder.txtconteo.setVisibility(View.GONE);
         viewHolder.btnDisminuir.setVisibility(View.GONE);
         viewHolder.btnDisminuir.setTag(position);
+        viewHolder.btnDescripcion.setTag(position);
         viewHolder.btnDisminuir.setOnClickListener(this);
+        viewHolder.btnDescripcion.setOnClickListener(this);
         FijarCantidadTask fijarCantidadTask=new FijarCantidadTask(context,viewHolder);
         fijarCantidadTask.execute(producto.getId());
 
@@ -193,7 +184,7 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
             {
                 viewHolder.txtconteo.setVisibility(View.VISIBLE);
                 viewHolder.btnDisminuir.setVisibility(View.VISIBLE);
-                viewHolder.txtconteo.setText(cantidad+"");
+                viewHolder.txtconteo.setText(cantidad + "");
             }
         }
     }
@@ -201,10 +192,22 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
     @Override
     public void onClick(View v)
     {
-        TextView txtconteo=(TextView)v.getTag(R.id.txtconteo);
-        String prodid = data.get(Integer.parseInt(v.getTag().toString())).getId();
-        DisminuirCantidadTask disminuirCantidadTask= new DisminuirCantidadTask(txtconteo,(ImageView)v,context);
-        disminuirCantidadTask.execute(data.get(Integer.parseInt(v.getTag().toString())).getId());
+        switch (v.getId())
+        {
+            case R.id.btn_disminuir:
+                TextView txtconteo=(TextView)v.getTag(R.id.txtconteo);
+                String prodid = data.get(Integer.parseInt(v.getTag().toString())).getId();
+                DisminuirCantidadTask disminuirCantidadTask= new DisminuirCantidadTask(txtconteo,(ImageView)v,context);
+                disminuirCantidadTask.execute(data.get(Integer.parseInt(v.getTag().toString())).getId());
+            break;
+            case R.id.btn_descripcion:
+                int indice=Integer.parseInt(v.getTag().toString());
+                String nombreProducto=data.get(indice).getNombre();
+                String descripcionProducto=data.get(indice).getDescripcion();
+               onComunicationAdaptador.onMostrarDescripcionProducto(nombreProducto,descripcionProducto);
+            break;
+        }
+
     }
 
     public class DisminuirCantidadTask extends AsyncTask<String,Void,Void>
@@ -266,146 +269,5 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
                 textViewWeakReference.get().setText(cantidad + "");
             }
         }
-    }
-
-
-
-
-    //--------------------------------------------------------------------
-
-    public static int calculateInSampleSize(
-            BitmapFactory.Options options, int reqWidth, int reqHeight) {
-        // Raw height and width of image
-        final int height = options.outHeight;
-        final int width = options.outWidth;
-        int inSampleSize = 1;
-
-        if (height > reqHeight || width > reqWidth) {
-
-            final int halfHeight = height / 2;
-            final int halfWidth = width / 2;
-
-            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
-            // height and width larger than the requested height and width.
-            while ((halfHeight / inSampleSize) > reqHeight
-                    && (halfWidth / inSampleSize) > reqWidth) {
-                inSampleSize *= 2;
-            }
-        }
-
-        return inSampleSize;
-    }
-
-    public static Bitmap decodeSampledBitmapFromResource(byte [] data, int offset,int length,
-                                                         int reqWidth, int reqHeight) {
-
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeByteArray(data, offset, length, options);
-
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
-
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        return BitmapFactory.decodeByteArray(data, offset, length, options);
-    }
-
-    class BitmapWorkerTask extends AsyncTask<Integer, Void, Bitmap> {
-        private final WeakReference<ImageView> imageViewReference;
-        private byte [] data = null;
-        private String prodid="";
-        Producto producto;
-
-        public BitmapWorkerTask(ImageView imageView,byte [] data,String prodid,Producto producto)
-        {
-            imageViewReference = new WeakReference<ImageView>(imageView);
-            this.data=data;
-            this.prodid=prodid;
-            this.producto=producto;
-        }
-
-        @Override
-        protected Bitmap doInBackground(Integer... params) {
-            Bitmap bitmap= decodeSampledBitmapFromResource(data, 0,data.length,80,80);
-            return bitmap;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap bitmap)
-        {
-            if (isCancelled())
-            {
-                bitmap = null;
-            }
-            if (imageViewReference != null && bitmap != null)
-            {
-                final ImageView imageView = imageViewReference.get();
-                final BitmapWorkerTask bitmapWorkerTask =
-                        getBitmapWorkerTask(imageView);
-                if (this == bitmapWorkerTask && imageView != null)
-                {
-                    imageView.setImageBitmap(bitmap);
-                    //producto.setImagen(bitmap);
-                }
-            }
-        }
-    }
-    public void loadBitmap(byte[] data , ImageView imageView,String prodid,Context context,Producto producto)
-    {
-
-        if (cancelPotentialWork(prodid, imageView)) {
-            final BitmapWorkerTask task = new BitmapWorkerTask(imageView,data,prodid,producto);
-            final AsyncDrawable asyncDrawable =
-                    new AsyncDrawable(context.getResources(), null, task);
-            imageView.setImageDrawable(asyncDrawable);
-            task.execute();
-        }
-    }
-
-    static class AsyncDrawable extends BitmapDrawable {
-        private final WeakReference<BitmapWorkerTask> bitmapWorkerTaskReference;
-
-        public AsyncDrawable(Resources res, Bitmap bitmap,
-                             BitmapWorkerTask bitmapWorkerTask) {
-            super(res, bitmap);
-            bitmapWorkerTaskReference =
-                    new WeakReference<BitmapWorkerTask>(bitmapWorkerTask);
-        }
-
-        public BitmapWorkerTask getBitmapWorkerTask() {
-            return bitmapWorkerTaskReference.get();
-        }
-
-    }
-
-    public static boolean cancelPotentialWork(String prodid, ImageView imageView) {
-        final BitmapWorkerTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
-
-        if (bitmapWorkerTask != null) {
-            final String bitmapProdid = bitmapWorkerTask.prodid;
-            // If bitmapData is not yet set or it differs from the new data
-            if (bitmapProdid.equals("") || !bitmapProdid.equals(prodid)) {
-                // Cancel previous task
-                bitmapWorkerTask.cancel(true);
-            } else {
-                // The same work is already in progress
-                return false;
-            }
-        }
-        // No task associated with the ImageView, or an existing task was cancelled
-        return true;
-    }
-
-    private static BitmapWorkerTask getBitmapWorkerTask(ImageView imageView) {
-        if (imageView != null) {
-            final Drawable drawable = imageView.getDrawable();
-            if (drawable instanceof AsyncDrawable) {
-                final AsyncDrawable asyncDrawable = (AsyncDrawable) drawable;
-                return asyncDrawable.getBitmapWorkerTask();
-            }
-        }
-        return null;
     }
 }

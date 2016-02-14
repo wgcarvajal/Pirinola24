@@ -17,13 +17,13 @@ public class AdminSQliteOpenHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db)
     {
-        db.execSQL("create table pedido(prodid text primary key, prodcantidad integer, prodprecio integer, prodnombreesp text, prodnombreing text, proddescripcioning text, proddescripcionesp text )");
+        db.execSQL("create table pedido(prodid text primary key, prodcantidad integer, prodprecio integer, prodnombre text, proddescripcion text )");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
     {
         db.execSQL("drop table if exists pedido");
-        db.execSQL("create table pedido(prodid text primary key, prodcantidad integer, prodprecio integer, prodnombreesp text, prodnombreing text, proddescripcioning text, proddescripcionesp text )");
+        db.execSQL("create table pedido(prodid text primary key, prodcantidad integer, prodprecio integer, prodnombre text, proddescripcion text )");
     }
 }

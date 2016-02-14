@@ -44,7 +44,6 @@ public class ProductoGridFragment extends FragmentGeneric implements AdapterView
 
     private Parcelable mListState = null;
     private String subcategoria;
-    private String subcategoriaesp;
     private String urlimagen;
     private ImageView titulo;
     private GridView gridProductos;
@@ -83,7 +82,6 @@ public class ProductoGridFragment extends FragmentGeneric implements AdapterView
         if(savedInstanceState!=null)
         {
             subcategoria=savedInstanceState.getString("subcategoria");
-            subcategoriaesp=savedInstanceState.getString("subcategoriaesp");
             urlimagen=savedInstanceState.getString("urlimagen");
             mListState=savedInstanceState.getParcelable(LIST_STATE);
         }
@@ -127,10 +125,9 @@ public class ProductoGridFragment extends FragmentGeneric implements AdapterView
         }
     }
 
-    public void init(String subcategoria,String subcategoriaesp,String urlimagen)
+    public void init(String subcategoria,String urlimagen)
     {
         this.subcategoria=subcategoria;
-        this.subcategoriaesp=subcategoriaesp;
         this.urlimagen=urlimagen;
     }
 
@@ -139,7 +136,6 @@ public class ProductoGridFragment extends FragmentGeneric implements AdapterView
     {
         mListState = gridProductos.onSaveInstanceState();
         outState.putString("subcategoria", subcategoria);
-        outState.putString("subcategoriaesp",subcategoriaesp);
         outState.putString("urlimagen", urlimagen);
         outState.putParcelable(LIST_STATE, mListState);
         super.onSaveInstanceState(outState);
@@ -210,10 +206,8 @@ public class ProductoGridFragment extends FragmentGeneric implements AdapterView
             {
                 registroPedido.put("prodid",params[0].getId());
                 registroPedido.put("prodprecio",params[0].getPrecio());
-                registroPedido.put("prodnombreesp",params[0].getNombreesp());
-                registroPedido.put("prodnombreing",params[0].getNombreing());
-                registroPedido.put("proddescripcioning",params[0].getDescripcionIng());
-                registroPedido.put("proddescripcionesp",params[0].getDescripcionesp());
+                registroPedido.put("prodnombre",params[0].getNombre());
+                registroPedido.put("proddescripcion",params[0].getDescripcion());
                 registroPedido.put("prodcantidad",conteo);
                 db.insert("pedido",null,registroPedido);
             }
@@ -246,7 +240,7 @@ public class ProductoGridFragment extends FragmentGeneric implements AdapterView
         {
             for(Producto prod: AppUtil.data)
             {
-                if(prod.getSubcategoriaing().equals(subcategoria))
+                if(prod.getSubcategoria().equals(subcategoria))
                 {
                     data.add(prod);
                 }

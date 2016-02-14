@@ -21,10 +21,10 @@ public class IntroduccionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_introduccion);
         context=this;
 
-        VideoView videoView = (VideoView) findViewById(R.id.video);
+        /*VideoView videoView = (VideoView) findViewById(R.id.video);
         Uri path = Uri.parse("android.resource://"+getPackageName()+"/"+R.raw.intro_duff);
         videoView.setVideoURI(path);
-        videoView.start();
+        videoView.start();*/
         IrActiviyPrincipal ir= new IrActiviyPrincipal();
         ir.execute();
 

@@ -10,7 +10,7 @@
     <dimen name="alto_btn_menu_principal">50dp</dimen>
     <dimen name="tam_titulo_subcategoria">45sp</dimen>
     <dimen name="super_margin_small">10dp</dimen>
-    <dimen name="alto_template_producto">250dp</dimen>
+    <dimen name="alto_template_producto">270dp</dimen>
     <dimen name="alto_campo_nombre_producto">100dp</dimen>
     <dimen name="tam_imagen_producto_grid">200dp</dimen>
     <dimen name="alto_campo_descripcion_producto">75dp</dimen>
@@ -20,10 +20,10 @@
     <dimen name="tam_titulo_menu_header">100dp</dimen>
     <dimen name="tam_letra_titulo_menu_header">50sp</dimen>
     <dimen name="tam_letra_veinticuatro_header">40sp</dimen>
-    <dimen name="tam_btn_cantidad_producto">75dp</dimen>
-    <dimen name="tam_text_cantidad_producto">60sp</dimen>
-    <dimen name="tam_btn_cantidad_prod_grid">45dp</dimen>
-    <dimen name="tam_text_cantidad_producto_grid">32sp</dimen>
+    <dimen name="tam_btn_cantidad_producto">45dp</dimen>
+    <dimen name="tam_text_cantidad_producto">35sp</dimen>
+    <dimen name="tam_btn_cantidad_prod_grid">40dp</dimen>
+    <dimen name="tam_text_cantidad_producto_grid">27sp</dimen>
     <dimen name="tam_ancho_icono_carro_pedido">100dp</dimen>
     <dimen name="tam_text_total_pedido">45sp</dimen>
     <dimen name="tam_text_btn_finalizar_pedido">35sp</dimen>
@@ -84,5 +84,13 @@
     <dimen name="icono_ingrese_margin_bottom">9dp</dimen>
     <dimen name="icono_ingrese_margin_rigth">6dp</dimen>
     <dimen name="size_link_ingresar">26sp</dimen>
+
+    <dimen name="tam_btn_descripcion">40dp</dimen>
+
+    <dimen name="size_nombre_descripcion_producto">30sp</dimen>
+    <dimen name="size_descripcion_producto">26sp</dimen>
+
+    <dimen name="ancho_btn_cerrar_descripcion_producto">75dp</dimen>
+    <dimen name="largo_btn_descripcion_producto">45dp</dimen>
 
 </resources>

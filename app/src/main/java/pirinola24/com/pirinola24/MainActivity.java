@@ -1,5 +1,6 @@
 package pirinola24.com.pirinola24;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -22,6 +23,7 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -171,14 +173,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(sub.getPosicion() <= 3)
                 {
                     ProductoFragment productoFragment = new ProductoFragment();
-                    productoFragment.init(sub.getNombreIngles(), sub.getNombreEspanol(),sub.getUrlImagenTitulo());
+                    productoFragment.init(sub.getNombre(),sub.getUrlImagenTitulo());
                     data.add(productoFragment);
 
                 }
                 else
                 {
                     ProductoGridFragment productoGridFragment= new ProductoGridFragment();
-                    productoGridFragment.init(sub.getNombreIngles(), sub.getNombreEspanol(),sub.getUrlImagenTitulo());
+                    productoGridFragment.init(sub.getNombre(),sub.getUrlImagenTitulo());
                     data.add(productoGridFragment);
                 }
 
@@ -206,13 +208,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         ParseQuery<ParseObject> querySubcategoria= new ParseQuery<>(Producto.TABLASUBCATEGORIA);
         querySubcategoria.orderByAscending("posicion");
-        querySubcategoria.selectKeys(Arrays.asList(Producto.ID,Producto.TBLSUBCATEGORIA_NOMBRE,Producto.TBLSUBCATEGORIA_NOMBREESP,Producto.TBLSUBCATEGORIA_CATEGORIA,"posicion","imgTitulo"));
+        querySubcategoria.selectKeys(Arrays.asList(Producto.ID,Producto.TBLSUBCATEGORIA_NOMBRE,"posicion","imgTitulo"));
         querySubcategoria.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(final List<ParseObject> subcategorias, ParseException e) {
                 if (e == null) {
                     ParseQuery<ParseObject> queryProductos = new ParseQuery<>(Producto.TABLA);
-                    queryProductos.selectKeys(Arrays.asList(Producto.ID, Producto.NOMBREESP, Producto.NOMBREING, Producto.DESCRIPCIONING, Producto.DESCRIPCIONESP, Producto.SUBCATEGORIA, "precio","imgFile","imgPedido","banderaImagenPedido"));
+                    queryProductos.selectKeys(Arrays.asList(Producto.ID, Producto.NOMBRE,Producto.DESCRIPCION,Producto.SUBCATEGORIA, "precio","imgFile","imgPedido","banderaImagenPedido"));
                     queryProductos.setLimit(200);
                     queryProductos.orderByAscending("posicion");
                     queryProductos.findInBackground(new FindCallback<ParseObject>() {
@@ -223,10 +225,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 for (ParseObject prod : productos) {
                                     Producto producto = new Producto();
                                     producto.setId(prod.getObjectId());
-                                    producto.setNombreing(prod.getString(Producto.NOMBREING));
-                                    producto.setNombreesp(prod.getString(Producto.NOMBREESP));
-                                    producto.setDescripcionIng(prod.getString(Producto.DESCRIPCIONING));
-                                    producto.setDescripcionesp(prod.getString(Producto.DESCRIPCIONESP));
+                                    producto.setNombre(prod.getString(Producto.NOMBRE));
+                                    producto.setDescripcion(prod.getString(Producto.DESCRIPCION));
                                     producto.setPrecio(prod.getInt("precio"));
                                     producto.setUrlImagen(prod.getParseFile("imgFile").getUrl());
                                     if(prod.getBoolean("banderaImagenPedido")==false)
@@ -241,8 +241,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                                     for (ParseObject sub : subcategorias) {
                                         if (sub.getObjectId().equals(prod.getString(Producto.SUBCATEGORIA))) {
-                                            producto.setSubcategoriaing(sub.getString(Producto.TBLSUBCATEGORIA_NOMBRE));
-                                            producto.setSubcategoriaesp(sub.getString(Producto.TBLSUBCATEGORIA_NOMBREESP));
+                                            producto.setSubcategoria(sub.getString(Producto.TBLSUBCATEGORIA_NOMBRE));
 
                                             AppUtil.data.add(producto);
                                             break;
@@ -253,8 +252,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 for (ParseObject sub : subcategorias) {
 
                                     Subcategoria subcategoria = new Subcategoria();
-                                    subcategoria.setNombreEspanol(sub.getString(Producto.TBLSUBCATEGORIA_NOMBREESP));
-                                    subcategoria.setNombreIngles(sub.getString(Producto.TBLSUBCATEGORIA_NOMBRE));
+                                    subcategoria.setNombre(sub.getString(Producto.TBLSUBCATEGORIA_NOMBRE));
                                     subcategoria.setPosicion(sub.getInt("posicion"));
                                     subcategoria.setUrlImagenTitulo(sub.getParseFile("imgTitulo").getUrl());
                                     AppUtil.listaSubcategorias.add(subcategoria);
@@ -262,11 +260,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 for (Subcategoria sub : AppUtil.listaSubcategorias) {
                                     if (sub.getPosicion() <= 3) {
                                         ProductoFragment productoFragment = new ProductoFragment();
-                                        productoFragment.init(sub.getNombreIngles(), sub.getNombreEspanol(),sub.getUrlImagenTitulo());
+                                        productoFragment.init(sub.getNombre(),sub.getUrlImagenTitulo());
                                         data.add(productoFragment);
                                     } else {
                                         ProductoGridFragment productoGridFragment = new ProductoGridFragment();
-                                        productoGridFragment.init(sub.getNombreIngles(), sub.getNombreEspanol(),sub.getUrlImagenTitulo());
+                                        productoGridFragment.init(sub.getNombre(),sub.getUrlImagenTitulo());
                                         data.add(productoGridFragment);
 
                                     }
@@ -421,6 +419,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onAbrirMenuPrincipalFragment() {
         abrirMenuPrincipal();
+    }
+
+    @Override
+    public void onAbrirDescripcionProducto(String nombre,String descripcion)
+    {
+        abrirDescripcionProducto(nombre,descripcion);
+    }
+
+    private void abrirDescripcionProducto(String nombre,String descripcion)
+    {
+        final Dialog dialog= new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.template_descripcion_producto);
+        TF = Typeface.createFromAsset(getAssets(), fontStackyard);
+
+        Button btnCerrar=(Button)dialog.findViewById(R.id.btn_cerrar_descripcion);
+        TextView txtdescripcion =(TextView)dialog.findViewById(R.id.descricionProductoDescripcion);
+        TextView txtnombre=(TextView)dialog.findViewById(R.id.nombreProductoDescripcion);
+        txtdescripcion.setText(descripcion);
+        txtnombre.setText(nombre);
+        txtnombre.setTypeface(TF);
+        txtdescripcion.setTypeface(TF);
+        btnCerrar.setTypeface(TF);
+        btnCerrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     class CargarDatosRemotosTask extends AsyncTask<Void, Void, Boolean>

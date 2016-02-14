@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/borde_template_descripcion_producto"
+    >
+
+
+
+    <TextView
+        android:id="@+id/nombreProductoDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/size_nombre_descripcion_producto"
+        android:textColor="@color/vinotintoapp"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/super_margin_small"
+
+        />
+
+    <TextView
+        android:id="@+id/descricionProductoDescripcion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/size_descripcion_producto"
+        android:textColor="@color/verdeapp"
+        android:gravity="center"
+        android:layout_margin="@dimen/margin_medium"
+        />
+
+    <Button
+        android:id="@+id/btn_cerrar_descripcion"
+        android:layout_width="@dimen/ancho_btn_cerrar_descripcion_producto"
+        android:layout_height="@dimen/largo_btn_descripcion_producto"
+        android:text="Cerrar"
+        android:textSize="@dimen/size_descripcion_producto"
+        android:layout_gravity="center"
+        android:textAllCaps="false"
+        android:textColor="@color/amarilloapp"
+        android:background="@drawable/btn_realizar_pedido"
+        android:layout_marginBottom="@dimen/margin_small"
+        />
+
+</LinearLayout>
