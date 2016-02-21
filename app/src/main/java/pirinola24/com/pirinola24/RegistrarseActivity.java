@@ -8,43 +8,33 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
-
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import bolts.Task;
-import pirinola24.com.pirinola24.modelo.Producto;
 import pirinola24.com.pirinola24.modelo.Usuario;
+import pirinola24.com.pirinola24.util.FontCache;
 
 public class RegistrarseActivity extends AppCompatActivity implements View.OnClickListener {
     private String font_path_ASimple="font/A_Simple_Life.ttf";
-    private Typeface TF;
 
     private TextView txtnombre;
     private TextView txtemail;
     private TextView txtpassword;
     private TextView txtrepetirpassword;
     private TextView txttelefono;
-    private Button btnRegistrarse;
+    private ImageView btnRegistrarse;
     private ImageView btnAtras;
     private ProgressDialog pd = null;
 
@@ -59,17 +49,16 @@ public class RegistrarseActivity extends AppCompatActivity implements View.OnCli
         txtpassword=(TextView)findViewById(R.id.txt_password);
         txtrepetirpassword=(TextView)findViewById(R.id.txt_repetirpassword);
         txttelefono=(TextView)findViewById(R.id.txt_telefono);
-        btnRegistrarse=(Button)findViewById(R.id.btnRegistrarse);
+        btnRegistrarse=(ImageView)findViewById(R.id.btnRegistrarse);
         btnAtras=(ImageView)findViewById(R.id.flecha_atras);
 
-        TF = Typeface.createFromAsset(getAssets(), font_path_ASimple);
+        Typeface TF = FontCache.get(font_path_ASimple,this);
 
         txtnombre.setTypeface(TF);
         txtemail.setTypeface(TF);
         txtpassword.setTypeface(TF);
         txtrepetirpassword.setTypeface(TF);
         txttelefono.setTypeface(TF);
-        btnRegistrarse.setTypeface(TF);
 
         btnAtras.setOnClickListener(this);
         btnRegistrarse.setOnClickListener(this);

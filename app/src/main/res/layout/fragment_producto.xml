@@ -45,10 +45,9 @@
         android:numColumns="2"
         android:layout_marginLeft="@dimen/margin_small"
         android:layout_marginRight="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_medium"
         android:verticalSpacing="@dimen/margin_medium"
-        android:horizontalSpacing="@dimen/super_margin_small"
-        android:background="@color/transparente"
+        android:horizontalSpacing="@dimen/margin_small"
         android:cacheColorHint="@color/transparente"
         android:scrollbars="none">
 

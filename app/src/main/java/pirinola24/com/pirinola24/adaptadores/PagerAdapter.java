@@ -1,15 +1,12 @@
 package pirinola24.com.pirinola24.adaptadores;
 
-import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.ViewGroup;
 
 import java.util.List;
 
 import pirinola24.com.pirinola24.fragments.FragmentGeneric;
-import pirinola24.com.pirinola24.fragments.ProductoFragment;
 
 /**
  * Created by geovanny on 9/01/16.
@@ -35,9 +32,6 @@ public class PagerAdapter extends FragmentStatePagerAdapter
     {
         return data.size();
     }
-
-
-
 
 
 }

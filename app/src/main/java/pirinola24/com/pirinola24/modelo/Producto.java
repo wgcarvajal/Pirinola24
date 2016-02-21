@@ -10,10 +10,11 @@ import com.parse.ParseFile;
 public class Producto
 {
     public static String TABLA="Producto";
-    public static String TABLASUBCATEGORIA="Subcategoria";
+    public static String POSICION="posicion";
+    public static String PRECIO="precio";
+    public static String IMAGEN="imgFile";
     public static String NOMBRE="prodnombre";
     public static String DESCRIPCION="proddescripcion";
-    public static String TBLSUBCATEGORIA_NOMBRE="subcatnombre";
     public static String SUBCATEGORIA="subcategoria";
     public static String ID="objectId";
 
@@ -24,7 +25,6 @@ public class Producto
     private String descripcion;
     private String subcategoria;
     private String urlImagen;
-    private String urlImagenPedido;
 
     public String getId()
     {
@@ -76,19 +76,4 @@ public class Producto
     public void setUrlImagen(String urlImagen) {
         this.urlImagen = urlImagen;
     }
-
-    public String getUrlImagenPedido() {
-        return urlImagenPedido;
-    }
-
-    public void setUrlImagenPedido(String urlImagenPedido) {
-        this.urlImagenPedido = urlImagenPedido;
-    }
-
-
-
-
-
-
-
 }

@@ -10,38 +10,29 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.InputType;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.SaveCallback;
-import com.parse.http.ParseHttpResponse;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import bolts.Task;
 import pirinola24.com.pirinola24.adaptadores.AdaptadorSpinnerFormaPago;
 import pirinola24.com.pirinola24.basededatos.AdminSQliteOpenHelper;
 import pirinola24.com.pirinola24.modelo.Pedido;
+import pirinola24.com.pirinola24.util.FontCache;
 
 public class NoregistradoActivity extends AppCompatActivity implements View.OnClickListener
 {
     private String font_path="font/A_Simple_Life.ttf";
-    private Typeface TF;
 
     private Spinner spFormapago;
     private TextView textNombre;
@@ -50,7 +41,7 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
     private TextView textTelefono;
     private TextView textObservaciones;
     private ImageView btnAtras;
-    private Button btnEnviarPedido;
+    private ImageView btnEnviarPedido;
     private AdaptadorSpinnerFormaPago adapter;
     private ProgressDialog pd = null;
 
@@ -70,18 +61,17 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
 
 
         btnAtras=(ImageView)findViewById(R.id.flecha_atras);
-        btnEnviarPedido=(Button)findViewById(R.id.btn_enviar_pedido);
+        btnEnviarPedido=(ImageView)findViewById(R.id.btn_enviar_pedido);
 
         btnAtras.setOnClickListener(this);
         btnEnviarPedido.setOnClickListener(this);
 
-        TF = Typeface.createFromAsset(getAssets(), font_path);
+        Typeface TF = FontCache.get(font_path,this);
         textNombre.setTypeface(TF);
         textDireccion.setTypeface(TF);
         textBarrio.setTypeface(TF);
         textTelefono.setTypeface(TF);
         textObservaciones.setTypeface(TF);
-        btnEnviarPedido.setTypeface(TF);
 
         String [] objetos= getResources().getStringArray(R.array.forma_pago);
 

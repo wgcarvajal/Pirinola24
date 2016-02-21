@@ -3,7 +3,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
         <item name="colorPrimaryDark">#000000</item>
-        <item name="android:textColorSecondary">#ff0000</item>
+        <item name="android:textColorSecondary">@color/verdeapp</item>
         <item name="android:background">#00000000</item>
         <item name="vpiCirclePageIndicatorStyle">@style/CustomCirclePageIndicator</item>
     </style>

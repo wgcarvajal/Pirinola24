@@ -41,6 +41,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import pirinola24.com.pirinola24.modelo.Usuario;
+import pirinola24.com.pirinola24.util.FontCache;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener
 {
@@ -50,7 +51,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private String font_path="font/A_Simple_Life.ttf";
     private String fontStackyard="font/Stackyard.ttf";
-    private Typeface TF;
     private ImageView btnAtras;
     private ImageView btnIniciarSesion;
     private ImageView btnRegistrarse;
@@ -86,11 +86,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         txtrecuperarClave.setOnClickListener(this);
         btnFacebook.setOnClickListener(this);
 
-        TF = Typeface.createFromAsset(getAssets(), font_path);
+        Typeface TF = FontCache.get(font_path,this);
         txtpassword.setTypeface(TF);
         txtemail.setTypeface(TF);
 
-        TF = Typeface.createFromAsset(getAssets(), fontStackyard);
+        TF = FontCache.get(fontStackyard,this);
         txtrecuperarClave.setTypeface(TF);
     }
 
@@ -134,18 +134,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         dialog= new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.template_dialog_olvidaste_password);
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bordes_redondeados_pequenos);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.borde_template_descripcion_producto);
 
 
-        TF = Typeface.createFromAsset(getAssets(), font_path);
-        Button btnEnviar=(Button)dialog.findViewById(R.id.btn_enviar);
-        Button btnCancelar=(Button)dialog.findViewById(R.id.btn_cancelar);
+        Typeface TF = FontCache.get(font_path,this);
+        ImageView btnEnviar=(ImageView)dialog.findViewById(R.id.btn_enviar);
+        ImageView btnCancelar=(ImageView)dialog.findViewById(R.id.btn_cancelar);
         final EditText txtemail =(EditText)dialog.findViewById(R.id.txt_email);
 
         txtemail.setTypeface(TF);
-
-        btnEnviar.setTypeface(TF);
-        btnCancelar.setTypeface(TF);
         final Context context=this;
 
         btnEnviar.setOnClickListener(new View.OnClickListener() {
@@ -411,7 +408,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         Button btnAceptar=(Button)dialog.findViewById(R.id.btn_aceptar);
         TextView mensaje =(TextView) dialog.findViewById(R.id.txtmensaje);
-        TF = Typeface.createFromAsset(getAssets(), font_path);
+        Typeface TF = FontCache.get(font_path,this);
         mensaje.setText(getResources().getString(R.string.confirmar_registro));
         mensaje.setTypeface(TF);
         btnAceptar.setTypeface(TF);

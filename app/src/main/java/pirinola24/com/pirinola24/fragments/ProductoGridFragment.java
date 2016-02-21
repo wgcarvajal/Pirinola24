@@ -5,14 +5,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,11 +18,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.parse.FindCallback;
-import com.parse.GetCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
@@ -49,8 +42,6 @@ public class ProductoGridFragment extends FragmentGeneric implements AdapterView
     private GridView gridProductos;
     private List<Producto> data = new ArrayList<>();
     private AdaptadorProductoGrid adapter;
-    private String font_path = "font/2-4ef58.ttf";
-    private Typeface TF;
     private ImageView carritoCompras;
     private ImageView menuPrincipal;
 

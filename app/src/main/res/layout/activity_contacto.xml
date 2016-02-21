@@ -3,22 +3,46 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="pirinola24.com.pirinola24.ContactoActivity"
-    android:background="@color/negro">
+    android:background="@drawable/fondo">
 
 
-    <ImageView
-        android:id="@+id/flecha_atras"
-        android:layout_width="@dimen/tam_ancho_flecha_atras"
-        android:layout_height="@dimen/tam_flecha_atras"
-        android:scaleType="fitXY"
-        android:src="@mipmap/ic_atras"
-        />
+    <LinearLayout
+        android:id="@+id/contenedor_header_contacto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_medium"
+        >
+
+        <ImageView
+            android:id="@+id/flecha_atras"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/tam_img_icono_menu_carro"
+            android:layout_weight="1"
+            android:src="@drawable/flecha_atras"
+            />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:src="@drawable/titulo_contacto"
+            android:layout_height="@dimen/tam_img_titulo_subcategoria"
+            android:scaleType="fitCenter"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/tam_img_icono_menu_carro"
+            />
+
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:layout_below="@id/flecha_atras"
+        android:layout_below="@id/contenedor_header_contacto"
         android:layout_marginBottom="@dimen/margin_small"
         >
 
@@ -45,8 +69,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tam_alto_caja_texto"
                 android:layout_below="@id/imagen_login"
-                android:textColor="@color/blanco"
-                android:textSize="@dimen/size_text_caja_texto"
+                android:textColor="@color/verdeapp"
+                android:textSize="@dimen/size_tu_opinion"
                 android:text="@string/txt_tu_opinion_importante"
                 android:gravity="center"
                 android:layout_marginLeft="@dimen/margin_small"
@@ -58,44 +82,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tam_alto_caja_texto"
                 android:layout_below="@id/txtOpinion"
-                android:textColor="@color/blanco"
+                android:textColor="@color/vinotintoapp"
                 android:hint="@string/txt_hint_correo_electronico"
-                android:layout_marginTop="@dimen/margin_input_registrase"
-                android:textColorHint="@color/gris"
+                android:textColorHint="@color/verdeapp"
+                android:layout_marginTop="@dimen/margin_text_correo_electronico"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_small"
+                android:inputType="textEmailAddress"
                 android:textSize="@dimen/size_text_caja_texto"
-                android:background="@drawable/bordes_redondeados_pequenos"
+                android:background="@drawable/caja_texto_ingrese"
                 android:gravity="center"
                 android:ellipsize="end"
-                android:inputType="textEmailAddress"
+                android:singleLine="true"
                 />
             <EditText
                 android:id="@+id/txt_nombre"
-                android:maxLength="40"
+                android:maxLength="60"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tam_alto_caja_texto"
                 android:layout_below="@id/txt_email"
                 android:hint="@string/txt_nombre"
-                android:textColorHint="@color/gris"
-                android:textColor="@color/blanco"
+                android:textColorHint="@color/verdeapp"
+                android:textColor="@color/vinotintoapp"
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_small"
                 android:textSize="@dimen/size_text_caja_texto"
-                android:background="@drawable/bordes_redondeados_pequenos"
+                android:background="@drawable/caja_texto_ingrese"
                 android:gravity="center"
                 android:ellipsize="end"
                 android:inputType="textPersonName"
                 />
-
-
-
-
-
-
-
-
             <ScrollView
                 android:id="@+id/scrollView_observaciones"
                 android:layout_width="match_parent"
@@ -105,7 +122,7 @@
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_below="@id/txt_nombre"
                 android:scrollbars="none"
-                android:background="@drawable/bordes_redondeados_pequenos"
+                android:background="@drawable/caja_texto_ingrese"
                 >
 
                 <EditText
@@ -118,27 +135,24 @@
                     android:inputType="textMultiLine"
                     android:hint="@string/txt_mensaje_contacto"
                     android:textSize="@dimen/size_text_caja_texto"
-                    android:textColor="@color/blanco"
-                    android:textColorHint="@color/gris"
+                    android:textColor="@color/vinotintoapp"
+                    android:textColorHint="@color/verdeapp"
                     android:gravity="center"
                     android:ellipsize="end"/>
 
             </ScrollView>
 
 
-            <Button
+            <ImageView
                 android:id="@+id/btn_enviar_pedido"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/tam_alto_btn"
-                android:text="@string/txt_enviar"
-                android:textSize="@dimen/size_text_btn_continuar_no_registrado"
-                android:textColor="@color/blanco"
                 android:layout_below="@id/scrollView_observaciones"
-                android:gravity="center"
-                android:layout_marginTop="@dimen/margin_top_btn"
-                android:layout_marginRight="@dimen/margin_small"
+                android:layout_height="@dimen/tam_alto_btn"
+                android:src="@drawable/btn_enviar_mensaje"
+                android:scaleType="fitXY"
                 android:layout_marginLeft="@dimen/margin_small"
-                android:background="@drawable/bordes_redondos_pequno_fondo_rojo"
+                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_top_btn"
                 />
 
 

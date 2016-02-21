@@ -40,11 +40,11 @@ import pirinola24.com.pirinola24.adaptadores.AdaptadorSpinnerFormaPago;
 import pirinola24.com.pirinola24.basededatos.AdminSQliteOpenHelper;
 import pirinola24.com.pirinola24.modelo.Pedido;
 import pirinola24.com.pirinola24.modelo.Usuario;
+import pirinola24.com.pirinola24.util.FontCache;
 
 public class RegistradoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private String font_path="font/A_Simple_Life.ttf";
-    private Typeface TF;
 
     private ImageView btnFlechaAtras;
     private Spinner spDireccion;
@@ -53,7 +53,7 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
     private ImageView btnAgregarTelefono;
     private Spinner spFormaPago;
     private EditText txtObservaciones;
-    private Button btnEnviarPedido;
+    private ImageView btnEnviarPedido;
     private TextView txtSinConexion;
     private Button btnVolverCargar;
     private AdaptadorSpinnerFormaPago adapter;
@@ -77,14 +77,13 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
         btnAgregarTelefono=(ImageView)findViewById(R.id.btn_agregar_telefono);
         spFormaPago=(Spinner)findViewById(R.id.sp_forma_pago);
         txtObservaciones=(EditText)findViewById(R.id.txt_observaciones);
-        btnEnviarPedido=(Button)findViewById(R.id.btn_enviar_pedido);
+        btnEnviarPedido=(ImageView)findViewById(R.id.btn_enviar_pedido);
         txtSinConexion=(TextView)findViewById(R.id.txt_sin_conexion);
         btnVolverCargar=(Button)findViewById(R.id.btn_volver_cargar);
 
-        TF = Typeface.createFromAsset(getAssets(), font_path);
+        Typeface TF = FontCache.get(font_path,this);
 
         txtObservaciones.setTypeface(TF);
-        btnEnviarPedido.setTypeface(TF);
         txtSinConexion.setTypeface(TF);
         btnVolverCargar.setTypeface(TF);
 
@@ -276,18 +275,15 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
         dialog= new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.template_agregar_telefono);
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bordes_redondeados_pequenos);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.borde_template_descripcion_producto);
 
 
-        TF = Typeface.createFromAsset(getAssets(), font_path);
-        Button btnAceptar=(Button)dialog.findViewById(R.id.btn_aceptar);
-        Button btnCancelar=(Button)dialog.findViewById(R.id.btn_cancelar);
+        Typeface TF = FontCache.get(font_path,this);
+        ImageView btnAceptar=(ImageView)dialog.findViewById(R.id.btn_aceptar);
+        ImageView btnCancelar=(ImageView)dialog.findViewById(R.id.btn_cancelar);
         final EditText txtTelefono =(EditText)dialog.findViewById(R.id.txt_telefono);
 
         txtTelefono.setTypeface(TF);
-
-        btnAceptar.setTypeface(TF);
-        btnCancelar.setTypeface(TF);
         final Context context=this;
 
         btnAceptar.setOnClickListener(new View.OnClickListener() {
@@ -402,18 +398,16 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
         dialog= new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.template_agregar_direccion);
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.bordes_redondeados_pequenos);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.borde_template_descripcion_producto);
 
 
-        TF = Typeface.createFromAsset(getAssets(), font_path);
-        Button btnAceptar=(Button)dialog.findViewById(R.id.btn_aceptar);
-        Button btnCancelar=(Button)dialog.findViewById(R.id.btn_cancelar);
+        Typeface TF = FontCache.get(font_path,this);
+        ImageView btnAceptar=(ImageView)dialog.findViewById(R.id.btn_aceptar);
+        ImageView btnCancelar=(ImageView)dialog.findViewById(R.id.btn_cancelar);
         final EditText txtdireccion =(EditText)dialog.findViewById(R.id.txt_direccion);
         final EditText txtbarrio=(EditText)dialog.findViewById(R.id.txt_barrio);
         txtdireccion.setTypeface(TF);
         txtbarrio.setTypeface(TF);
-        btnAceptar.setTypeface(TF);
-        btnCancelar.setTypeface(TF);
         final Context context=this;
 
         btnAceptar.setOnClickListener(new View.OnClickListener() {

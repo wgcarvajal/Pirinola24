@@ -8,7 +8,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,6 +20,8 @@ import com.parse.SaveCallback;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import pirinola24.com.pirinola24.util.FontCache;
+
 public class ContactoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private ImageView btnFlechaAtras;
@@ -28,9 +29,11 @@ public class ContactoActivity extends AppCompatActivity implements View.OnClickL
     private EditText textNombre;
     private EditText textMensaje;
     private TextView textOpinion;
-    private Button btnEnviar;
+    private ImageView btnEnviar;
+
     private String font_path_ASimple="font/A_Simple_Life.ttf";
-    private Typeface TF;
+    private String fontStackyard="font/Stackyard.ttf";
+
     private ProgressDialog pd = null;
 
     @Override
@@ -39,7 +42,7 @@ public class ContactoActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_contacto);
 
         btnFlechaAtras=(ImageView)findViewById(R.id.flecha_atras);
-        btnEnviar=(Button)findViewById(R.id.btn_enviar_pedido);
+        btnEnviar=(ImageView)findViewById(R.id.btn_enviar_pedido);
 
         textEmail=(EditText)findViewById(R.id.txt_email);
         textNombre=(EditText)findViewById(R.id.txt_nombre);
@@ -49,13 +52,14 @@ public class ContactoActivity extends AppCompatActivity implements View.OnClickL
         btnFlechaAtras.setOnClickListener(this);
         btnEnviar.setOnClickListener(this);
 
-        TF = Typeface.createFromAsset(getAssets(), font_path_ASimple);
-        textOpinion.setTypeface(TF);
+        Typeface TF = FontCache.get(font_path_ASimple,this);
+
         textMensaje.setTypeface(TF);
         textNombre.setTypeface(TF);
         textEmail.setTypeface(TF);
 
-        btnEnviar.setTypeface(TF);
+        TF = FontCache.get(fontStackyard,this);
+        textOpinion.setTypeface(TF);
     }
 
 

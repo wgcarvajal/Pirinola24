@@ -12,7 +12,7 @@
     <dimen name="super_margin_small">10dp</dimen>
     <dimen name="alto_template_producto">270dp</dimen>
     <dimen name="alto_campo_nombre_producto">100dp</dimen>
-    <dimen name="tam_imagen_producto_grid">200dp</dimen>
+    <dimen name="tam_imagen_producto_grid">220dp</dimen>
     <dimen name="alto_campo_descripcion_producto">75dp</dimen>
     <dimen name="tamano_icono_menu_principal">60dp</dimen>
     <dimen name="tamano_icono_carro_pedido">80dp</dimen>
@@ -31,7 +31,7 @@
     <dimen name="tam_letra_item_menu">35sp</dimen>
     <dimen name="tam_text_nombre_producto_pedido">100dp</dimen>
     <dimen name="size_text_nombre_producto_pedido">21sp</dimen>
-    <dimen name="tam_imagen_producto_pedido">180dp</dimen>
+    <dimen name="tam_imagen_producto_pedido">200dp</dimen>
     <dimen name="size_text_precio_producto_pedido">28sp</dimen>
     <dimen name="tam_btn_producto_pedido">50dp</dimen>
     <dimen name="size_text_btn_producto_pedido">37sp</dimen>
@@ -92,5 +92,7 @@
 
     <dimen name="ancho_btn_cerrar_descripcion_producto">75dp</dimen>
     <dimen name="largo_btn_descripcion_producto">45dp</dimen>
+
+    <dimen name="size_tu_opinion">28sp</dimen>
 
 </resources>

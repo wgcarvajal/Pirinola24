@@ -28,7 +28,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
+//import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -47,6 +47,7 @@ import pirinola24.com.pirinola24.modelo.Producto;
 import pirinola24.com.pirinola24.modelo.Subcategoria;
 import pirinola24.com.pirinola24.typeface.CustomTypefaceSpan;
 import pirinola24.com.pirinola24.util.AppUtil;
+import pirinola24.com.pirinola24.util.FontCache;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, ProductoGridFragment.OnComunicationFragmentGrid, ProductoFragment.OnComunicationFragment {
@@ -64,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView veinticuatro;
     private TextView text_compruebe_conexion;
     private Button btnRecargarVista;
-    private Typeface TF;
     private String font_path = "font/2-4ef58.ttf";
     private String font_path_ASimple="font/A_Simple_Life.ttf";
     private String fontStackyard="font/Stackyard.ttf";
@@ -96,17 +96,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         text_compruebe_conexion.setVisibility(View.GONE);
         btnRecargarVista.setVisibility(View.GONE);
 
-        TF = Typeface.createFromAsset(getAssets(), fontStackyard);
+        Typeface TF = FontCache.get(fontStackyard,this); //Typeface.createFromAsset(getAssets(), fontStackyard);
 
         tituloMenuHeader.setTypeface(TF);
-        TF = Typeface.createFromAsset(getAssets(), font_path_ASimple);
+        TF = FontCache.get(font_path_ASimple,this); //Typeface.createFromAsset(getAssets(), font_path_ASimple);
         veinticuatro.setTypeface(TF);
         text_compruebe_conexion.setTypeface(TF);
         btnRecargarVista.setTypeface(TF);
 
         adapter = new PagerAdapter(getSupportFragmentManager(), data);
         pager.setAdapter(adapter);
-        pager.setPageTransformer(true, new CubeOutTransformer());
+        //pager.setPageTransformer(true, new CubeOutTransformer());
         pagerIndicator.setViewPager(pager);
         Log.i("cuantas paginas",pager.getOffscreenPageLimit()+"");
         Menu m = navView.getMenu();
@@ -170,18 +170,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             for(Subcategoria sub: AppUtil.listaSubcategorias)
             {
-                if(sub.getPosicion() <= 3)
+                switch (sub.getTipoFragment())
                 {
-                    ProductoFragment productoFragment = new ProductoFragment();
-                    productoFragment.init(sub.getNombre(),sub.getUrlImagenTitulo());
-                    data.add(productoFragment);
-
-                }
-                else
-                {
-                    ProductoGridFragment productoGridFragment= new ProductoGridFragment();
-                    productoGridFragment.init(sub.getNombre(),sub.getUrlImagenTitulo());
-                    data.add(productoGridFragment);
+                    case Subcategoria.CONDESCRIPCION:
+                        ProductoFragment productoFragment = new ProductoFragment();
+                        productoFragment.init(sub.getNombre(),sub.getUrlImagenTitulo());
+                        data.add(productoFragment);
+                    break;
+                    case Subcategoria.SINDESCRIPCION:
+                        ProductoGridFragment productoGridFragment = new ProductoGridFragment();
+                        productoGridFragment.init(sub.getNombre(),sub.getUrlImagenTitulo());
+                        data.add(productoGridFragment);
+                    break;
                 }
 
             }
@@ -206,17 +206,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public void cargarDatosParse()
     {
-        ParseQuery<ParseObject> querySubcategoria= new ParseQuery<>(Producto.TABLASUBCATEGORIA);
-        querySubcategoria.orderByAscending("posicion");
-        querySubcategoria.selectKeys(Arrays.asList(Producto.ID,Producto.TBLSUBCATEGORIA_NOMBRE,"posicion","imgTitulo"));
+        ParseQuery<ParseObject> querySubcategoria= new ParseQuery<>(Subcategoria.TABLA);
+        querySubcategoria.orderByAscending(Subcategoria.POSICION);
+        querySubcategoria.selectKeys(Arrays.asList(Subcategoria.ID,Subcategoria.NOMBRE,Subcategoria.IMGTITULO,Subcategoria.TIPOFRAGMENT));
         querySubcategoria.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(final List<ParseObject> subcategorias, ParseException e) {
                 if (e == null) {
                     ParseQuery<ParseObject> queryProductos = new ParseQuery<>(Producto.TABLA);
-                    queryProductos.selectKeys(Arrays.asList(Producto.ID, Producto.NOMBRE,Producto.DESCRIPCION,Producto.SUBCATEGORIA, "precio","imgFile","imgPedido","banderaImagenPedido"));
+                    queryProductos.selectKeys(Arrays.asList(Producto.ID, Producto.NOMBRE,Producto.DESCRIPCION,Producto.SUBCATEGORIA, Producto.PRECIO,Producto.IMAGEN));
                     queryProductos.setLimit(200);
-                    queryProductos.orderByAscending("posicion");
+                    queryProductos.orderByAscending(Producto.POSICION);
                     queryProductos.findInBackground(new FindCallback<ParseObject>() {
                         @Override
                         public void done(List<ParseObject> productos, ParseException e) {
@@ -227,22 +227,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     producto.setId(prod.getObjectId());
                                     producto.setNombre(prod.getString(Producto.NOMBRE));
                                     producto.setDescripcion(prod.getString(Producto.DESCRIPCION));
-                                    producto.setPrecio(prod.getInt("precio"));
-                                    producto.setUrlImagen(prod.getParseFile("imgFile").getUrl());
-                                    if(prod.getBoolean("banderaImagenPedido")==false)
-                                    {
-                                        producto.setUrlImagenPedido(prod.getParseFile("imgFile").getUrl());
-                                    }
-                                    else
-                                    {
-                                        producto.setUrlImagenPedido(prod.getParseFile("imgPedido").getUrl());
-                                    }
-
+                                    producto.setPrecio(prod.getInt(Producto.PRECIO));
+                                    producto.setUrlImagen(prod.getParseFile(Producto.IMAGEN).getUrl());
 
                                     for (ParseObject sub : subcategorias) {
                                         if (sub.getObjectId().equals(prod.getString(Producto.SUBCATEGORIA))) {
-                                            producto.setSubcategoria(sub.getString(Producto.TBLSUBCATEGORIA_NOMBRE));
-
+                                            producto.setSubcategoria(sub.getString(Subcategoria.NOMBRE));
                                             AppUtil.data.add(producto);
                                             break;
                                         }
@@ -252,21 +242,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 for (ParseObject sub : subcategorias) {
 
                                     Subcategoria subcategoria = new Subcategoria();
-                                    subcategoria.setNombre(sub.getString(Producto.TBLSUBCATEGORIA_NOMBRE));
-                                    subcategoria.setPosicion(sub.getInt("posicion"));
-                                    subcategoria.setUrlImagenTitulo(sub.getParseFile("imgTitulo").getUrl());
+                                    subcategoria.setNombre(sub.getString(Subcategoria.NOMBRE));
+                                    subcategoria.setTipoFragment(sub.getInt(Subcategoria.TIPOFRAGMENT));
+                                    subcategoria.setUrlImagenTitulo(sub.getParseFile(Subcategoria.IMGTITULO).getUrl());
                                     AppUtil.listaSubcategorias.add(subcategoria);
                                 }
                                 for (Subcategoria sub : AppUtil.listaSubcategorias) {
-                                    if (sub.getPosicion() <= 3) {
-                                        ProductoFragment productoFragment = new ProductoFragment();
-                                        productoFragment.init(sub.getNombre(),sub.getUrlImagenTitulo());
-                                        data.add(productoFragment);
-                                    } else {
-                                        ProductoGridFragment productoGridFragment = new ProductoGridFragment();
-                                        productoGridFragment.init(sub.getNombre(),sub.getUrlImagenTitulo());
-                                        data.add(productoGridFragment);
 
+                                    switch (sub.getTipoFragment())
+                                    {
+                                        case Subcategoria.CONDESCRIPCION:
+                                            ProductoFragment productoFragment = new ProductoFragment();
+                                            productoFragment.init(sub.getNombre(),sub.getUrlImagenTitulo());
+                                            data.add(productoFragment);
+                                        break;
+                                        case Subcategoria.SINDESCRIPCION:
+                                            ProductoGridFragment productoGridFragment = new ProductoGridFragment();
+                                            productoGridFragment.init(sub.getNombre(),sub.getUrlImagenTitulo());
+                                            data.add(productoGridFragment);
+                                        break;
                                     }
 
                                 }
@@ -294,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v)
     {
-        Intent intent;
+
         switch (v.getId())
         {
 
@@ -322,7 +316,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void applyFontToMenuItem(MenuItem mi,String rutaTipoLetra)
     {
-        Typeface font = Typeface.createFromAsset(getAssets(), rutaTipoLetra);
+        Typeface font = FontCache.get(rutaTipoLetra,this);//Typeface.createFromAsset(getAssets(), rutaTipoLetra);
         SpannableString mNewTitle = new SpannableString(mi.getTitle());
         mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         mi.setTitle(mNewTitle);
@@ -432,7 +426,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final Dialog dialog= new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.template_descripcion_producto);
-        TF = Typeface.createFromAsset(getAssets(), fontStackyard);
+        Typeface TF = FontCache.get(fontStackyard,this);//Typeface.createFromAsset(getAssets(), fontStackyard);
 
         Button btnCerrar=(Button)dialog.findViewById(R.id.btn_cerrar_descripcion);
         TextView txtdescripcion =(TextView)dialog.findViewById(R.id.descricionProductoDescripcion);
@@ -547,12 +541,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
-    @Override
-    protected void onDestroy() {
-        data=null;
-        adapter=null;
-        pd=null;
-        TF=null;
-        super.onDestroy();
-    }
+
 }

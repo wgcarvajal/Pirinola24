@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     >
 
         <ImageView
@@ -18,8 +19,8 @@
             android:src="@drawable/icono_carta_descripcion"
             android:layout_alignBottom="@id/img_producto"
             android:layout_alignRight="@id/img_producto"
-            android:layout_marginRight="@dimen/margin_medium"
-            android:layout_marginBottom="@dimen/super_margin_small"
+            android:layout_marginRight="@dimen/super_margin_small"
+
             />
 
 

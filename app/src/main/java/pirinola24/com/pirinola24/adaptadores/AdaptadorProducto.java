@@ -34,6 +34,7 @@ import java.util.List;
 import pirinola24.com.pirinola24.R;
 import pirinola24.com.pirinola24.basededatos.AdminSQliteOpenHelper;
 import pirinola24.com.pirinola24.modelo.Producto;
+import pirinola24.com.pirinola24.util.FontCache;
 
 /**
  * Created by geovanny on 8/01/16.
@@ -47,7 +48,6 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
     private String font_path = "font/2-4ef58.ttf";
     private String font_pathOds="font/odstemplik.otf";
     private String font_path_ASimple="font/A_Simple_Life.ttf";
-    private Typeface TF;
 
     public class ViewHolder
     {
@@ -110,11 +110,9 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
             viewHolder.txtconteo=(TextView) v.findViewById(R.id.txtconteo);
             viewHolder.btnDisminuir=(ImageView) v.findViewById(R.id.btn_disminuir);
             viewHolder.btnDescripcion=(ImageView)v.findViewById(R.id.btn_descripcion);
-            TF = Typeface.createFromAsset(context.getAssets(), font_path);
-            TF = Typeface.createFromAsset(context.getAssets(),font_pathOds);
+            Typeface TF = FontCache.get(font_pathOds,context);
             viewHolder.txtconteo.setTypeface(TF);
             viewHolder.txtconteo.setText("0");
-            TF = Typeface.createFromAsset(context.getAssets(),font_path_ASimple);
             viewHolder.btnDisminuir.setTag(R.id.txtconteo,viewHolder.txtconteo);
             v.setTag(viewHolder);
         }
@@ -124,10 +122,8 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
             viewHolder.txtconteo.setText("0");
         }
 
-        final Producto p = (Producto) getItem(position);
+        Producto p = (Producto) getItem(position);
         fijarDatos(p, viewHolder, position);
-        viewHolder.imagenProducto.setImageBitmap(null);
-        final View fv=v;
 
         Picasso.with(context)
                 .load(Uri.parse(p.getUrlImagen()))

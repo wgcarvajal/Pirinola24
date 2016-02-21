@@ -42,9 +42,9 @@ import java.util.List;
 import pirinola24.com.pirinola24.adaptadores.AdaptadorProductoPedido;
 import pirinola24.com.pirinola24.basededatos.AdminSQliteOpenHelper;
 import pirinola24.com.pirinola24.modelo.Producto;
-import pirinola24.com.pirinola24.modelo.Usuario;
 import pirinola24.com.pirinola24.typeface.CustomTypefaceSpan;
 import pirinola24.com.pirinola24.util.AppUtil;
+import pirinola24.com.pirinola24.util.FontCache;
 
 public class PedidoActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener, AdaptadorProductoPedido.OnDisminuirTotal {
 
@@ -52,7 +52,7 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
     public final static int MI_REQUEST_CODE_REGISTRADO = 2;
     public final static int MI_REQUEST_SE_LOGUIO_USUARIO=101;
 
-    private Typeface TF;
+
     private String font_path = "font/2-4ef58.ttf";
     private String font_path_ASimple="font/A_Simple_Life.ttf";
     private String fontStackyard="font/Stackyard.ttf";
@@ -130,27 +130,21 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
 
-
-
-        TF = Typeface.createFromAsset(getAssets(), font_path);
-
-        TF = Typeface.createFromAsset(getAssets(), font_path_ASimple);
+        Typeface TF = FontCache.get(font_path_ASimple, this);
         textDomicilio.setTypeface(TF);
         veinticuatro.setTypeface(TF);
 
-        TF=Typeface.createFromAsset(getAssets(), fontStackyard);
+        TF= FontCache.get(fontStackyard,this);
         textTotalPedido.setTypeface(TF);
         btnFinalizarPedido.setTypeface(TF);
         tituloMenuHeader.setTypeface(TF);
         aplicandoTipoLetraItemMenu(m, fontStackyard);
-        TF=Typeface.createFromAsset(getAssets(), fontURW);
+        TF=FontCache.get(fontURW,this);
         textValorTotalPedido.setTypeface(TF);
         adapter= new AdaptadorProductoPedido(this,data);
         gridProductosPedido.setAdapter(adapter);
         gridProductosPedido.setOnItemClickListener(this);
-
         loadData();
-
     }
 
     private void loadData()
@@ -265,7 +259,7 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
 
     private void applyFontToMenuItem(MenuItem mi,String rutaTipoLetra)
     {
-        Typeface font = Typeface.createFromAsset(getAssets(), rutaTipoLetra);
+        Typeface font = FontCache.get(rutaTipoLetra,this);
         SpannableString mNewTitle = new SpannableString(mi.getTitle());
         mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         mi.setTitle(mNewTitle);
@@ -579,7 +573,7 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
 
         Button btnAceptar=(Button)dialog.findViewById(R.id.btn_aceptar);
         TextView mensaje =(TextView) dialog.findViewById(R.id.txtmensaje);
-        TF = Typeface.createFromAsset(getAssets(), font_path_ASimple);
+        Typeface TF = FontCache.get(font_path_ASimple,this);
 
         mensaje.setTypeface(TF);
         btnAceptar.setTypeface(TF);
