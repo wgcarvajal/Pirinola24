@@ -28,7 +28,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-//import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
+import com.ToxicBakery.viewpager.transforms.CubeOutTransformer;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         adapter = new PagerAdapter(getSupportFragmentManager(), data);
         pager.setAdapter(adapter);
-        //pager.setPageTransformer(true, new CubeOutTransformer());
+        pager.setPageTransformer(true, new CubeOutTransformer());
         pagerIndicator.setViewPager(pager);
         Log.i("cuantas paginas",pager.getOffscreenPageLimit()+"");
         Menu m = navView.getMenu();
