@@ -15,15 +15,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.parse.GetCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
-import com.parse.SignUpCallback;
+
+import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import pirinola24.com.pirinola24.modelo.Usuario;
 import pirinola24.com.pirinola24.util.FontCache;
 
 public class RegistrarseActivity extends AppCompatActivity implements View.OnClickListener {
@@ -33,7 +31,6 @@ public class RegistrarseActivity extends AppCompatActivity implements View.OnCli
     private TextView txtemail;
     private TextView txtpassword;
     private TextView txtrepetirpassword;
-    private TextView txttelefono;
     private ImageView btnRegistrarse;
     private ImageView btnAtras;
     private ProgressDialog pd = null;
@@ -48,7 +45,6 @@ public class RegistrarseActivity extends AppCompatActivity implements View.OnCli
         txtemail=(TextView)findViewById(R.id.txt_email);
         txtpassword=(TextView)findViewById(R.id.txt_password);
         txtrepetirpassword=(TextView)findViewById(R.id.txt_repetirpassword);
-        txttelefono=(TextView)findViewById(R.id.txt_telefono);
         btnRegistrarse=(ImageView)findViewById(R.id.btnRegistrarse);
         btnAtras=(ImageView)findViewById(R.id.flecha_atras);
 
@@ -58,7 +54,6 @@ public class RegistrarseActivity extends AppCompatActivity implements View.OnCli
         txtemail.setTypeface(TF);
         txtpassword.setTypeface(TF);
         txtrepetirpassword.setTypeface(TF);
-        txttelefono.setTypeface(TF);
 
         btnAtras.setOnClickListener(this);
         btnRegistrarse.setOnClickListener(this);
@@ -87,21 +82,20 @@ public class RegistrarseActivity extends AppCompatActivity implements View.OnCli
         String email=txtemail.getText().toString();
         String password=txtpassword.getText().toString();
         String repetirPassword=txtrepetirpassword.getText().toString();
-        String telefono=txttelefono.getText().toString();
 
-        if(comprobarCampos(nombre,email,password,repetirPassword,telefono))
+        if(comprobarCampos(nombre,email,password,repetirPassword))
         {
             pd = ProgressDialog.show(this, getResources().getString(R.string.enviando_datos), getResources().getString(R.string.por_favor_espere), true, false);
             RegistroTask reg= new RegistroTask();
-            reg.execute(nombre,email,password,telefono);
+            reg.execute(nombre,email,password);
         }
     }
 
-    private boolean comprobarCampos(String nombre,String email,String password,String repetirPassword,String telefono)
+    private boolean comprobarCampos(String nombre,String email,String password,String repetirPassword)
     {
 
 
-        if(nombre.equals("") || email.equals("") || password.equals("") || repetirPassword.equals("") || telefono.equals(""))
+        if(nombre.equals("") || email.equals("") || password.equals("") || repetirPassword.equals(""))
         {
             mostrarMensaje(R.string.todos_campos_obligatorios);
             return false;
@@ -134,14 +128,7 @@ public class RegistrarseActivity extends AppCompatActivity implements View.OnCli
                             mostrarMensaje(R.string.campo_repetir_password);
                             return false;
                         }
-                        else
-                        {
-                            if(telefono.length()<6)
-                            {
-                                mostrarMensaje(R.string.campo_telefono);
-                                return false;
-                            }
-                        }
+
                     }
                 }
             }
@@ -180,7 +167,6 @@ public class RegistrarseActivity extends AppCompatActivity implements View.OnCli
         String nombre;
         String email;
         String password;
-        String telefono;
 
         @Override
         protected Boolean doInBackground(String... params)
@@ -188,7 +174,6 @@ public class RegistrarseActivity extends AppCompatActivity implements View.OnCli
             nombre=params[0];
             email=params[1];
             password=params[2];
-            telefono=params[3];
             return hayConexionInternet();
         }
 
@@ -197,7 +182,7 @@ public class RegistrarseActivity extends AppCompatActivity implements View.OnCli
             super.onPostExecute(resultado);
             if(resultado)
             {
-                enviarDatosParse(nombre,email,password,telefono);
+                enviarDatosBackendless(nombre,email,password);
             }
             else
             {
@@ -226,58 +211,33 @@ public class RegistrarseActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-    private void enviarDatosParse(final String nombre, final String email, final String password, final String telefono)
+    private void enviarDatosBackendless(String nombre,String email,String password)
     {
-        ParseQuery<ParseObject> queryUser = new ParseQuery<>(Usuario.TABLA);
-        queryUser.whereEqualTo(Usuario.EMAIL,email);
-        queryUser.getFirstInBackground(new GetCallback<ParseObject>() {
+        BackendlessUser user = new BackendlessUser();
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setProperty("name", nombre);
+        Backendless.UserService.register(user, new AsyncCallback<BackendlessUser>()
+        {
             @Override
-            public void done(ParseObject object, ParseException e)
+            public void handleResponse(BackendlessUser response)
             {
-                if(e==null)
+                pd.dismiss();
+                setResult(Activity.RESULT_OK);
+                finish();
+            }
+            @Override
+            public void handleFault(BackendlessFault fault)
+            {
+
+                if (fault.getCode().equals("3033"))
                 {
                     pd.dismiss();
                     mostrarMensaje(R.string.correo_ya_esta);
-                }
-                else
+                } else
                 {
-                    if(e.getCode()==101)
-                    {
-                        final ParseUser user = new ParseUser();
-                        user.setUsername(email);
-                        user.setPassword(password);
-                        user.setEmail(email);
-                        user.put(Usuario.NOMBRE, nombre);
-                        user.signUpInBackground(new SignUpCallback() {
-                            @Override
-                            public void done(ParseException e)
-                            {
-                                if(e==null)
-                                {
-                                    ParseObject telefonoParse = new ParseObject(Usuario.TABLATELEFONO);
-                                    telefonoParse.put(Usuario.TBLTELEFONONUMERO, telefono);
-                                    telefonoParse.put(Usuario.TBLTELEFONOUSER, user.getObjectId());
-                                    telefonoParse.saveInBackground();
-
-                                    pd.dismiss();
-                                    setResult(Activity.RESULT_OK);
-                                    finish();
-                                }
-                                else
-                                {
-                                    pd.dismiss();
-                                    mostrarMensaje(R.string.compruebe_conexion);
-                                }
-
-                            }
-                        });
-
-                    }
-                    else
-                    {
-                        pd.dismiss();
-                        mostrarMensaje(R.string.compruebe_conexion);
-                    }
+                    pd.dismiss();
+                    mostrarMensaje(R.string.compruebe_conexion);
                 }
             }
         });

@@ -11,7 +11,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,24 +22,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.AccessToken;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.parse.LogInCallback;
-import com.parse.ParseException;
-import com.parse.ParseFacebookUtils;
-import com.parse.ParseUser;
-import com.parse.RequestPasswordResetCallback;
+import com.backendless.Backendless;
+import com.backendless.BackendlessUser;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+import com.facebook.CallbackManager;
+import com.facebook.login.LoginManager;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import pirinola24.com.pirinola24.modelo.Usuario;
 import pirinola24.com.pirinola24.util.FontCache;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener
@@ -62,6 +56,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private ProgressDialog pd = null;
     private ImageView btnFacebook;
     private Dialog dialog;
+    private CallbackManager callbackManager;
 
 
     @Override
@@ -92,6 +87,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         TF = FontCache.get(fontStackyard,this);
         txtrecuperarClave.setTypeface(TF);
+
+        callbackManager = CallbackManager.Factory.create();
     }
 
 
@@ -203,7 +200,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             super.onPostExecute(aBoolean);
             if(aBoolean)
             {
-                enviarEmailParse(email);
+                enviarEmailBackendless(email);
             }
             else
             {
@@ -213,17 +210,30 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void enviarEmailParse(String email)
+    private void enviarEmailBackendless(String email)
     {
-        ParseUser.requestPasswordResetInBackground(email, new RequestPasswordResetCallback() {
-            public void done(ParseException e) {
-                pd.dismiss();
-                if (e == null) {
-                    dialog.dismiss();
-                    mostrarMensaje(R.string.confirmacion_envio_email);
-                } else {
 
-                    if(e.getCode()==205)
+        Backendless.UserService.restorePassword(email, new AsyncCallback<Void>() {
+            @Override
+            public void handleResponse(Void response)
+            {
+                pd.dismiss();
+                dialog.dismiss();
+                mostrarMensaje(R.string.confirmacion_envio_email);
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault)
+            {
+                pd.dismiss();
+                dialog.dismiss();
+                if(fault.getCode()!=null && fault.getCode().equals("3075"))
+                {
+                    mostrarMensaje(R.string.txt_mensaje_usuario_no_puede_ser_logueado);
+                }
+                else
+                {
+                    if(fault.getCode()!=null && fault.getCode().equals("3020"))
                     {
                         mostrarMensaje(R.string.correo_no_se_encuentra);
                     }
@@ -250,103 +260,89 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void iniciarSessionFacebook()
     {
+        Map<String, String> facebookFieldMappings = new HashMap<String, String>();
+        facebookFieldMappings.put("email", "emailFacebook");
+        facebookFieldMappings.put("name", "name");
+
+        List<String> permissions = new ArrayList<String>();
+        permissions.add("public_profile");
+        permissions.add("email");
         pd=ProgressDialog.show(this,getResources().getString(R.string.txt_iniciando_con_facebook), getResources().getString(R.string.por_favor_espere), true);
-        List<String> permissions = Arrays.asList("public_profile", "user_about_me",
-                "user_birthday", "user_location", "email");
-        ParseFacebookUtils.logInWithReadPermissionsInBackground(this, permissions, new LogInCallback()
-        {
+        Backendless.UserService.loginWithFacebookSdk(this, facebookFieldMappings, permissions, callbackManager, new AsyncCallback<BackendlessUser>() {
             @Override
-            public void done(ParseUser user, ParseException err)
+            public void handleResponse(BackendlessUser response) {
+                pd.dismiss();
+                LoginActivity.this.setResult(MI_REQUEST_SE_LOGUIO_USUARIO);
+                LoginActivity.this.finish();
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault)
             {
                 pd.dismiss();
-                if (user == null)
+                LoginManager.getInstance().logOut();
+                if(fault.getCode()!=null)
                 {
-                    if(err!=null)
+                    if (fault.getCode().equals("3033"))                {
+                        mostrarMensaje(R.string.correo_ya_esta);
+
+                    } else
                     {
                         mostrarMensaje(R.string.compruebe_conexion);
                     }
                 }
                 else
                 {
-                    if (user.isNew())
+                    if(!fault.getMessage().equals("Facebook login canceled"))
                     {
-                        makeMeRequest();
+                        mostrarMensaje(R.string.compruebe_conexion);
+                    }
+
+                }
+
+            }
+        }, true);
+    }
+
+    private void enviarBackendless(String email, String password)
+    {
+        pd = ProgressDialog.show(this, getResources().getString(R.string.txt_iniciando), getResources().getString(R.string.por_favor_espere), true, false);
+
+
+        Backendless.UserService.login(email, password, new AsyncCallback<BackendlessUser>() {
+            @Override
+            public void handleResponse(BackendlessUser response)
+            {
+                pd.dismiss();
+                setResult(MI_REQUEST_SE_LOGUIO_USUARIO);
+                finish();
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault)
+            {
+                pd.dismiss();
+                if(fault.getCode().equals("3003"))
+                {
+                    mostrarMensaje(R.string.txt_email_clave_incorrectos);
+                }
+                else
+                {
+                    if(fault.getCode().equals("3000"))
+                    {
+                        mostrarMensaje(R.string.txt_mensaje_usuario_no_puede_ser_logueado);
                     }
                     else
                     {
-                        if(user.getString(Usuario.NOMBRE)==null)
-                        {
-                            makeMeRequest();
-                        }
-                    }
-                    LoginActivity.this.setResult(MI_REQUEST_SE_LOGUIO_USUARIO);
-                    LoginActivity.this.finish();
-                }
-
-            }
-        });
-    }
-
-    private void enviarParse(String email, String password)
-    {
-        pd = ProgressDialog.show(this, getResources().getString(R.string.txt_iniciando), getResources().getString(R.string.por_favor_espere), true, false);
-        ParseUser.logInInBackground(email, password, new LogInCallback() {
-            public void done(ParseUser user, ParseException e) {
-                if (user != null) {
-                    pd.dismiss();
-                    setResult(MI_REQUEST_SE_LOGUIO_USUARIO);
-                    finish();
-                } else {
-                    pd.dismiss();
-                    if (e.getCode() == 101) {
-                        mostrarMensaje(R.string.txt_email_clave_incorrectos);
-                    } else {
                         mostrarMensaje(R.string.compruebe_conexion);
                     }
+
                 }
             }
-        });
+        },true);
     }
 
-    private void makeMeRequest() {
-        GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),
-                new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
-                        if (jsonObject != null) {
-                            JSONObject userProfile = new JSONObject();
 
-                            try {
-
-                                ParseUser currentUser = ParseUser.getCurrentUser();
-                                userProfile.put("facebookId", jsonObject.getLong("id"));
-                                userProfile.put("name", jsonObject.getString("name"));
-                                currentUser.put(Usuario.NOMBRE,jsonObject.getString("name"));
-
-                                if (jsonObject.getString("gender") != null)
-                                    userProfile.put("gender", jsonObject.getString("gender"));
-
-                                if (jsonObject.getString("email") != null)
-                                    userProfile.put("email", jsonObject.getString("email"));
-                                currentUser.put(Usuario.EMAILFACEBOOK, jsonObject.getString("email"));
-
-                                currentUser.put("profile", userProfile);
-                                currentUser.saveInBackground();
-
-                            } catch (JSONException e) {
-                                Log.d("Myapp",
-                                        "Error parsing returned user data. " + e);
-                            }
-                        } else if (graphResponse.getError() != null) {
-
-                        }
-                    }
-                });
-        Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,email,gender,name");
-        request.setParameters(parameters);
-        request.executeAsync();
-    }
 
 
     public class IniciarSesionTask extends AsyncTask<String,Void,Boolean>
@@ -366,7 +362,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             super.onPostExecute(resultado);
             if(resultado)
             {
-                enviarParse(email,password);
+                enviarBackendless(email,password);
             }
             else
             {
@@ -379,7 +375,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);
-        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode,resultCode,data);
+        //ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
         switch (requestCode)
         {
             case MI_REQUEST_CODE_REGISTRARSE:

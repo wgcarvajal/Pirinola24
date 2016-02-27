@@ -19,14 +19,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.SaveCallback;
+import com.backendless.Backendless;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 
 import java.util.ArrayList;
 import java.util.List;
 import pirinola24.com.pirinola24.adaptadores.AdaptadorSpinnerFormaPago;
 import pirinola24.com.pirinola24.basededatos.AdminSQliteOpenHelper;
+import pirinola24.com.pirinola24.modelo.Itempedido;
 import pirinola24.com.pirinola24.modelo.Pedido;
 import pirinola24.com.pirinola24.util.FontCache;
 
@@ -107,48 +108,61 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    private void enviarParse(String nombre,String direccion,String barrio,String telefono,String observaciones,String formaPago)
+    private void enviarBackendless(String nombre,String direccion,String barrio,String telefono,String observaciones,String formaPago)
     {
-        final ParseObject pedido = new ParseObject(Pedido.TABLA);
-        pedido.put(Pedido.PERSONANOMBRE, nombre);
-        pedido.put(Pedido.DIRECCION, direccion+" "+barrio);
-        pedido.put(Pedido.TELEFONO, telefono);
-        pedido.put(Pedido.FORMAPAGO, formaPago);
-        pedido.put(Pedido.OBSERVACIONES, observaciones);
-        pedido.saveInBackground(new SaveCallback() {
+
+
+        Pedido pedido= new Pedido();
+        pedido.setPeddireccion(direccion);
+        pedido.setPedformapago(formaPago);
+        pedido.setPedobservaciones(observaciones);
+        pedido.setPedtelefono(telefono);
+        pedido.setPedpersonanombre(nombre);
+
+        Backendless.Persistence.save(pedido, new AsyncCallback<Pedido>() {
             @Override
-            public void done(ParseException e) {
-                if (e == null) {
+            public void handleResponse(Pedido response)
+            {
+                AdminSQliteOpenHelper admin = new AdminSQliteOpenHelper(getApplicationContext(), "admin", null, 1);
+                SQLiteDatabase db = admin.getReadableDatabase();
+                Cursor fila = db.rawQuery("select prodid,prodcantidad from pedido", null);
+                if (fila != null) {
 
-                    AdminSQliteOpenHelper admin = new AdminSQliteOpenHelper(getApplicationContext(), "admin", null, 1);
-                    SQLiteDatabase db = admin.getReadableDatabase();
+                    if (fila.moveToFirst()) {
+                        do {
+                            Itempedido itempedido = new Itempedido();
+                            itempedido.setPedido(response.getObjectId());
+                            itempedido.setProducto(fila.getString(fila.getColumnIndex("prodid")));
+                            itempedido.setItemcantidad(fila.getInt(fila.getColumnIndex("prodcantidad")));
+                            Backendless.Persistence.save(itempedido, new AsyncCallback<Itempedido>() {
+                                @Override
+                                public void handleResponse(Itempedido response) {
 
-                    Cursor fila = db.rawQuery("select prodid,prodcantidad from pedido", null);
-                    if (fila != null) {
+                                }
 
-                        if (fila.moveToFirst()) {
-                            do {
-                                ParseObject itempedido = new ParseObject(Pedido.TABLAITEMPEDIDO);
-                                itempedido.put(Pedido.TBLITEMPEDIDO_PEDIDO, pedido.getObjectId());
-                                itempedido.put(Pedido.TBLITEMPEDIDO_PRODUCTO, fila.getString(fila.getColumnIndex("prodid")));
-                                itempedido.put(Pedido.TBLITEMPEDIDO_CANTIDAD, fila.getInt(fila.getColumnIndex("prodcantidad")));
-                                itempedido.saveInBackground();
+                                @Override
+                                public void handleFault(BackendlessFault fault) {
 
-
-                            } while (fila.moveToNext());
-                            setResult(Activity.RESULT_OK);
-                            if (pd != null) {
-                                pd.dismiss();
-                            }
-                            finish();
+                                }
+                            });
+                        } while (fila.moveToNext());
+                        setResult(Activity.RESULT_OK);
+                        if (pd != null) {
+                            pd.dismiss();
                         }
+                        finish();
                     }
-                } else {
-                    if (pd != null) {
-                        pd.dismiss();
-                    }
-                    mostrarMensaje(R.string.compruebe_conexion);
                 }
+
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault)
+            {
+                if (pd != null) {
+                    pd.dismiss();
+                }
+                mostrarMensaje(R.string.compruebe_conexion);
             }
         });
     }
@@ -240,7 +254,7 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
             super.onPostExecute(resultado);
             if(resultado)
             {
-                enviarParse(nombre,direccion,barrio,telefono,observaciones,formaPago);
+                enviarBackendless(nombre, direccion, barrio, telefono, observaciones, formaPago);
             }
             else
             {

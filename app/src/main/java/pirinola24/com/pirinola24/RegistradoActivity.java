@@ -226,7 +226,7 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
 
     private void enviarParse(String nombre,String direccion,String telefono,String observaciones,String formaPago)
     {
-        final ParseObject pedido = new ParseObject(Pedido.TABLA);
+        /*final ParseObject pedido = new ParseObject(Pedido.TABLA);
         pedido.put(Pedido.PERSONANOMBRE, nombre);
         pedido.put(Pedido.DIRECCION, direccion);
         pedido.put(Pedido.TELEFONO, telefono);
@@ -267,7 +267,7 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
                     mostrarMensaje(R.string.compruebe_conexion);
                 }
             }
-        });
+        });*/
     }
 
     private void agregarTelefono()
@@ -537,7 +537,11 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
 
     private void cargarDatosParse()
     {
-        final Context context =this;
+        if(pd!=null)
+        {
+            pd.dismiss();
+        }
+        /*final Context context =this;
         final ParseUser currentuser= ParseUser.getCurrentUser();
         ParseQuery<ParseObject> queryDireccion= new ParseQuery<>(Usuario.TABLADIRECCION);
         queryDireccion.whereEqualTo(Usuario.TBLDIRECCIONUSER,currentuser.getObjectId());
@@ -614,7 +618,7 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
                 }
 
             }
-        });
+        });*/
     }
     private boolean hayConexionInternet()
     {

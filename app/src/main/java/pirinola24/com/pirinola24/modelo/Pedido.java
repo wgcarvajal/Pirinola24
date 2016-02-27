@@ -5,18 +5,85 @@ package pirinola24.com.pirinola24.modelo;
  */
 public class Pedido
 {
-    public static String TABLA="Pedido";
-    public static String PERSONANOMBRE="pedpersonanombre";
-    public static String DIRECCION="peddireccion";
-    public static String TELEFONO="pedtelefono";
-    public static String BARRIO="pedbarrio";
-    public static String FORMAPAGO="pedformapago";
-    public static String OBSERVACIONES="pedobservaciones";
+    private String objectId;
+    private String estado;
+    private String peddireccion;
+    private String pedformapago;
+    private String pedobservaciones;
+    private String pedpersonanombre;
+    private String pedtelefono;
 
-    public static String TABLAITEMPEDIDO="Itempedido";
-    public static String TBLITEMPEDIDO_PEDIDO="pedido";
-    public static String TBLITEMPEDIDO_PRODUCTO="producto";
-    public static String TBLITEMPEDIDO_CANTIDAD="itemcantidad";
+    public String getPedtelefono()
+    {
+        return pedtelefono;
+    }
+
+    public void setPedtelefono(String pedtelefono)
+    {
+        this.pedtelefono = pedtelefono;
+    }
+
+    public String getPedpersonanombre()
+    {
+        return pedpersonanombre;
+    }
+
+    public void setPedpersonanombre(String pedpersonanombre)
+    {
+        this.pedpersonanombre = pedpersonanombre;
+    }
+
+    public String getPedobservaciones()
+    {
+        return pedobservaciones;
+    }
+
+    public void setPedobservaciones(String pedobservaciones)
+    {
+        this.pedobservaciones = pedobservaciones;
+    }
+
+    public String getPedformapago()
+    {
+        return pedformapago;
+    }
+
+    public void setPedformapago(String pedformapago)
+    {
+        this.pedformapago = pedformapago;
+    }
+
+    public String getPeddireccion()
+    {
+        return peddireccion;
+    }
+
+    public void setPeddireccion(String peddireccion)
+    {
+        this.peddireccion = peddireccion;
+    }
+
+    public String getEstado()
+    {
+        return estado;
+    }
+
+    public void setEstado(String estado)
+    {
+        this.estado = estado;
+    }
+
+    public String getObjectId()
+    {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId)
+    {
+        this.objectId = objectId;
+    }
+
+
 
 
 }

@@ -19,46 +19,19 @@ public class Producto
     public static String ID="objectId";
 
 
-    private String id;
-    private String nombre;
+    private String objectId;
     private int precio;
-    private String descripcion;
+    private String proddescripcion;
+    private String prodnombre;
     private String subcategoria;
-    private String urlImagen;
+    private String imgFile;
 
-    public String getId()
-    {
-        return id;
+    public String getImgFile() {
+        return imgFile;
     }
 
-    public void setId(String id)
-    {
-        this.id = id;
-    }
-
-    public String getNombre()
-    {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(int precio) {
-        this.precio = precio;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setImgFile(String imgFile) {
+        this.imgFile = imgFile;
     }
 
     public String getSubcategoria() {
@@ -69,11 +42,35 @@ public class Producto
         this.subcategoria = subcategoria;
     }
 
-    public String getUrlImagen() {
-        return urlImagen;
+    public String getProdnombre() {
+        return prodnombre;
     }
 
-    public void setUrlImagen(String urlImagen) {
-        this.urlImagen = urlImagen;
+    public void setProdnombre(String prodnombre) {
+        this.prodnombre = prodnombre;
+    }
+
+    public String getProddescripcion() {
+        return proddescripcion;
+    }
+
+    public void setProddescripcion(String proddescripcion) {
+        this.proddescripcion = proddescripcion;
+    }
+
+    public int getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(int precio) {
+        this.precio = precio;
+    }
+
+    public String getObjectId() {
+        return objectId;
+    }
+
+    public void setObjectId(String objectId) {
+        this.objectId = objectId;
     }
 }

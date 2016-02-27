@@ -114,7 +114,7 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
         menuPrincipal.setOnClickListener(this);
 
         Picasso.with(v.getContext())
-                .load(Uri.parse(urlimagen))
+                .load(urlimagen)
                 .into(titulo);
 
 
@@ -190,21 +190,21 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
             m.start();
             AdminSQliteOpenHelper admin = new AdminSQliteOpenHelper(getContext(),"admin",null,1);
             SQLiteDatabase db = admin.getWritableDatabase();
-            Cursor fila = db.rawQuery("select prodcantidad from pedido where prodid = '" + params[0].getId() + "'", null);
+            Cursor fila = db.rawQuery("select prodcantidad from pedido where prodid = '" + params[0].getObjectId() + "'", null);
             ContentValues registroPedido= new ContentValues();
             int conteo=1;
             if(fila.moveToFirst())
             {
                 conteo=fila.getInt(0)+1;
                 registroPedido.put("prodcantidad",conteo);
-                db.update("pedido",registroPedido,"prodid = '"+params[0].getId()+"'",null);
+                db.update("pedido",registroPedido,"prodid = '"+params[0].getObjectId()+"'",null);
             }
             else
             {
-                registroPedido.put("prodid",params[0].getId());
+                registroPedido.put("prodid",params[0].getObjectId());
                 registroPedido.put("prodprecio",params[0].getPrecio());
-                registroPedido.put("prodnombre",params[0].getNombre());
-                registroPedido.put("proddescripcion",params[0].getDescripcion());
+                registroPedido.put("prodnombre",params[0].getProdnombre());
+                registroPedido.put("proddescripcion",params[0].getProddescripcion());
                 registroPedido.put("prodcantidad",conteo);
                 db.insert("pedido",null,registroPedido);
             }

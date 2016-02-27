@@ -16,41 +16,51 @@ public class Subcategoria
     public static String NOMBRE="subcatnombre";
     public static String TIPOFRAGMENT="tipoFragment";
 
-    private String nombre;
-    private String urlImagenTitulo;
+
+    private String objectId;
+    private String imgTitulo;
+    private int posicion;
+    private String subcatnombre;
     private int tipoFragment;
 
-
-    public void Subcategoria()
-    {
-
+    public String getObjectId() {
+        return objectId;
     }
 
-    public String getNombre() {
-        return nombre;
+    public void setObjectId(String objectID) {
+        this.objectId = objectID;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String getImgTitulo() {
+        return imgTitulo;
     }
 
-    public String getUrlImagenTitulo() {
-        return urlImagenTitulo;
+    public void setImgTitulo(String imgTitulo) {
+        this.imgTitulo = imgTitulo;
     }
 
-    public void setUrlImagenTitulo(String urlImagenTitulo) {
-        this.urlImagenTitulo = urlImagenTitulo;
+    public int getPosicion() {
+        return posicion;
     }
 
-    public int getTipoFragment()
-    {
+    public void setPosicion(int posicion) {
+        this.posicion = posicion;
+    }
+
+    public String getSubcatnombre() {
+        return subcatnombre;
+    }
+
+    public void setSubcatnombre(String subcatnombre) {
+        this.subcatnombre = subcatnombre;
+    }
+
+    public int getTipoFragment() {
         return tipoFragment;
     }
 
-    public void setTipoFragment(int tipoFragment)
-    {
-        this.tipoFragment=tipoFragment;
+    public void setTipoFragment(int tipoFragment) {
+        this.tipoFragment = tipoFragment;
     }
-
 
 }

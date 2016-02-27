@@ -105,5 +105,7 @@
     <string name="txt_mensaje_contacto">Message</string>
     <string name="txt_mensaje_enviado">Message sent</string>
 
+    <string name="txt_mensaje_usuario_no_puede_ser_logueado">El correo electrónico se registro bajo la autenticación por facebook.</string>
+
 
 </resources>

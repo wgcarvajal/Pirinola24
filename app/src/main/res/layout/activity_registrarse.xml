@@ -135,31 +135,14 @@
                 android:ellipsize="end"
                 android:inputType="textPassword"
                 />
-            <EditText
-                android:id="@+id/txt_telefono"
-                android:layout_width="match_parent"
-                android:maxLength="12"
-                android:layout_height="@dimen/tam_alto_caja_texto"
-                android:layout_below="@id/txt_repetirpassword"
-                android:textColor="@color/vinotintoapp"
-                android:hint="@string/txt_telefono"
-                android:layout_marginTop="@dimen/margin_input_registrase"
-                android:textColorHint="@color/verdeapp"
-                android:layout_marginLeft="@dimen/margin_small"
-                android:layout_marginRight="@dimen/margin_small"
-                android:textSize="@dimen/size_text_caja_texto"
-                android:background="@drawable/caja_texto_ingrese"
-                android:gravity="center"
-                android:ellipsize="end"
-                android:inputType="phone"
-                />
+
 
 
             <ImageView
                 android:id="@+id/btnRegistrarse"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tam_alto_btn"
-                android:layout_below="@id/txt_telefono"
+                android:layout_below="@id/txt_repetirpassword"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:layout_marginRight="@dimen/margin_small"
                 android:layout_marginLeft="@dimen/margin_small"

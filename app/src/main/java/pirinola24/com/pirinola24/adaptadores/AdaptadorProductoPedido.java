@@ -131,7 +131,7 @@ public class AdaptadorProductoPedido extends BaseAdapter implements View.OnClick
 
 
         Picasso.with(context)
-                .load(Uri.parse(p.getUrlImagen()))
+                .load(Uri.parse(p.getImgFile()))
                 .into(viewHolder.imagenProducto);
         return v;
     }
@@ -144,7 +144,7 @@ public class AdaptadorProductoPedido extends BaseAdapter implements View.OnClick
         viewHolder.btnDisminuir.setTag(position);
         viewHolder.btnDisminuir.setOnClickListener(this);
         FijarCantidadTask fijarCantidadTask=new FijarCantidadTask(context,viewHolder);
-        fijarCantidadTask.execute(producto.getId());
+        fijarCantidadTask.execute(producto.getObjectId());
     }
 
     public class FijarCantidadTask extends AsyncTask<String,Void,Void>
@@ -187,9 +187,9 @@ public class AdaptadorProductoPedido extends BaseAdapter implements View.OnClick
     {
         TextView txtconteo=(TextView)v.getTag(R.id.txtconteo);
         int precio= data.get(Integer.parseInt(v.getTag().toString())).getPrecio();
-        String prodid = data.get(Integer.parseInt(v.getTag().toString())).getId();
+        String prodid = data.get(Integer.parseInt(v.getTag().toString())).getObjectId();
         DisminuirCantidadTask disminuirCantidadTask= new DisminuirCantidadTask(txtconteo,context,Integer.parseInt(v.getTag().toString()),precio);
-        disminuirCantidadTask.execute(data.get(Integer.parseInt(v.getTag().toString())).getId());
+        disminuirCantidadTask.execute(data.get(Integer.parseInt(v.getTag().toString())).getObjectId());
     }
 
 

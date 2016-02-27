@@ -126,7 +126,7 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
         fijarDatos(p, viewHolder, position);
 
         Picasso.with(context)
-                .load(Uri.parse(p.getUrlImagen()))
+                .load(Uri.parse(p.getImgFile()))
                 .into(viewHolder.imagenProducto);
 
         return v;
@@ -142,7 +142,7 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
         viewHolder.btnDisminuir.setOnClickListener(this);
         viewHolder.btnDescripcion.setOnClickListener(this);
         FijarCantidadTask fijarCantidadTask=new FijarCantidadTask(context,viewHolder);
-        fijarCantidadTask.execute(producto.getId());
+        fijarCantidadTask.execute(producto.getObjectId());
 
     }
 
@@ -192,14 +192,14 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
         {
             case R.id.btn_disminuir:
                 TextView txtconteo=(TextView)v.getTag(R.id.txtconteo);
-                String prodid = data.get(Integer.parseInt(v.getTag().toString())).getId();
+                String prodid = data.get(Integer.parseInt(v.getTag().toString())).getObjectId();
                 DisminuirCantidadTask disminuirCantidadTask= new DisminuirCantidadTask(txtconteo,(ImageView)v,context);
-                disminuirCantidadTask.execute(data.get(Integer.parseInt(v.getTag().toString())).getId());
+                disminuirCantidadTask.execute(data.get(Integer.parseInt(v.getTag().toString())).getObjectId());
             break;
             case R.id.btn_descripcion:
                 int indice=Integer.parseInt(v.getTag().toString());
-                String nombreProducto=data.get(indice).getNombre();
-                String descripcionProducto=data.get(indice).getDescripcion();
+                String nombreProducto=data.get(indice).getProdnombre();
+                String descripcionProducto=data.get(indice).getProddescripcion();
                onComunicationAdaptador.onMostrarDescripcionProducto(nombreProducto,descripcionProducto);
             break;
         }
