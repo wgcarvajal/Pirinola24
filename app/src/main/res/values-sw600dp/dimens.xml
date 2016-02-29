@@ -64,6 +64,8 @@
     <dimen name="margin_medium">30dp</dimen>
 
     <dimen name="margin_grande">40dp</dimen>
+    <dimen name="size_ciudad">35sp</dimen>
+    <dimen name="tam_icono_ciudad">40dp</dimen>
 
 
 

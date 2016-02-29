@@ -419,7 +419,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         dialog.setContentView(R.layout.template_dialog_confirmacion_envio);
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.bordes_redondos);
 
-        Button btnAceptar=(Button)dialog.findViewById(R.id.btn_aceptar);
+        TextView btnAceptar=(TextView)dialog.findViewById(R.id.btn_aceptar);
         TextView mensaje =(TextView) dialog.findViewById(R.id.txtmensaje);
         Typeface TF = FontCache.get(font_path,this);
         mensaje.setText(getResources().getString(R.string.confirmar_registro));

@@ -98,6 +98,7 @@
     <string name="title_activity_contacto">ContactoActivity</string>
 
     <string name="txt_mensaje_usuario_no_puede_ser_logueado">El correo electrónico se registro bajo la autenticación por facebook.</string>
+    <string name="title_activity_seleccionarciudad">SeleccionarciudadActivity</string>
 
 
 </resources>

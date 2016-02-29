@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+
+    <TextView
+        android:id="@+id/nombreciudad"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/verdeapp"
+        android:text="Ciudad"
+        android:textSize="@dimen/size_ciudad"
+        android:layout_marginBottom="@dimen/margin_small"
+        />
+
+    <ImageView
+        android:layout_width="@dimen/tam_icono_ciudad"
+        android:layout_height="@dimen/tam_icono_ciudad"
+        android:src="@mipmap/ic_flecha_derecha_redonda"
+        android:layout_alignBottom="@id/nombreciudad"
+        android:layout_alignRight="@id/nombreciudad"
+
+        />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="@color/vinotintoapp"
+        android:layout_below="@id/nombreciudad"
+        android:layout_marginBottom="@dimen/margin_small"/>
+
+</RelativeLayout>

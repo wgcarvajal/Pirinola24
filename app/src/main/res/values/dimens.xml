@@ -95,6 +95,8 @@
     <dimen name="alto_btn_realizar_pedido">40dp</dimen>
     <dimen name="size_letra_boton_realizar_pedido">25sp</dimen>
     <dimen name="tam_btn_enviar">30dp</dimen>
+    <dimen name="size_ciudad">25sp</dimen>
+    <dimen name="tam_icono_ciudad">30dp</dimen>
 
 
 </resources>
