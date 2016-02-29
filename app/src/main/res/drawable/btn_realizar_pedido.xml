@@ -11,7 +11,7 @@
         android:color="@color/verdeapp"
         android:width="2dp"
         />
-    <corners android:radius="@dimen/size_radio_btn_realizarpedido"></corners>
+
 
 
 </shape>

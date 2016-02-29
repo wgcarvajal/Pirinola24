@@ -2,53 +2,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="pirinola24.com.pirinola24.LoginActivity"
-    android:background="@drawable/fondo"
-    >
-    <LinearLayout
-        android:id="@+id/contenedor_header_Login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/super_margin_small"
-        >
+    android:background="@color/amarilloapp">
+
 
         <ImageView
             android:id="@+id/flecha_atras"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/tam_img_icono_menu_carro"
             android:layout_height="@dimen/tam_img_icono_menu_carro"
-            android:layout_weight="1"
-            android:src="@drawable/flecha_atras"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:src="@mipmap/ic_flecha_atras"
             />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:src="@drawable/titulo_atenticarse"
+        <TextView
+            android:id="@+id/ingrese"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/tam_img_titulo_subcategoria"
-            android:scaleType="fitCenter"/>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/tam_img_icono_menu_carro"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:textSize="@dimen/tam_titulo_subcategoria"
+            android:text="Ingrese"
+            android:gravity="center"
+            android:textColor="@color/vinotintoapp"
             />
-    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:layout_below="@id/contenedor_header_Login"
+        android:layout_below="@id/ingrese"
         android:layout_marginBottom="@dimen/margin_small"
         >
-
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
-
 
             <ImageView
                 android:id="@+id/imagen_login"
@@ -56,7 +47,7 @@
                 android:layout_height="@dimen/tam_alto_imagen_login"
                 android:layout_marginTop="@dimen/margin_imagen_login"
                 android:layout_marginBottom="@dimen/margin_imagen_login"
-                android:src="@drawable/gorrita_grande"
+                android:src="@mipmap/ic_logo_gorra"
                 android:scaleType="fitXY"
                 android:layout_centerHorizontal="true"
 
@@ -83,7 +74,7 @@
             <ImageView
                 android:layout_width="@dimen/tam_icono_caja_text"
                 android:layout_height="@dimen/tam_icono_caja_text"
-                android:src="@drawable/icono_usuario"
+                android:src="@mipmap/ic_icono_usuario"
                 android:layout_alignBottom="@id/txt_email"
                 android:layout_alignRight="@id/txt_email"
                 android:layout_marginBottom="@dimen/icono_ingrese_margin_bottom"
@@ -111,23 +102,38 @@
             <ImageView
                 android:layout_width="@dimen/tam_icono_caja_text"
                 android:layout_height="@dimen/tam_icono_caja_text"
-                android:src="@drawable/icono_password"
+                android:src="@mipmap/ic_icono_password"
                 android:layout_alignBottom="@id/txt_password"
                 android:layout_alignRight="@id/txt_password"
                 android:layout_marginBottom="@dimen/icono_ingrese_margin_bottom"
-                android:layout_marginRight="@dimen/icono_ingrese_margin_rigth"/>
+                android:layout_marginRight="@dimen/icono_ingrese_margin_rigth"
                 />
 
-            <ImageView
+
+            <TextView
                 android:id="@+id/btninciarsesion"
                 android:layout_width="match_parent"
-                android:src="@drawable/boton_login"
                 android:layout_height="@dimen/tam_alto_btn"
                 android:layout_marginTop="@dimen/margin_top_btn"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_small"
+                android:background="@drawable/btn_realizar_pedido"
+                android:textColor="@color/amarilloapp"
+                android:text="Iniciar Sesión"
+                android:textSize="@dimen/size_letra_boton_realizar_pedido"
+                android:gravity="center"
                 android:layout_below="@id/txt_password"
-                android:scaleType="fitXY"
+
+                />
+
+            <ImageView
+                android:layout_width="@dimen/tam_icono_caja_text"
+                android:layout_height="@dimen/tam_icono_caja_text"
+                android:src="@mipmap/ic_icono_ok"
+                android:layout_alignBottom="@id/btninciarsesion"
+                android:layout_alignRight="@id/btninciarsesion"
+                android:layout_marginBottom="@dimen/icono_ingrese_margin_bottom"
+                android:layout_marginRight="@dimen/icono_ingrese_margin_rigth"
                 />
 
 
@@ -145,43 +151,82 @@
                 android:layout_below="@id/btninciarsesion"
                 />
 
-            <ImageView
+
+            <TextView
                 android:id="@+id/btnRegistrarse"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tam_alto_btn"
                 android:layout_marginTop="@dimen/margin_top_btn"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_small"
-                android:src="@drawable/boton_registrarse"
+                android:background="@drawable/btn_realizar_pedido"
+                android:textColor="@color/amarilloapp"
+                android:text="Registrarse"
+                android:textSize="@dimen/size_letra_boton_realizar_pedido"
+                android:gravity="center"
                 android:layout_below="@id/recuperarClave"
-                android:scaleType="fitXY"
+
                 />
 
-
-
             <ImageView
+                android:layout_width="@dimen/tam_icono_caja_text"
+                android:layout_height="@dimen/tam_icono_caja_text"
+                android:src="@mipmap/ic_add_user"
+                android:layout_alignBottom="@id/btnRegistrarse"
+                android:layout_alignRight="@id/btnRegistrarse"
+                android:layout_marginBottom="@dimen/icono_ingrese_margin_bottom"
+                android:layout_marginRight="@dimen/icono_ingrese_margin_rigth"
+                />
+
+            <TextView
                 android:id="@+id/btn_facebook"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tam_alto_btn"
-                android:layout_below="@id/btnRegistrarse"
                 android:layout_marginTop="@dimen/margin_top_btn"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_small"
-                android:src="@drawable/boton_facebook"
-                android:scaleType="fitXY"
+                android:background="@drawable/btn_realizar_pedido"
+                android:textColor="@color/amarilloapp"
+                android:text="Iniciar sesión con Facebook"
+                android:textSize="@dimen/size_letra_boton_realizar_pedido"
+                android:gravity="center"
+                android:layout_below="@id/btnRegistrarse"
+
+                />
+            <ImageView
+                android:layout_width="@dimen/tam_icono_caja_text"
+                android:layout_height="@dimen/tam_icono_caja_text"
+                android:src="@mipmap/ic_icono_facebook"
+                android:layout_alignBottom="@id/btn_facebook"
+                android:layout_alignRight="@id/btn_facebook"
+                android:layout_marginBottom="@dimen/icono_ingrese_margin_bottom"
+                android:layout_marginRight="@dimen/icono_ingrese_margin_rigth"
                 />
 
-            <ImageView
+
+            <TextView
                 android:id="@+id/btn_continuar_no_registrado"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tam_alto_btn"
-                android:layout_below="@id/btn_facebook"
-                android:gravity="center"
                 android:layout_marginTop="@dimen/margin_top_btn"
-                android:layout_marginRight="@dimen/margin_small"
                 android:layout_marginLeft="@dimen/margin_small"
-                android:scaleType="fitXY"
-                android:src="@drawable/boton_noregistrado"
+                android:layout_marginRight="@dimen/margin_small"
+                android:background="@drawable/btn_realizar_pedido"
+                android:textColor="@color/amarilloapp"
+                android:text="Continuar como no registrado"
+                android:textSize="@dimen/size_letra_boton_realizar_pedido"
+                android:gravity="center"
+                android:layout_below="@id/btn_facebook"
+
+                />
+            <ImageView
+                android:layout_width="@dimen/tam_icono_caja_text"
+                android:layout_height="@dimen/tam_icono_caja_text"
+                android:src="@mipmap/ic_continuar_no_registrado"
+                android:layout_alignBottom="@id/btn_continuar_no_registrado"
+                android:layout_alignRight="@id/btn_continuar_no_registrado"
+                android:layout_marginBottom="@dimen/icono_ingrese_margin_bottom"
+                android:layout_marginRight="@dimen/icono_ingrese_margin_rigth"
                 />
 
         </RelativeLayout>

@@ -37,7 +37,6 @@ import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.BackendlessDataQuery;
 import com.backendless.persistence.QueryOptions;
 import com.backendless.persistence.local.UserIdStorageFactory;
-import com.backendless.persistence.local.UserTokenStorageFactory;
 import com.facebook.login.LoginManager;
 import com.viewpagerindicator.PageIndicator;
 
@@ -69,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView veinticuatro;
     private TextView text_compruebe_conexion;
     private Button btnRecargarVista;
-    private String font_path = "font/2-4ef58.ttf";
     private String font_path_ASimple="font/A_Simple_Life.ttf";
     private String fontStackyard="font/Stackyard.ttf";
     private ProgressDialog pd = null;
@@ -82,45 +80,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tituloMenuHeader=(TextView)findViewById(R.id.titulo_header_menu);
         veinticuatro=(TextView)findViewById(R.id.veinticuatro);
         text_compruebe_conexion=(TextView)findViewById(R.id.txt_sin_conexion);
-
-
-
         btnRecargarVista=(Button)findViewById(R.id.volver_cargar);
-
         drawer=(DrawerLayout)findViewById(R.id.drawer);
         pager= (ViewPager)findViewById(R.id.pager);
         pagerIndicator=(PageIndicator)findViewById(R.id.pagerIndicator);
         navView = (NavigationView) findViewById(R.id.nav);
 
-
-
         navView.setNavigationItemSelectedListener(this);
         btnRecargarVista.setOnClickListener(this);
-
-
         text_compruebe_conexion.setVisibility(View.GONE);
         btnRecargarVista.setVisibility(View.GONE);
 
         Typeface TF = FontCache.get(fontStackyard,this); //Typeface.createFromAsset(getAssets(), fontStackyard);
-
-        tituloMenuHeader.setTypeface(TF);
-        TF = FontCache.get(font_path_ASimple,this); //Typeface.createFromAsset(getAssets(), font_path_ASimple);
-        veinticuatro.setTypeface(TF);
         text_compruebe_conexion.setTypeface(TF);
+        tituloMenuHeader.setTypeface(TF);
         btnRecargarVista.setTypeface(TF);
-
+        TF = FontCache.get(font_path_ASimple,this);
+        veinticuatro.setTypeface(TF);
         adapter = new PagerAdapter(getSupportFragmentManager(), data);
         pager.setAdapter(adapter);
         pager.setPageTransformer(true, new CubeOutTransformer());
         pagerIndicator.setViewPager(pager);
-        Log.i("cuantas paginas",pager.getOffscreenPageLimit()+"");
         Menu m = navView.getMenu();
         aplicandoTipoLetraItemMenu(m, fontStackyard);
         ocultandoMenu(m);
         loadData();
 
-
     }
+
     private void ocultandoMenu(Menu m)
     {
         for (int i=0;i<m.size();i++) {
@@ -149,7 +136,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
             mi.setVisible(true);
-
         }
     }
 
@@ -172,18 +158,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void loadData()
     {
         if(AppUtil.data.size()>0)
-        {for(Subcategoria sub: AppUtil.listaSubcategorias)
+        {
+            for(Subcategoria sub: AppUtil.listaSubcategorias)
             {
                 switch (sub.getTipoFragment())
                 {
                     case Subcategoria.CONDESCRIPCION:
                         ProductoFragment productoFragment = new ProductoFragment();
-                        productoFragment.init(sub.getObjectId(),sub.getImgTitulo());
+                        productoFragment.init(sub.getObjectId(),sub.getSubcatnombre());
                         data.add(productoFragment);
                     break;
                     case Subcategoria.SINDESCRIPCION:
                         ProductoGridFragment productoGridFragment = new ProductoGridFragment();
-                        productoGridFragment.init(sub.getObjectId(),sub.getImgTitulo());
+                        productoGridFragment.init(sub.getObjectId(),sub.getSubcatnombre());
                         data.add(productoGridFragment);
                     break;
                 }
@@ -192,7 +179,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             adapter.notifyDataSetChanged();
             Menu m=navView.getMenu();
             mostrandoMenu(m);
-
             BackendlessUser currentUser = Backendless.UserService.CurrentUser();
             if (currentUser == null)
             {
@@ -208,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void cargarDatosParse()
+    public void cargarDatosBackendless()
     {
         BackendlessDataQuery dataQuerysubcategoria= new BackendlessDataQuery();
         QueryOptions queryOptionsSubcategoria= new QueryOptions();
@@ -275,17 +261,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         for (Subcategoria sub : AppUtil.listaSubcategorias)
         {
-
             switch (sub.getTipoFragment())
             {
                 case Subcategoria.CONDESCRIPCION:
                     ProductoFragment productoFragment = new ProductoFragment();
-                    productoFragment.init(sub.getObjectId(), sub.getImgTitulo());
+                    productoFragment.init(sub.getObjectId(), sub.getSubcatnombre());
                     data.add(productoFragment);
                     break;
                 case Subcategoria.SINDESCRIPCION:
                     ProductoGridFragment productoGridFragment = new ProductoGridFragment();
-                    productoGridFragment.init(sub.getObjectId(), sub.getImgTitulo());
+                    productoGridFragment.init(sub.getObjectId(), sub.getSubcatnombre());
                     data.add(productoGridFragment);
                     break;
             }
@@ -322,7 +307,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     men.getItem(0).setVisible(false);
                 }
             }
-
             @Override
             public void handleFault(BackendlessFault fault)
             {
@@ -345,11 +329,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     drawer.openDrawer(GravityCompat.START);
             break;
 
-
             case R.id.volver_cargar:
-
                 volverAcargar();
-
             break;
 
         }
@@ -514,7 +495,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Log.i("hay conexion:",""+resultado);
             if(resultado)
             {
-                cargarDatosParse();
+                cargarDatosBackendless();
             }
             else
             {
@@ -548,8 +529,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         pd = ProgressDialog.show(this,"", getResources().getString(R.string.por_favor_espere), true, false);
 
-        CerrarSesionTask cst= new CerrarSesionTask();
-        cst.execute();
+        Backendless.UserService.logout(new AsyncCallback<Void>() {
+            @Override
+            public void handleResponse(Void response)
+            {
+                if (pd != null) {
+                    pd.dismiss();
+                }
+                LoginManager.getInstance().logOut();
+                Menu m = navView.getMenu();
+                m.getItem(2).setVisible(false);
+                Menu men = m.getItem(2).getSubMenu();
+                men.getItem(0).setVisible(false);
+                mostrarMensaje(R.string.txt_sesion_cerrada);
+
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault)
+            {
+                if (pd != null) {
+                    pd.dismiss();
+                }
+                mostrarMensaje(R.string.compruebe_conexion);
+            }
+        });
 
     }
 
@@ -569,29 +573,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toast.show();
     }
 
-    public class CerrarSesionTask extends  AsyncTask<Void,Void,Void>
-    {
-        @Override
-        protected Void doInBackground(Void... params) {
-            Backendless.UserService.logout();
-            LoginManager.getInstance().logOut();
-            return null;
-        }
 
-        @Override
-        protected void onPostExecute(Void aVoid)
-        {
-            super.onPostExecute(aVoid);
-            Menu m=navView.getMenu();
-            m.getItem(2).setVisible(false);
-            Menu men=m.getItem(2).getSubMenu();
-            men.getItem(0).setVisible(false);
-            mostrarMensaje(R.string.txt_sesion_cerrada);
-            if(pd!=null)
-            {
-                pd.dismiss();
-            }
-        }
-    }
 
 }

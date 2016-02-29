@@ -5,8 +5,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -18,7 +18,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -28,22 +27,21 @@ import pirinola24.com.pirinola24.adaptadores.AdaptadorProductoGrid;
 import pirinola24.com.pirinola24.basededatos.AdminSQliteOpenHelper;
 import pirinola24.com.pirinola24.modelo.Producto;
 import pirinola24.com.pirinola24.util.AppUtil;
+import pirinola24.com.pirinola24.util.FontCache;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ProductoGridFragment extends FragmentGeneric implements AdapterView.OnItemClickListener, View.OnClickListener {
     private static final String LIST_STATE = "listState";
 
     private Parcelable mListState = null;
     private String subcategoria;
-    private String urlimagen;
-    private ImageView titulo;
+    private String subcategoriaNombre;
+    private TextView titulo;
     private GridView gridProductos;
     private List<Producto> data = new ArrayList<>();
     private AdaptadorProductoGrid adapter;
     private ImageView carritoCompras;
     private ImageView menuPrincipal;
+    private String fontStackyard="font/Stackyard.ttf";
 
     public ProductoGridFragment()
     {
@@ -73,7 +71,7 @@ public class ProductoGridFragment extends FragmentGeneric implements AdapterView
         if(savedInstanceState!=null)
         {
             subcategoria=savedInstanceState.getString("subcategoria");
-            urlimagen=savedInstanceState.getString("urlimagen");
+            subcategoriaNombre=savedInstanceState.getString("subcategoriaNombre");
             mListState=savedInstanceState.getParcelable(LIST_STATE);
         }
     }
@@ -85,7 +83,7 @@ public class ProductoGridFragment extends FragmentGeneric implements AdapterView
         View v = inflater.inflate(R.layout.fragment_producto_grid, container, false);
 
         gridProductos= (GridView) v.findViewById(R.id.gridProductos);
-        titulo = (ImageView) v.findViewById(R.id.tituloSubcategoria);
+        titulo = (TextView) v.findViewById(R.id.tituloSubcategoria);
         adapter= new AdaptadorProductoGrid(v.getContext(),data);
         gridProductos.setAdapter(adapter);
         gridProductos.setOnItemClickListener(this);
@@ -95,9 +93,10 @@ public class ProductoGridFragment extends FragmentGeneric implements AdapterView
         carritoCompras.setOnClickListener(this);
         menuPrincipal.setOnClickListener(this);
 
-        Picasso.with(v.getContext())
-                .load(Uri.parse(urlimagen))
-                .into(titulo);
+        titulo.setText(subcategoriaNombre);
+        Typeface TF= FontCache.get(fontStackyard, v.getContext());
+        titulo.setTypeface(TF);
+
 
         return v;
     }
@@ -116,10 +115,10 @@ public class ProductoGridFragment extends FragmentGeneric implements AdapterView
         }
     }
 
-    public void init(String subcategoria,String urlimagen)
+    public void init(String subcategoria,String subcategoriaNombre)
     {
         this.subcategoria=subcategoria;
-        this.urlimagen=urlimagen;
+        this.subcategoriaNombre=subcategoriaNombre;
     }
 
     @Override
@@ -127,7 +126,7 @@ public class ProductoGridFragment extends FragmentGeneric implements AdapterView
     {
         mListState = gridProductos.onSaveInstanceState();
         outState.putString("subcategoria", subcategoria);
-        outState.putString("urlimagen", urlimagen);
+        outState.putString("subcategoriaNombre", subcategoriaNombre);
         outState.putParcelable(LIST_STATE, mListState);
         super.onSaveInstanceState(outState);
     }

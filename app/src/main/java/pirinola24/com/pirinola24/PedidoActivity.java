@@ -35,6 +35,8 @@ import android.widget.Toast;
 
 import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
 import com.facebook.login.LoginManager;
 
 import java.text.DecimalFormat;
@@ -54,8 +56,6 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
     public final static int MI_REQUEST_CODE_REGISTRADO = 2;
     public final static int MI_REQUEST_SE_LOGUIO_USUARIO=101;
 
-
-    private String font_path = "font/2-4ef58.ttf";
     private String font_path_ASimple="font/A_Simple_Life.ttf";
     private String fontStackyard="font/Stackyard.ttf";
     private String fontURW="font/urwbookmanl.ttf";
@@ -63,6 +63,7 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
     private TextView veinticuatro;
     private TextView textTotalPedido;
     private TextView textDomicilio;
+    private TextView tituloTupedido;
     private  TextView textValorTotalPedido;
     private ImageView btnMenuPrincipal;
     private DrawerLayout drawer;
@@ -88,6 +89,7 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
         btnMenuPrincipal=(ImageView)findViewById(R.id.btn_menu_principal);
         btnFinalizarPedido=(Button)findViewById(R.id.btn_finalizar_pedido);
         flechaAtras=(ImageView)findViewById(R.id.flecha_atras);
+        tituloTupedido=(TextView)findViewById(R.id.idtupedido);
 
         gridProductosPedido=(GridView)findViewById(R.id.grid_productos_pedido);
 
@@ -138,8 +140,9 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
 
         TF= FontCache.get(fontStackyard,this);
         textTotalPedido.setTypeface(TF);
-        btnFinalizarPedido.setTypeface(TF);
         tituloMenuHeader.setTypeface(TF);
+        btnFinalizarPedido.setTypeface(TF);
+        tituloTupedido.setTypeface(TF);
         aplicandoTipoLetraItemMenu(m, fontStackyard);
         TF=FontCache.get(fontURW,this);
         textValorTotalPedido.setTypeface(TF);
@@ -147,7 +150,9 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
         gridProductosPedido.setAdapter(adapter);
         gridProductosPedido.setOnItemClickListener(this);
         loadData();
+
     }
+
 
     private void loadData()
     {
@@ -295,42 +300,38 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
     {
         pd = ProgressDialog.show(this, "", getResources().getString(R.string.por_favor_espere), true, false);
 
-        CerrarSesionTask cst= new CerrarSesionTask();
-        cst.execute();
-
-    }
-
-    public class CerrarSesionTask extends AsyncTask<Void,Void,Void>
-    {
-
-        @Override
-        protected Void doInBackground(Void... params) {
-            Backendless.UserService.logout();
-            LoginManager.getInstance().logOut();
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid)
-        {
-            super.onPostExecute(aVoid);
-            Menu m=navView.getMenu();
-            m.getItem(2).setVisible(false);
-            Menu men=m.getItem(2).getSubMenu();
-            men.getItem(0).setVisible(false);
-            mostrarMensaje(R.string.txt_sesion_cerrada);
-            if(!m.getItem(1).isVisible())
+        Backendless.UserService.logout(new AsyncCallback<Void>() {
+            @Override
+            public void handleResponse(Void response)
             {
-                btnMenuPrincipal.setVisibility(View.GONE);
-                flechaAtras.setVisibility(View.VISIBLE);
+                LoginManager.getInstance().logOut();
+                Menu m=navView.getMenu();
+                m.getItem(2).setVisible(false);
+                Menu men=m.getItem(2).getSubMenu();
+                men.getItem(0).setVisible(false);
+                mostrarMensaje(R.string.txt_sesion_cerrada);
+                if(!m.getItem(1).isVisible())
+                {
+                    btnMenuPrincipal.setVisibility(View.GONE);
+                    flechaAtras.setVisibility(View.VISIBLE);
+                }
+
+                if(pd!=null)
+                {
+                    pd.dismiss();
+                }
+
             }
 
-            if(pd!=null)
-            {
+            @Override
+            public void handleFault(BackendlessFault fault) {
                 pd.dismiss();
+                mostrarMensaje(R.string.compruebe_conexion);
             }
-        }
+        });
+
     }
+
 
     private void mostrarMensaje(int idmensaje)
     {
@@ -413,10 +414,14 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.bordes_redondos);
 
 
-        Button btnAceptar=(Button)dialog.findViewById(R.id.btn_aceptar);
-        Button btnCancelar=(Button)dialog.findViewById(R.id.btn_cancelar);
+        TextView btnAceptar=(TextView)dialog.findViewById(R.id.btn_aceptar);
+        TextView btnCancelar=(TextView)dialog.findViewById(R.id.btn_cancelar);
         TextView mensaje =(TextView)dialog.findViewById(R.id.txtmensaje);
 
+        Typeface TF= FontCache.get(fontStackyard,this);
+        mensaje.setTypeface(TF);
+        btnAceptar.setTypeface(TF);
+        btnCancelar.setTypeface(TF);
         final Context context=this;
         btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -574,11 +579,12 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
         dialog.setContentView(R.layout.template_dialog_confirmacion_envio);
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.bordes_redondos);
 
-        Button btnAceptar=(Button)dialog.findViewById(R.id.btn_aceptar);
+        TextView btnAceptar=(TextView)dialog.findViewById(R.id.btn_aceptar);
         TextView mensaje =(TextView) dialog.findViewById(R.id.txtmensaje);
         Typeface TF = FontCache.get(font_path_ASimple,this);
-
         mensaje.setTypeface(TF);
+
+        TF = FontCache.get(fontStackyard,this);
         btnAceptar.setTypeface(TF);
 
         btnAceptar.setOnClickListener(new View.OnClickListener() {

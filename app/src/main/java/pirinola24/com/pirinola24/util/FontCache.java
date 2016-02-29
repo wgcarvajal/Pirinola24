@@ -18,7 +18,7 @@ public class FontCache
         Typeface tf = fontCache.get(name);
         if(tf == null) {
             try {
-                //Log.i("info:","no esta en el cache");
+
                 tf = Typeface.createFromAsset(context.getAssets(), name);
             }
             catch (Exception e) {
@@ -26,10 +26,6 @@ public class FontCache
             }
             fontCache.put(name, tf);
         }
-        /*else
-        {
-            Log.i("info:","ya esta en el cache");
-        }*/
         return tf;
     }
 }

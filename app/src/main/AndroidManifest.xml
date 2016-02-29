@@ -27,25 +27,21 @@
         </activity>
         <activity
             android:name=".PedidoActivity"
-            android:label="@string/title_activity_pedido"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
             android:name=".RegistrarseActivity"
-            android:label="@string/title_activity_registrarse"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" >
         </activity>
         <activity
             android:name=".NoregistradoActivity"
-            android:label="@string/title_activity_noregistrado"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" >
         </activity>

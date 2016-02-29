@@ -1,58 +1,48 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="pirinola24.com.pirinola24.PedidoActivity"
-    android:background="@drawable/fondo">
+    android:background="@color/amarilloapp">
 
-    <android.support.v4.widget.DrawerLayout
-        android:id="@+id/drawer"
-        android:layout_height="match_parent"
+    <RelativeLayout
         android:layout_width="match_parent"
-        >
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/contenedor_header_pedido"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/margin_medium"
-        >
-        <ImageView
-            android:id="@+id/btn_menu_principal"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/tam_img_icono_menu_carro"
-            android:layout_weight="1"
-            android:src="@drawable/iconomenu"
-            />
-
-        <ImageView
-            android:id="@+id/flecha_atras"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/tam_img_icono_menu_carro"
-            android:layout_weight="1"
-            android:src="@drawable/flecha_atras"
-            />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="3"
+        <TextView
+            android:id="@+id/idtupedido"
+            android:layout_width="match_parent"
             android:src="@drawable/tu_pedido"
+            android:text="Tu pedido"
             android:layout_height="@dimen/tam_img_titulo_subcategoria"
-            android:scaleType="fitCenter"/>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/tam_img_icono_menu_carro"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:textSize="@dimen/tam_titulo_subcategoria"
+            android:textColor="@color/vinotintoapp"
+            android:gravity="center"
             />
 
-    </LinearLayout>
+        <ImageView
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:id="@+id/btn_menu_principal"
+            android:layout_width="@dimen/tamano_icono_menu_principal"
+            android:layout_height="@dimen/tam_img_icono_menu_carro"
+            android:src="@mipmap/ic_menu_principal"
+            />
+
+        <ImageView
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:id="@+id/flecha_atras"
+            android:layout_width="@dimen/tam_img_icono_menu_carro"
+            android:layout_height="@dimen/tam_img_icono_menu_carro"
+            android:src="@mipmap/ic_flecha_atras"
+            />
         <TextView
             android:id="@+id/txt_total_pedido"
             android:layout_width="wrap_content"
@@ -61,7 +51,7 @@
             android:textColor="@color/vinotintoapp"
             android:textSize="@dimen/tam_text_total_pedido"
             android:layout_marginLeft="@dimen/margin_small"
-            android:layout_below="@id/contenedor_header_pedido"
+            android:layout_below="@id/idtupedido"
             />
         <TextView
             android:id="@+id/txt_domicilio"
@@ -85,19 +75,22 @@
             android:layout_alignBottom="@id/txt_total_pedido"
             android:layout_marginRight="@dimen/margin_small"
             />
-        <Button
+
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_finalizar_pedido"
-            android:layout_width="@dimen/tam_btn_realizarpedido"
+            android:layout_width="wrap_content"
+            android:textColor="@color/amarilloapp"
+            android:textSize="@dimen/size_letra_boton_realizar_pedido"
+            android:text="Realizar pedido"
+            app:textAllCaps="false"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="@string/text_btn_finalizar_pedido"
-            android:textSize="@dimen/tam_text_btn_finalizar_pedido"
-            android:textColor="@color/amarilloapp"
-            android:background="@drawable/btn_realizar_pedido"
+            android:paddingRight="@dimen/margin_medium"
+            android:paddingLeft="@dimen/margin_medium"
             android:layout_marginBottom="@dimen/super_margin_small"
             android:layout_marginLeft="@dimen/super_margin_small"
             android:layout_marginRight="@dimen/super_margin_small"
-            android:textAllCaps="false"
+            android:background="@drawable/btn_realizar_pedido"
             android:layout_centerHorizontal="true"
             />
 
@@ -113,24 +106,18 @@
             android:scrollbars="none"
             android:numColumns="3"
             />
-</RelativeLayout>
+    </RelativeLayout>
+    <android.support.design.widget.NavigationView
 
+        android:id="@+id/nav"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/pedido_nav"
+        android:background="@color/vinotintoapptrasparente"
+        app:itemIconTint="@color/amarilloapp"
+        app:headerLayout="@layout/navigation_header"
+        app:itemTextAppearance="@style/NavDrawerTextStyle"
+        />
 
-        <android.support.design.widget.NavigationView
-
-            android:id="@+id/nav"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:layout_gravity="start"
-            app:menu="@menu/pedido_nav"
-            android:background="@color/vinotintoapptrasparente"
-            app:itemIconTint="@color/amarilloapp"
-            app:headerLayout="@layout/navigation_header"
-            app:itemTextAppearance="@style/NavDrawerTextStyle"
-            />
-
-
-    </android.support.v4.widget.DrawerLayout>
-
-
-</RelativeLayout>
+</android.support.v4.widget.DrawerLayout>

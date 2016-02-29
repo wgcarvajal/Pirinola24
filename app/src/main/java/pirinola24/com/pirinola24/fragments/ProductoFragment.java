@@ -5,13 +5,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +18,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -29,6 +27,7 @@ import pirinola24.com.pirinola24.adaptadores.AdaptadorProducto;
 import pirinola24.com.pirinola24.basededatos.AdminSQliteOpenHelper;
 import pirinola24.com.pirinola24.modelo.Producto;
 import pirinola24.com.pirinola24.util.AppUtil;
+import pirinola24.com.pirinola24.util.FontCache;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,13 +37,14 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
 
     private Parcelable mListState = null;
     private String subcategoria;
-    private String urlimagen;
-    private ImageView titulo;
+    private String subcategoriaNombre;
+    private TextView titulo;
     private GridView gridProductos;
     private List<Producto> data= new ArrayList<>();
     private AdaptadorProducto adapter;
     private ImageView carritoCompras;
     private ImageView menuPrincipal;
+    private String fontStackyard="font/Stackyard.ttf";
 
 
     public ProductoFragment() {
@@ -91,7 +91,7 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
         if(savedInstanceState!=null)
         {
             subcategoria=savedInstanceState.getString("subcategoria");
-            urlimagen=savedInstanceState.getString("urlimagen");
+            subcategoriaNombre=savedInstanceState.getString("subcategoriaNombre");
             mListState=savedInstanceState.getParcelable(LIST_STATE);
         }
     }
@@ -102,7 +102,7 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
     {
         View v= inflater.inflate(R.layout.fragment_producto, container, false);
         gridProductos= (GridView) v.findViewById(R.id.gridProductos);
-        titulo=(ImageView)v.findViewById(R.id.tituloSubcategoria);
+        titulo=(TextView)v.findViewById(R.id.tituloSubcategoria);
 
         adapter= new AdaptadorProducto(v.getContext(),data,this);
         gridProductos.setAdapter(adapter);
@@ -113,11 +113,9 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
         carritoCompras.setOnClickListener(this);
         menuPrincipal.setOnClickListener(this);
 
-        Picasso.with(v.getContext())
-                .load(urlimagen)
-                .into(titulo);
-
-
+        titulo.setText(subcategoriaNombre);
+        Typeface TF= FontCache.get(fontStackyard,v.getContext());
+        titulo.setTypeface(TF);
         return v;
     }
 
@@ -127,7 +125,6 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
         super.onActivityCreated(savedInstanceState);
         if(data.size()>0)
         {
-            Log.i("entro:","data size >0");
             adapter.notifyDataSetChanged();
         }
         else
@@ -136,11 +133,11 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
         }
     }
 
-    public void init(String subcategoria,String urlimagen)
+    public void init(String subcategoria,String subcategoriaNombre)
     {
 
         this.subcategoria=subcategoria;
-        this.urlimagen=urlimagen;
+        this.subcategoriaNombre=subcategoriaNombre;
     }
 
     @Override
@@ -148,7 +145,7 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
     {
         mListState = gridProductos.onSaveInstanceState();
         outState.putString("subcategoria", subcategoria);
-        outState.putString("urlimagen", urlimagen);
+        outState.putString("subcategoriaNombre", subcategoriaNombre);
         outState.putParcelable(LIST_STATE, mListState);
         super.onSaveInstanceState(outState);
     }
@@ -175,8 +172,8 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
 
         public AgregarProductoPedidoTask(TextView conteo,ImageView disminuir)
         {
-            txtcontedo= new WeakReference<TextView>(conteo);
-            btndisminuir= new WeakReference<ImageView>(disminuir);
+            txtcontedo= new WeakReference<>(conteo);
+            btndisminuir= new WeakReference<>(disminuir);
         }
         @Override
         protected Integer doInBackground(Producto... params)

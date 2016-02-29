@@ -1,24 +1,10 @@
 package pirinola24.com.pirinola24.modelo;
 
-import android.graphics.Bitmap;
-
-import com.parse.ParseFile;
-
 /**
  * Created by geovanny on 8/01/16.
  */
 public class Producto
 {
-    public static String TABLA="Producto";
-    public static String POSICION="posicion";
-    public static String PRECIO="precio";
-    public static String IMAGEN="imgFile";
-    public static String NOMBRE="prodnombre";
-    public static String DESCRIPCION="proddescripcion";
-    public static String SUBCATEGORIA="subcategoria";
-    public static String ID="objectId";
-
-
     private String objectId;
     private int precio;
     private String proddescripcion;

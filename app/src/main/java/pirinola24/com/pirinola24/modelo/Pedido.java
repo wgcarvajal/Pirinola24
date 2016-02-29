@@ -12,6 +12,7 @@ public class Pedido
     private String pedobservaciones;
     private String pedpersonanombre;
     private String pedtelefono;
+    private String ciudad;
 
     public String getPedtelefono()
     {
@@ -84,6 +85,13 @@ public class Pedido
     }
 
 
+    public String getCiudad()
+    {
+        return ciudad;
+    }
 
-
+    public void setCiudad(String ciudad)
+    {
+        this.ciudad = ciudad;
+    }
 }

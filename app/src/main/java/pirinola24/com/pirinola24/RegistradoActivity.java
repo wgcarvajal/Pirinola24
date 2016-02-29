@@ -45,6 +45,7 @@ import pirinola24.com.pirinola24.util.FontCache;
 public class RegistradoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private String font_path="font/A_Simple_Life.ttf";
+    private String fontStackyard="font/Stackyard.ttf";
 
     private ImageView btnFlechaAtras;
     private Spinner spDireccion;
@@ -53,7 +54,7 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
     private ImageView btnAgregarTelefono;
     private Spinner spFormaPago;
     private EditText txtObservaciones;
-    private ImageView btnEnviarPedido;
+    private Button btnEnviarPedido;
     private TextView txtSinConexion;
     private Button btnVolverCargar;
     private AdaptadorSpinnerFormaPago adapter;
@@ -77,15 +78,19 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
         btnAgregarTelefono=(ImageView)findViewById(R.id.btn_agregar_telefono);
         spFormaPago=(Spinner)findViewById(R.id.sp_forma_pago);
         txtObservaciones=(EditText)findViewById(R.id.txt_observaciones);
-        btnEnviarPedido=(ImageView)findViewById(R.id.btn_enviar_pedido);
+        btnEnviarPedido=(Button)findViewById(R.id.btn_enviar_pedido);
         txtSinConexion=(TextView)findViewById(R.id.txt_sin_conexion);
         btnVolverCargar=(Button)findViewById(R.id.btn_volver_cargar);
 
         Typeface TF = FontCache.get(font_path,this);
 
         txtObservaciones.setTypeface(TF);
-        txtSinConexion.setTypeface(TF);
+
+
+        TF=FontCache.get(fontStackyard,this);
         btnVolverCargar.setTypeface(TF);
+        btnEnviarPedido.setTypeface(TF);
+        txtSinConexion.setTypeface(TF);
 
         findViewById(R.id.espacio_spinner_direccion).setVisibility(View.GONE);
         findViewById(R.id.espacio_spinner_telefono).setVisibility(View.GONE);

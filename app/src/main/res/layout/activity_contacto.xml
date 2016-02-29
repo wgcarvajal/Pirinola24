@@ -2,47 +2,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="pirinola24.com.pirinola24.ContactoActivity"
-    android:background="@drawable/fondo">
-
-
-    <LinearLayout
-        android:id="@+id/contenedor_header_contacto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/margin_medium"
-        >
-
+    android:background="@color/amarilloapp">
         <ImageView
             android:id="@+id/flecha_atras"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/tam_img_icono_menu_carro"
             android:layout_height="@dimen/tam_img_icono_menu_carro"
-            android:layout_weight="1"
-            android:src="@drawable/flecha_atras"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:src="@mipmap/ic_flecha_atras"
             />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:src="@drawable/titulo_contacto"
+        <TextView
+            android:id="@+id/contactanos"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/tam_img_titulo_subcategoria"
-            android:scaleType="fitCenter"/>
+            android:textSize="@dimen/tam_titulo_subcategoria"
+            android:text="Contáctanos"
+            android:textColor="@color/vinotintoapp"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_medium"
 
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/tam_img_icono_menu_carro"
             />
 
-    </LinearLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:layout_below="@id/contenedor_header_contacto"
+        android:layout_below="@id/contactanos"
         android:layout_marginBottom="@dimen/margin_small"
         >
 
@@ -58,7 +50,7 @@
                 android:layout_height="@dimen/tam_alto_imagen_login"
                 android:layout_marginTop="@dimen/margin_top_imagen_login"
                 android:layout_marginBottom="@dimen/margin_imagen_login"
-                android:src="@drawable/gorrita_grande"
+                android:src="@mipmap/ic_logo_gorra"
                 android:scaleType="fitXY"
                 android:layout_centerHorizontal="true"
 
@@ -143,13 +135,16 @@
             </ScrollView>
 
 
-            <ImageView
+            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_enviar_pedido"
                 android:layout_width="match_parent"
                 android:layout_below="@id/scrollView_observaciones"
-                android:layout_height="@dimen/tam_alto_btn"
-                android:src="@drawable/btn_enviar_mensaje"
-                android:scaleType="fitXY"
+                android:layout_height="@dimen/tam_btn_enviar"
+                app:textAllCaps="false"
+                android:textColor="@color/amarilloapp"
+                android:text="Enviar"
+                android:textSize="@dimen/size_letra_boton_realizar_pedido"
+                android:background="@drawable/btn_realizar_pedido"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_top_btn"

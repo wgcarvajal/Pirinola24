@@ -3,43 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="pirinola24.com.pirinola24.RegistrarseActivity"
-    android:background="@drawable/fondo"
+    android:background="@color/amarilloapp"
     >
 
-    <LinearLayout
-        android:id="@+id/contenedor_header_registrarse"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/super_margin_small"
-        >
 
         <ImageView
             android:id="@+id/flecha_atras"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/tam_img_icono_menu_carro"
             android:layout_height="@dimen/tam_img_icono_menu_carro"
+
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_marginLeft="@dimen/margin_small"
             android:layout_weight="1"
-            android:src="@drawable/flecha_atras"
+            android:src="@mipmap/ic_flecha_atras"
             />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:layout_height="@dimen/tam_img_titulo_subcategoria"/>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/tam_img_icono_menu_carro"
-            />
-    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:layout_below="@id/contenedor_header_registrarse"
+        android:layout_below="@id/flecha_atras"
         android:layout_marginBottom="@dimen/margin_small"
         >
 
@@ -55,7 +41,7 @@
                 android:layout_height="@dimen/tam_alto_imagen_login"
                 android:layout_marginTop="@dimen/margin_top_imagen_login"
                 android:layout_marginBottom="@dimen/margin_imagen_login"
-                android:src="@drawable/gorrita_grande"
+                android:src="@mipmap/ic_logo_gorra"
                 android:scaleType="fitXY"
                 android:layout_centerHorizontal="true"
 
@@ -138,16 +124,29 @@
 
 
 
-            <ImageView
+            <TextView
                 android:id="@+id/btnRegistrarse"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tam_alto_btn"
-                android:layout_below="@id/txt_repetirpassword"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_grande"
                 android:layout_marginLeft="@dimen/margin_small"
-                android:src="@drawable/boton_registrarse"
-                android:scaleType="fitXY"
+                android:layout_marginRight="@dimen/margin_small"
+                android:background="@drawable/btn_realizar_pedido"
+                android:textColor="@color/amarilloapp"
+                android:text="Registrarse"
+                android:textSize="@dimen/size_letra_boton_realizar_pedido"
+                android:gravity="center"
+                android:layout_below="@id/txt_repetirpassword"
+                />
+
+            <ImageView
+                android:layout_width="@dimen/tam_icono_caja_text"
+                android:layout_height="@dimen/tam_icono_caja_text"
+                android:src="@mipmap/ic_add_user"
+                android:layout_alignBottom="@id/btnRegistrarse"
+                android:layout_alignRight="@id/btnRegistrarse"
+                android:layout_marginBottom="@dimen/icono_ingrese_margin_bottom"
+                android:layout_marginRight="@dimen/icono_ingrese_margin_rigth"
                 />
 
 

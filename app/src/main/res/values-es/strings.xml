@@ -70,6 +70,7 @@
     <string name="txt_tu_opinion_importante">Tú opinión es muy importante para nosotros.</string>
     <string name="txt_mensaje_contacto">Mensaje</string>
     <string name="txt_mensaje_enviado">Mensaje enviado</string>
+    <string name="campo_obligatorio_password_inicio_session">Ingrese clave.</string>
 
 
 

@@ -13,6 +13,8 @@
         <item name="android:textSize">@dimen/tam_letra_item_menu</item>
     </style>
 
+
+
     <style name="CustomCirclePageIndicator">
         <item name="fillColor">#033a0f</item>
         <item name="strokeColor">#9f0606</item>

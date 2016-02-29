@@ -2,14 +2,9 @@ package pirinola24.com.pirinola24.adaptadores;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -19,17 +14,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.parse.GetCallback;
-import com.parse.GetDataCallback;
-import com.parse.ParseException;
-import com.parse.ParseFile;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
-import java.text.DecimalFormat;
 import java.util.List;
 
 import pirinola24.com.pirinola24.R;
@@ -44,7 +31,6 @@ public class AdaptadorProductoPedido extends BaseAdapter implements View.OnClick
 {
     private Context context;
     private List<Producto> data;
-    private String font_path = "font/2-4ef58.ttf";
     private String font_pathOds="font/odstemplik.otf";
     private LayoutInflater mInflater;
 
@@ -115,7 +101,7 @@ public class AdaptadorProductoPedido extends BaseAdapter implements View.OnClick
             viewHolder.btnDisminuir=(ImageView) v.findViewById(R.id.btn_disminuir);
 
 
-            Typeface TF = FontCache.get(font_pathOds,context);//Typeface.createFromAsset(context.getAssets(),font_pathOds);
+            Typeface TF = FontCache.get(font_pathOds,context);
             viewHolder.txtconteo.setTypeface(TF);
             viewHolder.txtconteo.setText("0");
             viewHolder.btnDisminuir.setTag(R.id.txtconteo,viewHolder.txtconteo);
@@ -126,7 +112,7 @@ public class AdaptadorProductoPedido extends BaseAdapter implements View.OnClick
             viewHolder=(ViewHolder)v.getTag();
         }
 
-        final Producto p = (Producto) getItem(position);
+        Producto p = (Producto) getItem(position);
         fijarDatos(p, viewHolder, context.getResources().getString(R.string.idioma), position);
 
 

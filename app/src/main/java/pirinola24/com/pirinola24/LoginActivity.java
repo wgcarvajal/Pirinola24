@@ -23,9 +23,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.backendless.Backendless;
+import com.backendless.BackendlessCollection;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.BackendlessDataQuery;
+import com.backendless.persistence.QueryOptions;
 import com.facebook.CallbackManager;
 import com.facebook.login.LoginManager;
 
@@ -35,6 +38,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import pirinola24.com.pirinola24.modelo.Ciudad;
 import pirinola24.com.pirinola24.util.FontCache;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener
@@ -46,15 +51,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String font_path="font/A_Simple_Life.ttf";
     private String fontStackyard="font/Stackyard.ttf";
     private ImageView btnAtras;
-    private ImageView btnIniciarSesion;
-    private ImageView btnRegistrarse;
-    private ImageView btnContNoRegistrado;
+    private TextView btnIniciarSesion;
+    private TextView btnRegistrarse;
+    private TextView btnContNoRegistrado;
     private TextView txtrecuperarClave;
     private TextView txtemail;
     private TextView txtpassword;
     private TextView tituloVista;
     private ProgressDialog pd = null;
-    private ImageView btnFacebook;
+    private TextView btnFacebook;
     private Dialog dialog;
     private CallbackManager callbackManager;
 
@@ -68,12 +73,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         txtrecuperarClave=(TextView)findViewById(R.id.recuperarClave);
         txtemail=(TextView)findViewById(R.id.txt_email);
         txtpassword=(TextView)findViewById(R.id.txt_password);
+        tituloVista=(TextView)findViewById(R.id.ingrese);
 
         btnAtras=(ImageView)findViewById(R.id.flecha_atras);
-        btnRegistrarse=(ImageView)findViewById(R.id.btnRegistrarse);
-        btnIniciarSesion=(ImageView)findViewById(R.id.btninciarsesion);
-        btnContNoRegistrado=(ImageView)findViewById(R.id.btn_continuar_no_registrado);
-        btnFacebook=(ImageView)findViewById(R.id.btn_facebook);
+        btnRegistrarse=(TextView)findViewById(R.id.btnRegistrarse);
+        btnIniciarSesion=(TextView)findViewById(R.id.btninciarsesion);
+        btnContNoRegistrado=(TextView)findViewById(R.id.btn_continuar_no_registrado);
+        btnFacebook=(TextView)findViewById(R.id.btn_facebook);
         btnAtras.setOnClickListener(this);
         btnRegistrarse.setOnClickListener(this);
         btnIniciarSesion.setOnClickListener(this);
@@ -87,6 +93,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         TF = FontCache.get(fontStackyard,this);
         txtrecuperarClave.setTypeface(TF);
+        tituloVista.setTypeface(TF);
+        btnIniciarSesion.setTypeface(TF);
+        btnRegistrarse.setTypeface(TF);
+        btnFacebook.setTypeface(TF);
+        btnContNoRegistrado.setTypeface(TF);
 
         callbackManager = CallbackManager.Factory.create();
     }
@@ -107,8 +118,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivityForResult(intent,MI_REQUEST_CODE_REGISTRARSE);
             break;
             case R.id.btn_continuar_no_registrado:
+
                 intent= new Intent(this,NoregistradoActivity.class);
                 startActivityForResult(intent,MI_REQUEST_CODE_CONT_NO_REGISTRADO);
+
             break;
 
             case R.id.recuperarClave:
@@ -135,11 +148,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
         Typeface TF = FontCache.get(font_path,this);
-        ImageView btnEnviar=(ImageView)dialog.findViewById(R.id.btn_enviar);
-        ImageView btnCancelar=(ImageView)dialog.findViewById(R.id.btn_cancelar);
+        TextView btnEnviar=(TextView)dialog.findViewById(R.id.btn_enviar);
+        TextView btnCancelar=(TextView)dialog.findViewById(R.id.btn_cancelar);
         final EditText txtemail =(EditText)dialog.findViewById(R.id.txt_email);
 
         txtemail.setTypeface(TF);
+        TF=FontCache.get(fontStackyard,this);
+        btnCancelar.setTypeface(TF);
+        btnEnviar.setTypeface(TF);
         final Context context=this;
 
         btnEnviar.setOnClickListener(new View.OnClickListener() {

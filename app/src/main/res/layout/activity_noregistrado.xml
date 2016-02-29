@@ -2,45 +2,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="pirinola24.com.pirinola24.NoregistradoActivity"
-    android:background="@drawable/fondo"
-    >
+    android:background="@color/amarilloapp">
 
-    <LinearLayout
-        android:id="@+id/contenedor_header_noregistrado"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/super_margin_small"
-        >
+
 
         <ImageView
             android:id="@+id/flecha_atras"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/tam_img_icono_menu_carro"
             android:layout_height="@dimen/tam_img_icono_menu_carro"
-            android:layout_weight="1"
-            android:src="@drawable/flecha_atras"
+            android:src="@mipmap/ic_flecha_atras"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_marginLeft="@dimen/margin_small"
             />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:layout_height="@dimen/tam_img_titulo_subcategoria"
-            />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/tam_img_icono_menu_carro"
-            />
-    </LinearLayout>
 
     <ScrollView
+        android:id="@+id/scrollview_no_registrado"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:layout_below="@id/contenedor_header_noregistrado"
+        android:layout_below="@id/flecha_atras"
         android:layout_marginBottom="@dimen/margin_small"
         >
 
@@ -54,9 +39,8 @@
                 android:id="@+id/imagen_login"
                 android:layout_width="@dimen/tam_ancho_imagen_login"
                 android:layout_height="@dimen/tam_alto_imagen_login"
-                android:layout_marginTop="@dimen/margin_top_imagen_login"
                 android:layout_marginBottom="@dimen/margin_imagen_login"
-                android:src="@drawable/gorrita_grande"
+                android:src="@mipmap/ic_logo_gorra"
                 android:scaleType="fitXY"
                 android:layout_centerHorizontal="true"
 
@@ -137,7 +121,7 @@
                 />
 
             <Spinner
-                android:id="@+id/sp_forma_pago"
+                android:id="@+id/sp_ciudad"
                 android:layout_width="match_parent"
                 android:background="@drawable/caja_texto_ingrese"
                 android:layout_height="@dimen/tam_alto_caja_texto"
@@ -154,11 +138,37 @@
             <ImageView
                 android:layout_width="@dimen/tam_icono_caja_text"
                 android:layout_height="@dimen/tam_icono_caja_text"
-                android:src="@drawable/flecha_abajo"
+                android:src="@mipmap/ic_fecla_abajo"
+                android:layout_alignBottom="@id/sp_ciudad"
+                android:layout_alignRight="@id/sp_ciudad"
+                android:layout_marginBottom="@dimen/icono_ingrese_margin_bottom"
+                android:layout_marginRight="@dimen/icono_ingrese_margin_rigth"/>
+
+            <Spinner
+                android:id="@+id/sp_forma_pago"
+                android:layout_width="match_parent"
+                android:background="@drawable/caja_texto_ingrese"
+                android:layout_height="@dimen/tam_alto_caja_texto"
+                android:layout_below="@id/sp_ciudad"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_small"
+                android:popupBackground="@color/amarilloapp"
+
+                />
+
+
+
+            <ImageView
+                android:layout_width="@dimen/tam_icono_caja_text"
+                android:layout_height="@dimen/tam_icono_caja_text"
+                android:src="@mipmap/ic_fecla_abajo"
                 android:layout_alignBottom="@id/sp_forma_pago"
                 android:layout_alignRight="@id/sp_forma_pago"
                 android:layout_marginBottom="@dimen/icono_ingrese_margin_bottom"
                 android:layout_marginRight="@dimen/icono_ingrese_margin_rigth"/>
+
+
 
             <ScrollView
                 android:id="@+id/scrollView_observaciones"
@@ -190,7 +200,7 @@
             </ScrollView>
 
 
-            <ImageView
+            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_enviar_pedido"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tam_alto_btn"
@@ -198,8 +208,12 @@
                 android:layout_marginTop="@dimen/margin_top_btn"
                 android:layout_marginRight="@dimen/margin_small"
                 android:layout_marginLeft="@dimen/margin_small"
-                android:src="@drawable/enviar_pedido"
-                android:scaleType="fitXY"
+                android:textColor="@color/amarilloapp"
+                android:background="@drawable/btn_realizar_pedido"
+                android:gravity="center"
+                android:textSize="@dimen/size_letra_boton_realizar_pedido"
+                android:text="Enviar pedido"
+                app:textAllCaps="false"
                 />
 
 
@@ -208,6 +222,31 @@
 
     </ScrollView>
 
-
+    <TextView
+        android:id="@+id/txt_sin_conexion"
+        android:layout_width="match_parent"
+        android:text="Compruebe su conexión a internet...."
+        android:textSize="@dimen/size_text_compruebe_conexion"
+        android:textColor="@color/amarilloapp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginRight="@dimen/margin_small"
+        android:background="@drawable/background_mensaje_toast"
+        android:padding="@dimen/margin_small"
+        />
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/volver_cargar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tam_alto_btn"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/margin_small"
+        android:textColor="@color/amarilloapp"
+        android:background="@drawable/btn_realizar_pedido"
+        android:gravity="center"
+        android:textSize="@dimen/size_letra_boton_realizar_pedido"
+        android:text="Volver a cargar la vista"
+        app:textAllCaps="false"
+        />
 
 </RelativeLayout>

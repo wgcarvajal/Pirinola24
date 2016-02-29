@@ -8,7 +8,7 @@
     <dimen name="margin_small">20dp</dimen>
     <dimen name="ancho_btn_menu_principal">50dp</dimen>
     <dimen name="alto_btn_menu_principal">50dp</dimen>
-    <dimen name="tam_titulo_subcategoria">45sp</dimen>
+    <dimen name="tam_titulo_subcategoria">55sp</dimen>
     <dimen name="super_margin_small">10dp</dimen>
     <dimen name="alto_template_producto">340dp</dimen>
     <dimen name="alto_campo_nombre_producto">100dp</dimen>
@@ -58,10 +58,12 @@
     <dimen name="margin_top_link">20dp</dimen>
     <dimen name="size_text_btn_continuar_no_registrado">15sp</dimen>
     <dimen name="margin_muy_poca">3dp</dimen>
-    <dimen name="tam_scrollview_observaciones">120dp</dimen>
-    <dimen name="size_text_compruebe_conexion">25sp</dimen>
+    <dimen name="tam_scrollview_observaciones">150dp</dimen>
+    <dimen name="size_text_compruebe_conexion">40sp</dimen>
     <dimen name="margin_input_registrase">26dp</dimen>
     <dimen name="margin_medium">30dp</dimen>
+
+    <dimen name="margin_grande">40dp</dimen>
 
 
 
@@ -90,5 +92,8 @@
     <dimen name="largo_btn_descripcion_producto">48dp</dimen>
 
     <dimen name="size_tu_opinion">32sp</dimen>
+    <dimen name="alto_btn_realizar_pedido">60dp</dimen>
+    <dimen name="size_letra_boton_realizar_pedido">45sp</dimen>
+    <dimen name="tam_btn_enviar">55dp</dimen>
 
 </resources>

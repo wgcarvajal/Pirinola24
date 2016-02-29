@@ -1,45 +1,32 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="pirinola24.com.pirinola24.RegistradoActivity"
-    android:background="@drawable/fondo"
+    android:background="@color/amarilloapp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-    <LinearLayout
-        android:id="@+id/contenedor_header_registrado"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/super_margin_small"
-        >
+
 
         <ImageView
             android:id="@+id/flecha_atras"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/tam_img_icono_menu_carro"
             android:layout_height="@dimen/tam_img_icono_menu_carro"
-            android:layout_weight="1"
-            android:src="@drawable/flecha_atras"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:src="@mipmap/ic_flecha_atras"
             />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="3"
-            android:layout_height="@dimen/tam_img_titulo_subcategoria"/>
 
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="@dimen/tam_img_icono_menu_carro"
-            />
-    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:layout_below="@id/contenedor_header_registrado"
+        android:layout_below="@id/flecha_atras"
         android:layout_marginBottom="@dimen/margin_small"
         >
 
@@ -53,9 +40,8 @@
                 android:id="@+id/imagen_login"
                 android:layout_width="@dimen/tam_ancho_imagen_login"
                 android:layout_height="@dimen/tam_alto_imagen_login"
-                android:layout_marginTop="@dimen/margin_top_imagen_login"
                 android:layout_marginBottom="@dimen/margin_imagen_login"
-                android:src="@drawable/gorrita_grande"
+                android:src="@mipmap/ic_logo_gorra"
                 android:scaleType="fitXY"
                 android:layout_centerHorizontal="true"
 
@@ -83,7 +69,7 @@
                     <ImageView
                         android:layout_width="@dimen/tam_icono_caja_text"
                         android:layout_height="@dimen/tam_icono_caja_text"
-                        android:src="@drawable/flecha_abajo"
+                        android:src="@mipmap/ic_fecla_abajo"
                         android:layout_alignBottom="@id/sp_direccion"
                         android:layout_alignRight="@id/sp_direccion"
                         android:layout_marginBottom="@dimen/icono_ingrese_margin_bottom"
@@ -95,7 +81,7 @@
                     android:id="@+id/btn_agregar_direccion"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/tam_alto_caja_texto"
-                    android:src="@drawable/btnagregar"
+                    android:src="@mipmap/ic_btn_mas"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:layout_marginRight="@dimen/margin_small"
@@ -126,7 +112,7 @@
                     <ImageView
                         android:layout_width="@dimen/tam_icono_caja_text"
                         android:layout_height="@dimen/tam_icono_caja_text"
-                        android:src="@drawable/flecha_abajo"
+                        android:src="@mipmap/ic_fecla_abajo"
                         android:layout_alignBottom="@id/sp_telefono"
                         android:layout_alignRight="@id/sp_telefono"
                         android:layout_marginBottom="@dimen/icono_ingrese_margin_bottom"
@@ -138,7 +124,7 @@
                     android:id="@+id/btn_agregar_telefono"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/tam_alto_caja_texto"
-                    android:src="@drawable/btnagregar"
+                    android:src="@mipmap/ic_btn_mas"
                     android:layout_gravity="center"
                     android:layout_weight="1"
                     android:layout_marginRight="@dimen/margin_small"
@@ -164,7 +150,7 @@
                 android:id="@+id/icon_sp_forma_pago"
                 android:layout_width="@dimen/tam_icono_caja_text"
                 android:layout_height="@dimen/tam_icono_caja_text"
-                android:src="@drawable/flecha_abajo"
+                android:src="@mipmap/ic_fecla_abajo"
                 android:layout_alignBottom="@id/sp_forma_pago"
                 android:layout_alignRight="@id/sp_forma_pago"
                 android:layout_marginBottom="@dimen/icono_ingrese_margin_bottom"
@@ -200,16 +186,21 @@
             </ScrollView>
 
 
-            <ImageView
+            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_enviar_pedido"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tam_alto_btn"
-                android:src="@drawable/enviar_pedido"
                 android:layout_below="@id/scrollView_observaciones"
                 android:layout_marginTop="@dimen/margin_imagen_login"
                 android:layout_marginRight="@dimen/margin_small"
                 android:layout_marginLeft="@dimen/margin_small"
-                android:scaleType="fitXY"/>
+                app:textAllCaps="false"
+                android:textColor="@color/amarilloapp"
+                android:text="Enviar pedido"
+                android:textSize="@dimen/size_letra_boton_realizar_pedido"
+                android:background="@drawable/btn_realizar_pedido"
+
+            />
 
 
         </RelativeLayout>
@@ -222,7 +213,7 @@
         android:layout_width="match_parent"
         android:text="Compruebe su conexión a internet...."
         android:textSize="@dimen/size_text_compruebe_conexion"
-        android:textColor="@color/blanco"
+        android:textColor="@color/amarilloapp"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginLeft="@dimen/margin_small"
@@ -230,16 +221,19 @@
         android:background="@drawable/background_mensaje_toast"
         android:padding="@dimen/margin_small"
         />
-    <Button
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_volver_cargar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tam_alto_btn"
         android:text="@string/volver_cargar_vista"
-        android:textColor="@color/blanco"
-        android:background="@drawable/bordes_redondos_pequno_fondo_rojo"
+        android:textColor="@color/amarilloapp"
         android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/margin_small"
-
+        android:background="@drawable/btn_realizar_pedido"
+        android:textSize="@dimen/size_letra_boton_realizar_pedido"
+        app:textAllCaps="false"
+        android:layout_marginRight="@dimen/margin_small"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/super_margin_small"
         />
 
 </RelativeLayout>

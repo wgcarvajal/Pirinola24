@@ -24,14 +24,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import pirinola24.com.pirinola24.util.FontCache;
 
-public class RegistrarseActivity extends AppCompatActivity implements View.OnClickListener {
+public class RegistrarseActivity extends AppCompatActivity implements View.OnClickListener
+{
     private String font_path_ASimple="font/A_Simple_Life.ttf";
+    private String fontStackyard="font/Stackyard.ttf";
 
     private TextView txtnombre;
     private TextView txtemail;
     private TextView txtpassword;
     private TextView txtrepetirpassword;
-    private ImageView btnRegistrarse;
+    private TextView btnRegistrarse;
     private ImageView btnAtras;
     private ProgressDialog pd = null;
 
@@ -45,7 +47,7 @@ public class RegistrarseActivity extends AppCompatActivity implements View.OnCli
         txtemail=(TextView)findViewById(R.id.txt_email);
         txtpassword=(TextView)findViewById(R.id.txt_password);
         txtrepetirpassword=(TextView)findViewById(R.id.txt_repetirpassword);
-        btnRegistrarse=(ImageView)findViewById(R.id.btnRegistrarse);
+        btnRegistrarse=(TextView)findViewById(R.id.btnRegistrarse);
         btnAtras=(ImageView)findViewById(R.id.flecha_atras);
 
         Typeface TF = FontCache.get(font_path_ASimple,this);
@@ -54,6 +56,9 @@ public class RegistrarseActivity extends AppCompatActivity implements View.OnCli
         txtemail.setTypeface(TF);
         txtpassword.setTypeface(TF);
         txtrepetirpassword.setTypeface(TF);
+
+        TF=FontCache.get(fontStackyard,this);
+        btnRegistrarse.setTypeface(TF);
 
         btnAtras.setOnClickListener(this);
         btnRegistrarse.setOnClickListener(this);

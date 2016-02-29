@@ -2,35 +2,21 @@ package pirinola24.com.pirinola24.adaptadores;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.parse.GetCallback;
-import com.parse.GetDataCallback;
-import com.parse.ParseException;
-import com.parse.ParseFile;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
-import java.text.DecimalFormat;
 import java.util.List;
 
 import pirinola24.com.pirinola24.R;
@@ -47,10 +33,7 @@ public class AdaptadorProductoGrid extends BaseAdapter implements View.OnClickLi
     private List<Producto> data;
     private LayoutInflater mInflater;
 
-
-    private String font_path = "font/2-4ef58.ttf";
     private String font_pathOds="font/odstemplik.otf";
-    private String font_path_ASimple="font/A_Simple_Life.ttf";
 
     public class ViewHolder
     {

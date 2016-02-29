@@ -2,6 +2,7 @@ package pirinola24.com.pirinola24;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
@@ -10,23 +11,30 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.backendless.Backendless;
+import com.backendless.BackendlessCollection;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import pirinola24.com.pirinola24.adaptadores.AdaptadorSpinnerCiudad;
 import pirinola24.com.pirinola24.adaptadores.AdaptadorSpinnerFormaPago;
 import pirinola24.com.pirinola24.basededatos.AdminSQliteOpenHelper;
+import pirinola24.com.pirinola24.modelo.Ciudad;
 import pirinola24.com.pirinola24.modelo.Itempedido;
 import pirinola24.com.pirinola24.modelo.Pedido;
 import pirinola24.com.pirinola24.util.FontCache;
@@ -34,16 +42,22 @@ import pirinola24.com.pirinola24.util.FontCache;
 public class NoregistradoActivity extends AppCompatActivity implements View.OnClickListener
 {
     private String font_path="font/A_Simple_Life.ttf";
+    private String fontStackyard="font/Stackyard.ttf";
 
     private Spinner spFormapago;
+    private Spinner spCiudad;
     private TextView textNombre;
     private TextView textDireccion;
     private TextView textBarrio;
     private TextView textTelefono;
     private TextView textObservaciones;
+    private ScrollView scrollgeneral;
     private ImageView btnAtras;
-    private ImageView btnEnviarPedido;
+    private Button btnEnviarPedido;
+    private Button volver_cargar;
+    private TextView sinconexion;
     private AdaptadorSpinnerFormaPago adapter;
+    private AdaptadorSpinnerCiudad adaptadorCiudad;
     private ProgressDialog pd = null;
 
     @Override
@@ -53,19 +67,25 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_noregistrado);
 
         spFormapago=(Spinner)findViewById(R.id.sp_forma_pago);
+        spCiudad=(Spinner)findViewById(R.id.sp_ciudad);
+        scrollgeneral=(ScrollView)findViewById(R.id.scrollview_no_registrado);
+
         textNombre=(TextView)findViewById(R.id.txt_nombre);
         textDireccion=(TextView)findViewById(R.id.txt_direccion);
         textBarrio=(TextView)findViewById(R.id.txt_barrio);
         textTelefono=(TextView)findViewById(R.id.txt_telefono);
         textObservaciones=(TextView)findViewById(R.id.txt_observaciones);
+        sinconexion=(TextView)findViewById(R.id.txt_sin_conexion);
 
 
 
         btnAtras=(ImageView)findViewById(R.id.flecha_atras);
-        btnEnviarPedido=(ImageView)findViewById(R.id.btn_enviar_pedido);
+        btnEnviarPedido=(Button)findViewById(R.id.btn_enviar_pedido);
+        volver_cargar=(Button)findViewById(R.id.volver_cargar);
 
         btnAtras.setOnClickListener(this);
         btnEnviarPedido.setOnClickListener(this);
+        volver_cargar.setOnClickListener(this);
 
         Typeface TF = FontCache.get(font_path,this);
         textNombre.setTypeface(TF);
@@ -73,6 +93,12 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         textBarrio.setTypeface(TF);
         textTelefono.setTypeface(TF);
         textObservaciones.setTypeface(TF);
+
+        TF=FontCache.get(fontStackyard,this);
+        btnEnviarPedido.setTypeface(TF);
+        volver_cargar.setTypeface(TF);
+        sinconexion.setTypeface(TF);
+
 
         String [] objetos= getResources().getStringArray(R.array.forma_pago);
 
@@ -84,12 +110,46 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         }
         adapter=new AdaptadorSpinnerFormaPago(this,R.layout.template_spinner_forma_pago,list);
         spFormapago.setAdapter(adapter);
+
+        scrollgeneral.setVisibility(View.GONE);
+        sinconexion.setVisibility(View.GONE);
+        volver_cargar.setVisibility(View.GONE);
+
+
+    }
+
+    private void cargarCiudades()
+    {
+        final Context c= this;
+        Backendless.Persistence.of(Ciudad.class).find(new AsyncCallback<BackendlessCollection<Ciudad>>() {
+            @Override
+            public void handleResponse(BackendlessCollection<Ciudad> response) {
+                List<Ciudad> ciudades = response.getData();
+                List<String> listaCiudades = new ArrayList<>();
+                listaCiudades.add("Seleccione una ciudad");
+                for (Ciudad ciu : ciudades) {
+                    listaCiudades.add(ciu.getNombre());
+                }
+                adaptadorCiudad = new AdaptadorSpinnerCiudad(c, R.layout.template_spinner_forma_pago, ciudades, listaCiudades);
+                spCiudad.setAdapter(adaptadorCiudad);
+                scrollgeneral.setVisibility(View.VISIBLE);
+                volver_cargar.setVisibility(View.GONE);
+                sinconexion.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                volver_cargar.setVisibility(View.VISIBLE);
+                sinconexion.setVisibility(View.VISIBLE);
+                Log.i("error:", fault.getMessage() + " codigo:" + fault.getCode());
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
+        cargarCiudades();
         textNombre.setFocusableInTouchMode(true);
         textNombre.requestFocus();
     }
@@ -105,10 +165,14 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
             case R.id.btn_enviar_pedido:
                 enviarPedido();
             break;
+
+            case R.id.volver_cargar:
+                cargarCiudades();
+            break;
         }
     }
 
-    private void enviarBackendless(String nombre,String direccion,String barrio,String telefono,String observaciones,String formaPago)
+    private void enviarBackendless(String nombre,String direccion,String barrio,String telefono,String observaciones,String formaPago,String idciudad)
     {
 
 
@@ -118,6 +182,7 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         pedido.setPedobservaciones(observaciones);
         pedido.setPedtelefono(telefono);
         pedido.setPedpersonanombre(nombre);
+        pedido.setCiudad(idciudad);
 
         Backendless.Persistence.save(pedido, new AsyncCallback<Pedido>() {
             @Override
@@ -174,6 +239,7 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         String direccion=textDireccion.getText().toString();
         String barrio=textBarrio.getText().toString();
         String telefono=textTelefono.getText().toString();
+        String idCiudad=(String)spCiudad.getSelectedView().findViewById(R.id.txt_item_spinner_forma_pago).getTag();
         int indiceSpinerSeleccionado= spFormapago.getSelectedItemPosition();
         String observaciones=textObservaciones.getText().toString();
         if(nombre.equals("")||direccion.equals("")||telefono.equals("")||barrio.equals(""))
@@ -182,28 +248,31 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         }
         else
         {
-            if(indiceSpinerSeleccionado==0)
+            if(idCiudad.equals("0"))
             {
-                mostrarMensaje(R.string.seleccione_forma_pago);
+                mostrarMensaje(R.string.seleccione_ciudad);
             }
             else
             {
-                String formaPago;
-                if(indiceSpinerSeleccionado==1)
+                if(indiceSpinerSeleccionado==0)
                 {
-                    formaPago="tc";
+                    mostrarMensaje(R.string.seleccione_forma_pago);
                 }
                 else
                 {
-                    formaPago="ef";
+                    String formaPago;
+                    if (indiceSpinerSeleccionado == 1) {
+                        formaPago = "tc";
+                    } else {
+                        formaPago = "ef";
+                    }
+
+                    String google = "www.google.com.co";
+                    String yahoo = "www.yahoo.com";
+                    pd = ProgressDialog.show(this, getResources().getString(R.string.enviando_pedido), getResources().getString(R.string.por_favor_espere), true, false);
+                    EnviarPedidoTask env = new EnviarPedidoTask();
+                    env.execute(nombre, direccion, barrio, telefono, observaciones, formaPago,idCiudad);
                 }
-
-                String google="www.google.com.co";
-                String yahoo="www.yahoo.com";
-                pd = ProgressDialog.show(this, getResources().getString(R.string.enviando_pedido), getResources().getString(R.string.por_favor_espere), true, false);
-                EnviarPedidoTask env= new EnviarPedidoTask();
-                env.execute(nombre,direccion,barrio,telefono,observaciones,formaPago);
-
             }
         }
 
@@ -235,6 +304,7 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         private String telefono;
         private String observaciones;
         private String formaPago;
+        private String idciudad;
 
         @Override
         protected Boolean doInBackground(String... params)
@@ -245,6 +315,7 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
             telefono=params[3];
             observaciones=params[4];
             formaPago=params[5];
+            idciudad=params[6];
             return hayConexionInternet();
         }
 
@@ -254,7 +325,7 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
             super.onPostExecute(resultado);
             if(resultado)
             {
-                enviarBackendless(nombre, direccion, barrio, telefono, observaciones, formaPago);
+                enviarBackendless(nombre, direccion, barrio, telefono, observaciones, formaPago,idciudad);
             }
             else
             {

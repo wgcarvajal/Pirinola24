@@ -27,8 +27,8 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/tam_text_mensaje_dialog_vaciar"
             android:text="@string/menaje_desea_vaciar_pedido"
-            android:textColor="@color/blanco"
-            android:textSize="@dimen/size_text_mensaje_dialog_vaciar"
+            android:textColor="@color/verdeapp"
+            android:textSize="@dimen/size_tu_opinion"
             />
 
 
@@ -42,33 +42,35 @@
         android:orientation="horizontal">
 
 
-        <Button
+        <TextView
             android:id="@+id/btn_cancelar"
             android:text="@string/txt_cancelar"
-            android:textSize="@dimen/size_text_btn_dialog_vaciar"
-            android:background="@drawable/bordes_redondos"
-            android:textColor="@color/blanco"
+            android:background="@drawable/btn_realizar_pedido"
+            android:textColor="@color/amarilloapp"
+            android:textSize="@dimen/size_letra_boton_realizar_pedido"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/tam_btn_enviar"
             android:layout_weight="1"
             android:layout_marginLeft="@dimen/super_margin_small"
             android:layout_marginTop="@dimen/super_margin_small"
             android:layout_marginBottom="@dimen/margin_small"
-            android:layout_marginRight="@dimen/margin_small"/>
+            android:layout_marginRight="@dimen/margin_small"
+            android:gravity="center"/>
 
-        <Button
+        <TextView
             android:id="@+id/btn_aceptar"
             android:text="@string/txt_aceptar"
-            android:textSize="@dimen/size_text_btn_dialog_vaciar"
-            android:background="@drawable/bordes_redondos"
-            android:textColor="@color/blanco"
+            android:background="@drawable/btn_realizar_pedido"
+            android:textColor="@color/amarilloapp"
+            android:textSize="@dimen/size_letra_boton_realizar_pedido"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/tam_btn_enviar"
             android:layout_weight="1"
             android:layout_marginRight="@dimen/super_margin_small"
             android:layout_marginTop="@dimen/super_margin_small"
             android:layout_marginBottom="@dimen/margin_small"
             android:layout_marginLeft="@dimen/margin_small"
+            android:gravity="center"
             />
 
 
