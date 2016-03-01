@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
+
+
+import com.bumptech.glide.Glide;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -109,8 +110,11 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
         Producto p = (Producto) getItem(position);
         fijarDatos(p, viewHolder, position);
 
-        Picasso.with(context)
-                .load(Uri.parse(p.getImgFile()))
+
+
+        Glide.with(context)
+                .load(p.getImgFile())
+                .placeholder(R.drawable.placeholder)
                 .into(viewHolder.imagenProducto);
 
         return v;

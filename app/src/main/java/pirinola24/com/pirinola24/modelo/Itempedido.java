@@ -1,8 +1,5 @@
 package pirinola24.com.pirinola24.modelo;
 
-/**
- * Created by geovanny on 26/02/16.
- */
 public class Itempedido
 {
     private String objectId;

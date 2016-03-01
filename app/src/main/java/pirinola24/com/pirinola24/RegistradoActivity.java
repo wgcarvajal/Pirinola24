@@ -12,7 +12,6 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,21 +24,24 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
-import com.parse.SaveCallback;
+import com.backendless.Backendless;
+import com.backendless.BackendlessCollection;
+import com.backendless.BackendlessUser;
+import com.backendless.async.callback.AsyncCallback;
+import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.BackendlessDataQuery;
+import com.backendless.persistence.QueryOptions;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import pirinola24.com.pirinola24.adaptadores.AdaptadorSpinnerFormaPago;
 import pirinola24.com.pirinola24.basededatos.AdminSQliteOpenHelper;
+import pirinola24.com.pirinola24.modelo.Ciudad;
+import pirinola24.com.pirinola24.modelo.Direccion;
+import pirinola24.com.pirinola24.modelo.Itempedido;
 import pirinola24.com.pirinola24.modelo.Pedido;
-import pirinola24.com.pirinola24.modelo.Usuario;
+import pirinola24.com.pirinola24.modelo.Telefono;
 import pirinola24.com.pirinola24.util.FontCache;
 
 public class RegistradoActivity extends AppCompatActivity implements View.OnClickListener {
@@ -53,9 +55,10 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
     private Spinner spTelefono;
     private ImageView btnAgregarTelefono;
     private Spinner spFormaPago;
-    private EditText txtObservaciones;
     private Button btnEnviarPedido;
     private TextView txtSinConexion;
+    private TextView txtlugar;
+    private TextView explicacion;
     private Button btnVolverCargar;
     private AdaptadorSpinnerFormaPago adapter;
     private AdaptadorSpinnerFormaPago adapterDireccion;
@@ -63,6 +66,7 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
     private List <String> listaDirecciones;
     private List<String> listaTelfonos;
     private ProgressDialog pd = null;
+    private Ciudad ciudad;
     private Dialog dialog;
 
     @Override
@@ -77,26 +81,23 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
         spTelefono=(Spinner)findViewById(R.id.sp_telefono);
         btnAgregarTelefono=(ImageView)findViewById(R.id.btn_agregar_telefono);
         spFormaPago=(Spinner)findViewById(R.id.sp_forma_pago);
-        txtObservaciones=(EditText)findViewById(R.id.txt_observaciones);
         btnEnviarPedido=(Button)findViewById(R.id.btn_enviar_pedido);
         txtSinConexion=(TextView)findViewById(R.id.txt_sin_conexion);
         btnVolverCargar=(Button)findViewById(R.id.btn_volver_cargar);
+        txtlugar=(TextView)findViewById(R.id.textlugar);
+        explicacion=(TextView)findViewById(R.id.txtexplicacion);
 
-        Typeface TF = FontCache.get(font_path,this);
-
-        txtObservaciones.setTypeface(TF);
-
-
-        TF=FontCache.get(fontStackyard,this);
+        Typeface TF=FontCache.get(fontStackyard,this);
         btnVolverCargar.setTypeface(TF);
         btnEnviarPedido.setTypeface(TF);
         txtSinConexion.setTypeface(TF);
+        txtlugar.setTypeface(TF);
+        explicacion.setTypeface(TF);
 
         findViewById(R.id.espacio_spinner_direccion).setVisibility(View.GONE);
         findViewById(R.id.espacio_spinner_telefono).setVisibility(View.GONE);
         txtSinConexion.setVisibility(View.GONE);
         btnVolverCargar.setVisibility(View.GONE);
-        findViewById(R.id.scrollView_observaciones).setVisibility(View.GONE);
         btnEnviarPedido.setVisibility(View.GONE);
         findViewById(R.id.icon_sp_forma_pago).setVisibility(View.GONE);
         spFormaPago.setVisibility(View.GONE);
@@ -118,6 +119,8 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
         }
         adapter=new AdaptadorSpinnerFormaPago(this,R.layout.template_spinner_forma_pago,list);
         spFormaPago.setAdapter(adapter);
+        ciudad= (Ciudad)getIntent().getExtras().getSerializable("ciudad");
+        txtlugar.setText(ciudad.getNombre());
         loadView();
     }
 
@@ -160,11 +163,10 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
 
     private void enviarPedido()
     {
-        String nombre=ParseUser.getCurrentUser().getString(Usuario.NOMBRE);
+        String nombre=(String)Backendless.UserService.CurrentUser().getProperty("name");
         int indiceDireccion=spDireccion.getSelectedItemPosition();
         int indiceTelefono=spTelefono.getSelectedItemPosition();
         int indiceFormaPago=spFormaPago.getSelectedItemPosition();
-        String observaciones=txtObservaciones.getText().toString();
         if(indiceDireccion==0 || indiceTelefono==0 || indiceFormaPago==0)
         {
             mostrarMensaje(R.string.campos_obligatorios);
@@ -184,7 +186,7 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
             String telefono=spTelefono.getSelectedItem().toString();
             pd = ProgressDialog.show(this, getResources().getString(R.string.enviando_pedido), getResources().getString(R.string.por_favor_espere), true, false);
             EnviarPedidoTask evptask= new EnviarPedidoTask();
-            evptask.execute(nombre,direccion,telefono,observaciones,formaPago);
+            evptask.execute(nombre,direccion,telefono,formaPago);
         }
 
     }
@@ -195,7 +197,6 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
         private String nombre;
         private String direccion;
         private String telefono;
-        private String observaciones;
         private String formaPago;
 
         @Override
@@ -204,8 +205,7 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
             nombre=params[0];
             direccion=params[1];
             telefono=params[2];
-            observaciones=params[3];
-            formaPago=params[4];
+            formaPago=params[3];
             return hayConexionInternet();
         }
 
@@ -215,7 +215,7 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
             super.onPostExecute(resultado);
             if(resultado)
             {
-                enviarParse(nombre,direccion,telefono,observaciones,formaPago);
+                enviarBackendless(nombre, direccion, telefono, formaPago);
             }
             else
             {
@@ -229,50 +229,59 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private void enviarParse(String nombre,String direccion,String telefono,String observaciones,String formaPago)
+    private void enviarBackendless(String nombre,String direccion,String telefono,String formaPago)
     {
-        /*final ParseObject pedido = new ParseObject(Pedido.TABLA);
-        pedido.put(Pedido.PERSONANOMBRE, nombre);
-        pedido.put(Pedido.DIRECCION, direccion);
-        pedido.put(Pedido.TELEFONO, telefono);
-        pedido.put(Pedido.FORMAPAGO, formaPago);
-        pedido.put(Pedido.OBSERVACIONES, observaciones);
-        pedido.saveInBackground(new SaveCallback() {
+        Pedido pedido= new Pedido();
+        pedido.setPeddireccion(direccion);
+        pedido.setPedformapago(formaPago);
+        pedido.setPedtelefono(telefono);
+        pedido.setPedpersonanombre(nombre);
+        pedido.setCiudad(ciudad.getObjectId());
+
+        Backendless.Persistence.save(pedido, new AsyncCallback<Pedido>() {
             @Override
-            public void done(ParseException e) {
-                if (e == null) {
+            public void handleResponse(Pedido response) {
+                AdminSQliteOpenHelper admin = new AdminSQliteOpenHelper(getApplicationContext(), "admin", null, 1);
+                SQLiteDatabase db = admin.getReadableDatabase();
+                Cursor fila = db.rawQuery("select prodid,prodcantidad from pedido", null);
+                if (fila != null) {
 
-                    AdminSQliteOpenHelper admin = new AdminSQliteOpenHelper(getApplicationContext(), "admin", null, 1);
-                    SQLiteDatabase db = admin.getReadableDatabase();
+                    if (fila.moveToFirst()) {
+                        do {
+                            Itempedido itempedido = new Itempedido();
+                            itempedido.setPedido(response.getObjectId());
+                            itempedido.setProducto(fila.getString(fila.getColumnIndex("prodid")));
+                            itempedido.setItemcantidad(fila.getInt(fila.getColumnIndex("prodcantidad")));
+                            Backendless.Persistence.save(itempedido, new AsyncCallback<Itempedido>() {
+                                @Override
+                                public void handleResponse(Itempedido response) {
 
-                    Cursor fila = db.rawQuery("select prodid,prodcantidad from pedido", null);
-                    if (fila != null) {
+                                }
 
-                        if (fila.moveToFirst()) {
-                            do {
-                                ParseObject itempedido = new ParseObject(Pedido.TABLAITEMPEDIDO);
-                                itempedido.put(Pedido.TBLITEMPEDIDO_PEDIDO, pedido.getObjectId());
-                                itempedido.put(Pedido.TBLITEMPEDIDO_PRODUCTO, fila.getString(fila.getColumnIndex("prodid")));
-                                itempedido.put(Pedido.TBLITEMPEDIDO_CANTIDAD, fila.getInt(fila.getColumnIndex("prodcantidad")));
-                                itempedido.saveInBackground();
+                                @Override
+                                public void handleFault(BackendlessFault fault) {
 
-
-                            } while (fila.moveToNext());
-                            setResult(Activity.RESULT_OK);
-                            if (pd != null) {
-                                pd.dismiss();
-                            }
-                            finish();
+                                }
+                            });
+                        } while (fila.moveToNext());
+                        setResult(Activity.RESULT_OK);
+                        if (pd != null) {
+                            pd.dismiss();
                         }
+                        finish();
                     }
-                } else {
-                    if (pd != null) {
-                        pd.dismiss();
-                    }
-                    mostrarMensaje(R.string.compruebe_conexion);
                 }
+
             }
-        });*/
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                if (pd != null) {
+                    pd.dismiss();
+                }
+                mostrarMensaje(R.string.compruebe_conexion);
+            }
+        });
     }
 
     private void agregarTelefono()
@@ -283,19 +292,23 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.borde_template_descripcion_producto);
 
 
-        Typeface TF = FontCache.get(font_path,this);
-        ImageView btnAceptar=(ImageView)dialog.findViewById(R.id.btn_aceptar);
-        ImageView btnCancelar=(ImageView)dialog.findViewById(R.id.btn_cancelar);
+
+        TextView btnAceptar=(TextView)dialog.findViewById(R.id.btn_aceptar);
+        TextView btnCancelar=(TextView)dialog.findViewById(R.id.btn_cancelar);
         final EditText txtTelefono =(EditText)dialog.findViewById(R.id.txt_telefono);
 
+        Typeface TF = FontCache.get(font_path,this);
         txtTelefono.setTypeface(TF);
+        TF= FontCache.get(fontStackyard,this);
+        btnAceptar.setTypeface(TF);
+        btnCancelar.setTypeface(TF);
+
         final Context context=this;
 
         btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                String telefono=txtTelefono.getText().toString();
+            public void onClick(View v) {
+                String telefono = txtTelefono.getText().toString();
 
                 guardarTelefono(telefono);
             }
@@ -327,9 +340,19 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
             }
             else
             {
-                pd = ProgressDialog.show(this, getResources().getString(R.string.txt_enviando), getResources().getString(R.string.por_favor_espere), true, false);
-                GuardarTelefono gt= new GuardarTelefono();
-                gt.execute(telefono);
+                if(listaTelfonos.contains(telefono))
+                {
+                    dialog.dismiss();
+                    mostrarMensaje(R.string.campo_telefono_ya_esta);
+                }
+                else
+                {
+                    pd = ProgressDialog.show(this, getResources().getString(R.string.txt_enviando), getResources().getString(R.string.por_favor_espere), true, false);
+                    GuardarTelefono gt= new GuardarTelefono();
+                    gt.execute(telefono);
+                }
+
+
             }
 
         }
@@ -351,7 +374,7 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
             super.onPostExecute(resultado);
             if(resultado)
             {
-                guardarTelefonoParse(telefono);
+                guardarTelefonoBackendless(telefono);
             }
             else
             {
@@ -364,36 +387,36 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    public void guardarTelefonoParse(String telefono)
+    public void guardarTelefonoBackendless(String telefono)
     {
-        Log.i("Entro","parse telefono");
-        final ParseObject objtelefono= new ParseObject(Usuario.TABLATELEFONO);
-        objtelefono.put(Usuario.TBLTELEFONONUMERO,telefono);
-        objtelefono.put(Usuario.TBLTELEFONOUSER,ParseUser.getCurrentUser().getObjectId());
-        objtelefono.saveInBackground(new SaveCallback() {
+        Telefono phone= new Telefono();
+        phone.setIdciudad(ciudad.getObjectId());
+        phone.setNumero(telefono);
+        phone.setUser(Backendless.UserService.CurrentUser().getObjectId());
+        Backendless.Persistence.save(phone, new AsyncCallback<Telefono>() {
             @Override
-            public void done(ParseException e)
+            public void handleResponse(Telefono response)
             {
-                if(e==null)
+                listaTelfonos.add(response.getNumero());
+                adapterTelefono.notifyDataSetChanged();
+                spTelefono.setSelection(adapterTelefono.getCount()-1);
+                if(pd!=null)
                 {
-                    if(pd!=null)
-                    {
-                        pd.dismiss();
-                    }
-                    mostrarMensaje(R.string.txt_registro_exitoso);
-                    dialog.dismiss();
-                    listaTelfonos.add(objtelefono.getString(Usuario.TBLTELEFONONUMERO));
-                    adapterTelefono.notifyDataSetChanged();
-                    spTelefono.setSelection(adapterTelefono.getCount()-1);
+                    pd.dismiss();
                 }
-                else
+                mostrarMensaje(R.string.txt_registro_exitoso);
+                dialog.dismiss();
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault)
+            {
+
+                if(pd!=null)
                 {
-                    if(pd!=null)
-                    {
-                        pd.dismiss();
-                    }
-                    mostrarMensaje(R.string.compruebe_conexion);
+                    pd.dismiss();
                 }
+                mostrarMensaje(R.string.compruebe_conexion);
             }
         });
     }
@@ -406,14 +429,19 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.borde_template_descripcion_producto);
 
 
-        Typeface TF = FontCache.get(font_path,this);
-        ImageView btnAceptar=(ImageView)dialog.findViewById(R.id.btn_aceptar);
-        ImageView btnCancelar=(ImageView)dialog.findViewById(R.id.btn_cancelar);
+
+        TextView btnAceptar=(TextView)dialog.findViewById(R.id.btn_aceptar);
+        TextView btnCancelar=(TextView)dialog.findViewById(R.id.btn_cancelar);
         final EditText txtdireccion =(EditText)dialog.findViewById(R.id.txt_direccion);
         final EditText txtbarrio=(EditText)dialog.findViewById(R.id.txt_barrio);
+        Typeface TF = FontCache.get(font_path,this);
         txtdireccion.setTypeface(TF);
         txtbarrio.setTypeface(TF);
         final Context context=this;
+
+        TF= FontCache.get(fontStackyard,this);
+        btnAceptar.setTypeface(TF);
+        btnCancelar.setTypeface(TF);
 
         btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -446,9 +474,18 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
         }
         else
         {
-            pd = ProgressDialog.show(this, getResources().getString(R.string.txt_enviando), getResources().getString(R.string.por_favor_espere), true, false);
-            GuardarDireccion gd= new GuardarDireccion();
-            gd.execute(direccion,barrio);
+            if(listaDirecciones.contains(direccion+" "+barrio))
+            {
+                dialog.dismiss();
+                mostrarMensaje(R.string.campo_direccion_ya_esta);
+            }
+            else
+            {
+                pd = ProgressDialog.show(this, getResources().getString(R.string.txt_enviando), getResources().getString(R.string.por_favor_espere), true, false);
+                GuardarDireccion gd= new GuardarDireccion();
+                gd.execute(direccion,barrio);
+            }
+
         }
 
     }
@@ -470,7 +507,7 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
             super.onPostExecute(resultado);
             if(resultado)
             {
-                guardarDireccionParse(direccion,barrio);
+                guardarDireccionBackendless(direccion, barrio);
             }
             else
             {
@@ -483,35 +520,37 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    public void guardarDireccionParse(String direccion,String barrio)
+    public void guardarDireccionBackendless(String direccion,String barrio)
     {
-        final ParseObject objdireccion= new ParseObject(Usuario.TABLADIRECCION);
-        objdireccion.put(Usuario.TBLDIRECCIONDIRECCION,direccion+" "+barrio);
-        objdireccion.put(Usuario.TBLDIRECCIONUSER,ParseUser.getCurrentUser().getObjectId());
-        objdireccion.saveInBackground(new SaveCallback() {
+
+        Direccion address= new Direccion();
+        address.setIdciudad(ciudad.getObjectId());
+        address.setDireccion(direccion+" "+barrio);
+        address.setUser(Backendless.UserService.CurrentUser().getObjectId());
+        Backendless.Persistence.save(address, new AsyncCallback<Direccion>() {
             @Override
-            public void done(ParseException e)
+            public void handleResponse(Direccion response)
             {
-                if(e==null)
+                listaDirecciones.add(response.getDireccion());
+                adapterDireccion.notifyDataSetChanged();
+                spDireccion.setSelection(adapterDireccion.getCount()-1);
+                if(pd!=null)
                 {
-                    if(pd!=null)
-                    {
-                        pd.dismiss();
-                    }
-                    mostrarMensaje(R.string.txt_registro_exitoso);
-                    dialog.dismiss();
-                    listaDirecciones.add(objdireccion.getString(Usuario.TBLDIRECCIONDIRECCION));
-                    adapterDireccion.notifyDataSetChanged();
-                    spDireccion.setSelection(adapterDireccion.getCount()-1);
+                    pd.dismiss();
                 }
-                else
+                mostrarMensaje(R.string.txt_registro_exitoso);
+                dialog.dismiss();
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault)
+            {
+
+                if(pd!=null)
                 {
-                    if(pd!=null)
-                    {
-                        pd.dismiss();
-                    }
-                    mostrarMensaje(R.string.compruebe_conexion);
+                    pd.dismiss();
                 }
+                mostrarMensaje(R.string.compruebe_conexion);
             }
         });
     }
@@ -529,7 +568,7 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
             super.onPostExecute(resultado);
             if(resultado)
             {
-                cargarDatosParse();
+                cargarDatosBackendless();
             }
             else
             {
@@ -540,90 +579,76 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private void cargarDatosParse()
+    private void cargarDatosBackendless()
     {
-        if(pd!=null)
-        {
-            pd.dismiss();
-        }
-        /*final Context context =this;
-        final ParseUser currentuser= ParseUser.getCurrentUser();
-        ParseQuery<ParseObject> queryDireccion= new ParseQuery<>(Usuario.TABLADIRECCION);
-        queryDireccion.whereEqualTo(Usuario.TBLDIRECCIONUSER,currentuser.getObjectId());
-        queryDireccion.selectKeys(Arrays.asList(Usuario.TBLDIRECCIONDIRECCION));
-        queryDireccion.findInBackground(new FindCallback<ParseObject>() {
+        BackendlessDataQuery querydireccion = new BackendlessDataQuery();
+        final BackendlessUser user= Backendless.UserService.CurrentUser();
+        final Context context =this;
+        querydireccion.setWhereClause("user = '" + user.getObjectId() + "' AND idciudad='" + ciudad.getObjectId()+"'");
+        QueryOptions optionsdireccion= new QueryOptions();
+        optionsdireccion.setPageSize(100);
+        querydireccion.setQueryOptions(optionsdireccion);
+        Backendless.Persistence.of(Direccion.class).find(querydireccion ,new AsyncCallback<BackendlessCollection<Direccion>>() {
             @Override
-            public void done(final List<ParseObject> direcciones, ParseException e)
+            public void handleResponse(final BackendlessCollection<Direccion> direcciones)
             {
-                if(e==null)
-                {
-                    ParseQuery <ParseObject> queryTelefono= new ParseQuery<>(Usuario.TABLATELEFONO);
-                    queryTelefono.whereEqualTo(Usuario.TBLTELEFONOUSER,currentuser.getObjectId());
-                    queryTelefono.selectKeys(Arrays.asList(Usuario.TBLTELEFONONUMERO));
-                    queryTelefono.findInBackground(new FindCallback<ParseObject>() {
-                        @Override
-                        public void done(List<ParseObject> telefonos, ParseException e)
-                        {
-                            if(e==null)
-                            {
-                                listaDirecciones=new ArrayList<>();
-                                listaDirecciones.add(getResources().getString(R.string.txt_seleccione_direccion));
-                                for(ParseObject dir: direcciones)
-                                {
-                                    listaDirecciones.add(dir.getString(Usuario.TBLDIRECCIONDIRECCION));
-                                }
-                                adapterDireccion=new AdaptadorSpinnerFormaPago(context,R.layout.template_spinner_forma_pago,listaDirecciones);
-                                spDireccion.setAdapter(adapterDireccion);
-
-
-                                listaTelfonos=new ArrayList<>();
-                                listaTelfonos.add(getResources().getString(R.string.txt_seleccione_telefono));
-                                for(ParseObject tel: telefonos)
-                                {
-                                    listaTelfonos.add(tel.getString(Usuario.TBLTELEFONONUMERO));
-                                }
-                                adapterTelefono=new AdaptadorSpinnerFormaPago(context,R.layout.template_spinner_forma_pago,listaTelfonos);
-                                spTelefono.setAdapter(adapterTelefono);
-
-                                if(pd!=null)
-                                {
-                                    pd.dismiss();
-                                }
-
-                                findViewById(R.id.espacio_spinner_direccion).setVisibility(View.VISIBLE);
-                                findViewById(R.id.espacio_spinner_telefono).setVisibility(View.VISIBLE);
-                                findViewById(R.id.scrollView_observaciones).setVisibility(View.VISIBLE);
-                                btnEnviarPedido.setVisibility(View.VISIBLE);
-                                findViewById(R.id.icon_sp_forma_pago).setVisibility(View.VISIBLE);
-                                spFormaPago.setVisibility(View.VISIBLE);
-
-                            }
-                            else
-                            {
-                                if(pd!=null)
-                                {
-                                    pd.dismiss();
-                                    txtSinConexion.setVisibility(View.VISIBLE);
-                                    btnVolverCargar.setVisibility(View.VISIBLE);
-
-                                }
-                            }
-                        }
-                    });
-                }
-                else
-                {
-                    if(pd!=null)
+                BackendlessDataQuery querytelefono = new BackendlessDataQuery();
+                querytelefono.setWhereClause("user = '" + user.getObjectId() + "' AND idciudad='" + ciudad.getObjectId()+"'");
+                QueryOptions optionstelefono= new QueryOptions();
+                optionstelefono.setPageSize(100);
+                querytelefono.setQueryOptions(optionstelefono);
+                Backendless.Persistence.of(Telefono.class).find(querytelefono, new AsyncCallback<BackendlessCollection<Telefono>>() {
+                    @Override
+                    public void handleResponse(BackendlessCollection<Telefono> telefonos)
                     {
-                        pd.dismiss();
+
+                        listaDirecciones=new ArrayList<>();
+                        listaDirecciones.add(getResources().getString(R.string.txt_seleccione_direccion));
+                        for(Direccion dir: direcciones.getData())
+                        {
+                            listaDirecciones.add(dir.getDireccion());
+                        }
+                        adapterDireccion=new AdaptadorSpinnerFormaPago(context,R.layout.template_spinner_forma_pago,listaDirecciones);
+                        spDireccion.setAdapter(adapterDireccion);
+                        listaTelfonos=new ArrayList<>();
+                        listaTelfonos.add(getResources().getString(R.string.txt_seleccione_telefono));
+                        for(Telefono tel: telefonos.getData()) {
+                            listaTelfonos.add(tel.getNumero());                        }
+                        adapterTelefono=new AdaptadorSpinnerFormaPago(context,R.layout.template_spinner_forma_pago,listaTelfonos);
+                        spTelefono.setAdapter(adapterTelefono);
+                        findViewById(R.id.espacio_spinner_direccion).setVisibility(View.VISIBLE);
+                        findViewById(R.id.espacio_spinner_telefono).setVisibility(View.VISIBLE);
+                        btnEnviarPedido.setVisibility(View.VISIBLE);
+                        findViewById(R.id.icon_sp_forma_pago).setVisibility(View.VISIBLE);
+                        spFormaPago.setVisibility(View.VISIBLE);
+                        if(pd!=null)
+                        {
+                            pd.dismiss();
+                        }
+                    }
+                    @Override
+                    public void handleFault(BackendlessFault fault)
+                    {
                         txtSinConexion.setVisibility(View.VISIBLE);
                         btnVolverCargar.setVisibility(View.VISIBLE);
+                        if(pd!=null)
+                        {
+                            pd.dismiss();
+                        }
                     }
-
-                }
-
+                });
             }
-        });*/
+            @Override
+            public void handleFault(BackendlessFault fault)
+            {
+                txtSinConexion.setVisibility(View.VISIBLE);
+                btnVolverCargar.setVisibility(View.VISIBLE);
+                if(pd!=null)
+                {
+                    pd.dismiss();
+                }
+            }
+        });
     }
     private boolean hayConexionInternet()
     {

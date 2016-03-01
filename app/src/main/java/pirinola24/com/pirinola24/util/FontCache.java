@@ -2,13 +2,9 @@ package pirinola24.com.pirinola24.util;
 
 import android.content.Context;
 import android.graphics.Typeface;
-import android.util.Log;
 
 import java.util.Hashtable;
 
-/**
- * Created by geovanny on 20/02/16.
- */
 public class FontCache
 {
 

@@ -1,11 +1,14 @@
 package pirinola24.com.pirinola24;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,13 +24,15 @@ import pirinola24.com.pirinola24.adaptadores.AdaptadorCiudad;
 import pirinola24.com.pirinola24.modelo.Ciudad;
 import pirinola24.com.pirinola24.util.FontCache;
 
-public class SeleccionarciudadActivity extends AppCompatActivity implements View.OnClickListener {
+public class SeleccionarciudadActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
+    public final static int MI_REQUEST_CODE_REGISTRADO = 2;
     private ListView listaCiudades;
     private AdaptadorCiudad adaptador;
     private List<Ciudad> data = new ArrayList<>();
     private TextView titulo;
     private TextView seleccionarCiudad;
+    private ImageView flechaAtras;
     private String fontStackyard="font/Stackyard.ttf";
     private TextView sinconexion;
     private Button recargarvista;
@@ -43,6 +48,7 @@ public class SeleccionarciudadActivity extends AppCompatActivity implements View
         sinconexion=(TextView)findViewById(R.id.txt_sin_conexion);
         recargarvista=(Button)findViewById(R.id.btn_volver_cargar);
         seleccionarCiudad=(TextView)findViewById(R.id.seleccionarCiudad);
+        flechaAtras=(ImageView)findViewById(R.id.flecha_atras);
 
 
         Typeface TF= FontCache.get(fontStackyard,this);
@@ -51,12 +57,15 @@ public class SeleccionarciudadActivity extends AppCompatActivity implements View
         sinconexion.setTypeface(TF);
         recargarvista.setTypeface(TF);
         recargarvista.setOnClickListener(this);
+        flechaAtras.setOnClickListener(this);
 
         titulo.setVisibility(View.GONE);
         seleccionarCiudad.setVisibility(View.GONE);
         recargarvista.setVisibility(View.GONE);
         sinconexion.setVisibility(View.GONE);
         listaCiudades.setVisibility(View.GONE);
+
+        listaCiudades.setOnItemClickListener(this);
 
         adaptador= new AdaptadorCiudad(this,data);
         listaCiudades.setAdapter(adaptador);
@@ -108,7 +117,33 @@ public class SeleccionarciudadActivity extends AppCompatActivity implements View
             case R.id.btn_volver_cargar:
                 loadCiudades();
             break;
+
+            case R.id.flecha_atras:
+                finish();
+            break;
         }
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    {
+        Intent intent = new Intent(this, RegistradoActivity.class);
+        intent.putExtra("ciudad", data.get(position));
+        startActivityForResult(intent,MI_REQUEST_CODE_REGISTRADO);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        if(requestCode==MI_REQUEST_CODE_REGISTRADO)
+        {
+            if(resultCode==RESULT_OK)
+            {
+                Intent intent = new Intent();
+                setResult(RESULT_OK,intent);
+                finish();
+            }
+        }
     }
 }

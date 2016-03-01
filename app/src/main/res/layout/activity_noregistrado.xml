@@ -133,8 +133,6 @@
 
                 />
 
-
-
             <ImageView
                 android:layout_width="@dimen/tam_icono_caja_text"
                 android:layout_height="@dimen/tam_icono_caja_text"
@@ -157,8 +155,6 @@
 
                 />
 
-
-
             <ImageView
                 android:layout_width="@dimen/tam_icono_caja_text"
                 android:layout_height="@dimen/tam_icono_caja_text"
@@ -168,43 +164,11 @@
                 android:layout_marginBottom="@dimen/icono_ingrese_margin_bottom"
                 android:layout_marginRight="@dimen/icono_ingrese_margin_rigth"/>
 
-
-
-            <ScrollView
-                android:id="@+id/scrollView_observaciones"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/tam_scrollview_observaciones"
-                android:layout_marginTop="@dimen/margin_small"
-                android:layout_marginRight="@dimen/margin_small"
-                android:layout_marginLeft="@dimen/margin_small"
-                android:layout_below="@id/sp_forma_pago"
-                android:scrollbars="none"
-                android:background="@drawable/caja_texto_ingrese"
-                >
-
-                <EditText
-                    android:id="@+id/txt_observaciones"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_muy_poca"
-                    android:maxLength="300"
-                    android:minHeight="@dimen/tam_scrollview_observaciones"
-                    android:inputType="textMultiLine"
-                    android:hint="@string/text_hint_observaciones"
-                    android:textSize="@dimen/size_text_caja_texto"
-                    android:textColor="@color/vinotintoapp"
-                    android:textColorHint="@color/verdeapp"
-                    android:gravity="center"
-                    android:ellipsize="end"/>
-
-            </ScrollView>
-
-
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/btn_enviar_pedido"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tam_alto_btn"
-                android:layout_below="@id/scrollView_observaciones"
+                android:layout_below="@id/sp_forma_pago"
                 android:layout_marginTop="@dimen/margin_top_btn"
                 android:layout_marginRight="@dimen/margin_small"
                 android:layout_marginLeft="@dimen/margin_small"

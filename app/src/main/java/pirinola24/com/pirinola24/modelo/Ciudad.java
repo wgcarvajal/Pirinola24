@@ -1,9 +1,8 @@
 package pirinola24.com.pirinola24.modelo;
 
-/**
- * Created by geovanny on 27/02/16.
- */
-public class Ciudad
+import java.io.Serializable;
+
+public class Ciudad implements Serializable
 {
     private String objectId;
     private String nombre;

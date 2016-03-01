@@ -1,8 +1,6 @@
 package pirinola24.com.pirinola24.modelo;
 
-/**
- * Created by geovanny on 18/01/16.
- */
+
 public class Subcategoria
 {
     public static final int CONDESCRIPCION=1;

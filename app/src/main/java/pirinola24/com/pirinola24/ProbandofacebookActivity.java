@@ -1,31 +1,16 @@
 package pirinola24.com.pirinola24;
 
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
-import com.parse.LogInCallback;
-import com.parse.ParseException;
-import com.parse.ParseFacebookUtils;
-import com.parse.ParseUser;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class ProbandofacebookActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -53,7 +38,7 @@ public class ProbandofacebookActivity extends AppCompatActivity implements View.
     @Override
     public void onClick(View v)
     {
-        switch (v.getId())
+        /*switch (v.getId())
         {
             case R.id.btn_facebook:
                 progressDialog = ProgressDialog.show(this, "Logueando con Facebook", "Espere un momento", true);
@@ -95,7 +80,7 @@ public class ProbandofacebookActivity extends AppCompatActivity implements View.
                 ShareDialog.show(this,content);
 
                 break;
-        }
+        }*/
 
 
     }
@@ -104,7 +89,7 @@ public class ProbandofacebookActivity extends AppCompatActivity implements View.
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
+        //ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
 
 
 

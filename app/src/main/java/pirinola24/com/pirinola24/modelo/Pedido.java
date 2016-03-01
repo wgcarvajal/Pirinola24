@@ -1,8 +1,5 @@
 package pirinola24.com.pirinola24.modelo;
 
-/**
- * Created by geovanny on 21/01/16.
- */
 public class Pedido
 {
     private String objectId;

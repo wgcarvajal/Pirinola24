@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         text_compruebe_conexion.setVisibility(View.GONE);
         btnRecargarVista.setVisibility(View.GONE);
 
-        Typeface TF = FontCache.get(fontStackyard,this); //Typeface.createFromAsset(getAssets(), fontStackyard);
+        Typeface TF = FontCache.get(fontStackyard,this);
         text_compruebe_conexion.setTypeface(TF);
         tituloMenuHeader.setTypeface(TF);
         btnRecargarVista.setTypeface(TF);
@@ -197,6 +197,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void cargarDatosBackendless()
     {
         BackendlessDataQuery dataQuerysubcategoria= new BackendlessDataQuery();
+        List<String>subcategoriaSelect=new ArrayList<>();
+        subcategoriaSelect.add("objectId");
+        subcategoriaSelect.add("imgTitulo");
+        subcategoriaSelect.add("tipoFragment");
+        subcategoriaSelect.add("subcatnombre");
+
+        dataQuerysubcategoria.setProperties(subcategoriaSelect);
         QueryOptions queryOptionsSubcategoria= new QueryOptions();
         queryOptionsSubcategoria.setPageSize(100);
         queryOptionsSubcategoria.addSortByOption("posicion ASC");
@@ -204,8 +211,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Backendless.Persistence.of(Subcategoria.class).find(dataQuerysubcategoria, new AsyncCallback<BackendlessCollection<Subcategoria>>() {
             @Override
             public void handleResponse(BackendlessCollection<Subcategoria> response) {
+
                 AppUtil.listaSubcategorias= response.getData();
                 BackendlessDataQuery dataQueryProductos= new BackendlessDataQuery();
+                List<String> productoSelect=new ArrayList<>();
+                productoSelect.add("objectId");
+                productoSelect.add("precio");
+                productoSelect.add("proddescripcion");
+                productoSelect.add("prodnombre");
+                productoSelect.add("subcategoria");
+                productoSelect.add("imgFile");
+                dataQueryProductos.setProperties(productoSelect);
                 QueryOptions queryOptionsProductos= new QueryOptions();
                 queryOptionsProductos.setPageSize(100);
                 queryOptionsProductos.addSortByOption("posicion ASC");
@@ -215,9 +231,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     public void handleResponse(BackendlessCollection<Producto> prods)
                     {
                         AppUtil.data=prods.getData();
-
-
-
                         if(prods.getTotalObjects()>100)
                         {
                             prods.nextPage(new AsyncCallback<BackendlessCollection<Producto>>() {

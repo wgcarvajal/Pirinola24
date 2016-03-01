@@ -50,7 +50,6 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
     private TextView textDireccion;
     private TextView textBarrio;
     private TextView textTelefono;
-    private TextView textObservaciones;
     private ScrollView scrollgeneral;
     private ImageView btnAtras;
     private Button btnEnviarPedido;
@@ -74,7 +73,6 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         textDireccion=(TextView)findViewById(R.id.txt_direccion);
         textBarrio=(TextView)findViewById(R.id.txt_barrio);
         textTelefono=(TextView)findViewById(R.id.txt_telefono);
-        textObservaciones=(TextView)findViewById(R.id.txt_observaciones);
         sinconexion=(TextView)findViewById(R.id.txt_sin_conexion);
 
 
@@ -92,7 +90,6 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         textDireccion.setTypeface(TF);
         textBarrio.setTypeface(TF);
         textTelefono.setTypeface(TF);
-        textObservaciones.setTypeface(TF);
 
         TF=FontCache.get(fontStackyard,this);
         btnEnviarPedido.setTypeface(TF);
@@ -114,11 +111,18 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         scrollgeneral.setVisibility(View.GONE);
         sinconexion.setVisibility(View.GONE);
         volver_cargar.setVisibility(View.GONE);
-
+        cargarCiudades();
 
     }
 
     private void cargarCiudades()
+    {
+        pd = ProgressDialog.show(this, getResources().getString(R.string.txt_cargando_datos), getResources().getString(R.string.por_favor_espere), true, false);
+        CargarCiudadesTask cargarciudades = new CargarCiudadesTask();
+        cargarciudades.execute();
+    }
+
+    private void cargarCiudadesBackendless()
     {
         final Context c= this;
         Backendless.Persistence.of(Ciudad.class).find(new AsyncCallback<BackendlessCollection<Ciudad>>() {
@@ -135,12 +139,21 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
                 scrollgeneral.setVisibility(View.VISIBLE);
                 volver_cargar.setVisibility(View.GONE);
                 sinconexion.setVisibility(View.GONE);
+                if(pd!=null)
+                {
+                    pd.dismiss();
+                }
+
             }
 
             @Override
             public void handleFault(BackendlessFault fault) {
                 volver_cargar.setVisibility(View.VISIBLE);
                 sinconexion.setVisibility(View.VISIBLE);
+                if(pd!=null)
+                {
+                    pd.dismiss();
+                }
                 Log.i("error:", fault.getMessage() + " codigo:" + fault.getCode());
             }
         });
@@ -149,7 +162,6 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onResume() {
         super.onResume();
-        cargarCiudades();
         textNombre.setFocusableInTouchMode(true);
         textNombre.requestFocus();
     }
@@ -172,14 +184,11 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    private void enviarBackendless(String nombre,String direccion,String barrio,String telefono,String observaciones,String formaPago,String idciudad)
+    private void enviarBackendless(String nombre,String direccion,String barrio,String telefono,String formaPago,String idciudad)
     {
-
-
         Pedido pedido= new Pedido();
-        pedido.setPeddireccion(direccion);
+        pedido.setPeddireccion(direccion+" "+barrio);
         pedido.setPedformapago(formaPago);
-        pedido.setPedobservaciones(observaciones);
         pedido.setPedtelefono(telefono);
         pedido.setPedpersonanombre(nombre);
         pedido.setCiudad(idciudad);
@@ -241,7 +250,6 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         String telefono=textTelefono.getText().toString();
         String idCiudad=(String)spCiudad.getSelectedView().findViewById(R.id.txt_item_spinner_forma_pago).getTag();
         int indiceSpinerSeleccionado= spFormapago.getSelectedItemPosition();
-        String observaciones=textObservaciones.getText().toString();
         if(nombre.equals("")||direccion.equals("")||telefono.equals("")||barrio.equals(""))
         {
             mostrarMensaje(R.string.campos_obligatorios);
@@ -271,7 +279,7 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
                     String yahoo = "www.yahoo.com";
                     pd = ProgressDialog.show(this, getResources().getString(R.string.enviando_pedido), getResources().getString(R.string.por_favor_espere), true, false);
                     EnviarPedidoTask env = new EnviarPedidoTask();
-                    env.execute(nombre, direccion, barrio, telefono, observaciones, formaPago,idCiudad);
+                    env.execute(nombre, direccion, barrio, telefono, formaPago,idCiudad);
                 }
             }
         }
@@ -295,6 +303,34 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         toast.show();
     }
 
+    public class CargarCiudadesTask extends  AsyncTask<Void,Void,Boolean>
+    {
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            return hayConexionInternet();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean resultado) {
+            super.onPostExecute(resultado);
+
+            if(resultado)
+            {
+                cargarCiudadesBackendless();
+            }
+            else
+            {
+                if(pd!=null)
+                {
+                    pd.dismiss();
+                    volver_cargar.setVisibility(View.VISIBLE);
+                    sinconexion.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    }
+
     public class EnviarPedidoTask extends AsyncTask<String, Void, Boolean>
     {
 
@@ -302,7 +338,6 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         private String direccion;
         private String barrio;
         private String telefono;
-        private String observaciones;
         private String formaPago;
         private String idciudad;
 
@@ -313,9 +348,8 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
             direccion=params[1];
             barrio=params[2];
             telefono=params[3];
-            observaciones=params[4];
-            formaPago=params[5];
-            idciudad=params[6];
+            formaPago=params[4];
+            idciudad=params[5];
             return hayConexionInternet();
         }
 
@@ -325,7 +359,7 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
             super.onPostExecute(resultado);
             if(resultado)
             {
-                enviarBackendless(nombre, direccion, barrio, telefono, observaciones, formaPago,idciudad);
+                enviarBackendless(nombre, direccion, barrio, telefono, formaPago,idciudad);
             }
             else
             {

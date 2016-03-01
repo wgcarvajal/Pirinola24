@@ -8,6 +8,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
+    <TextView
+        android:id="@+id/textlugar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/vinotintoapp"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:textSize="@dimen/tam_titulo_subcategoria"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/super_margin_small"
+        android:gravity="center"
+        />
 
 
         <ImageView
@@ -15,10 +26,24 @@
             android:layout_width="@dimen/tam_img_icono_menu_carro"
             android:layout_height="@dimen/tam_img_icono_menu_carro"
             android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_small"
             android:layout_marginLeft="@dimen/margin_small"
             android:src="@mipmap/ic_flecha_atras"
             />
+
+    <TextView
+        android:id="@+id/txtexplicacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textlugar"
+        android:text="Sino aparece la dirección o el teléfono en la lista puedes adicionarlos."
+        android:textColor="@color/verdeapp"
+        android:textSize="@dimen/size_ciudad"
+        android:layout_marginTop="@dimen/margin_grande"
+        android:layout_marginBottom="@dimen/margin_grande"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginRight="@dimen/margin_small"
+        />
 
 
 
@@ -26,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:layout_below="@id/flecha_atras"
+        android:layout_below="@id/txtexplicacion"
         android:layout_marginBottom="@dimen/margin_small"
         >
 
@@ -36,23 +61,11 @@
             android:layout_height="match_parent"
             >
 
-            <ImageView
-                android:id="@+id/imagen_login"
-                android:layout_width="@dimen/tam_ancho_imagen_login"
-                android:layout_height="@dimen/tam_alto_imagen_login"
-                android:layout_marginBottom="@dimen/margin_imagen_login"
-                android:src="@mipmap/ic_logo_gorra"
-                android:scaleType="fitXY"
-                android:layout_centerHorizontal="true"
-
-                />
-
             <LinearLayout
                 android:id="@+id/espacio_spinner_direccion"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/imagen_login">
+                android:layout_height="wrap_content">
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -156,57 +169,28 @@
                 android:layout_marginBottom="@dimen/icono_ingrese_margin_bottom"
                 android:layout_marginRight="@dimen/icono_ingrese_margin_rigth"/>
 
-            <ScrollView
-                android:id="@+id/scrollView_observaciones"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/tam_scrollview_observaciones"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:layout_marginRight="@dimen/margin_small"
-                android:layout_marginLeft="@dimen/margin_small"
-                android:layout_below="@id/sp_forma_pago"
-                android:scrollbars="none"
-                android:background="@drawable/caja_texto_ingrese"
-                >
-
-                <EditText
-                    android:id="@+id/txt_observaciones"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_muy_poca"
-                    android:maxLength="300"
-                    android:minHeight="@dimen/tam_scrollview_observaciones"
-                    android:inputType="textMultiLine"
-                    android:hint="@string/text_hint_observaciones"
-                    android:textSize="@dimen/size_text_caja_texto"
-                    android:textColor="@color/vinotintoapp"
-                    android:textColorHint="@color/verdeapp"
-                    android:gravity="center"
-                    android:ellipsize="end"/>
-
-            </ScrollView>
-
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/btn_enviar_pedido"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/tam_alto_btn"
-                android:layout_below="@id/scrollView_observaciones"
-                android:layout_marginTop="@dimen/margin_imagen_login"
-                android:layout_marginRight="@dimen/margin_small"
-                android:layout_marginLeft="@dimen/margin_small"
-                app:textAllCaps="false"
-                android:textColor="@color/amarilloapp"
-                android:text="Enviar pedido"
-                android:textSize="@dimen/size_letra_boton_realizar_pedido"
-                android:background="@drawable/btn_realizar_pedido"
-
-            />
 
 
         </RelativeLayout>
 
 
     </ScrollView>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_enviar_pedido"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tam_alto_btn"
+        android:layout_marginRight="@dimen/margin_small"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/super_margin_small"
+        app:textAllCaps="false"
+        android:textColor="@color/amarilloapp"
+        android:text="Enviar pedido"
+        android:textSize="@dimen/size_letra_boton_realizar_pedido"
+        android:background="@drawable/btn_realizar_pedido"
+        android:layout_alignParentBottom="true"
+
+        />
 
     <TextView
         android:id="@+id/txt_sin_conexion"

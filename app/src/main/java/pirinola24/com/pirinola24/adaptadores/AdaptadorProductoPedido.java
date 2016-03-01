@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.squareup.picasso.Picasso;
+
+import com.bumptech.glide.Glide;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -113,16 +113,16 @@ public class AdaptadorProductoPedido extends BaseAdapter implements View.OnClick
         }
 
         Producto p = (Producto) getItem(position);
-        fijarDatos(p, viewHolder, context.getResources().getString(R.string.idioma), position);
+        fijarDatos(p, viewHolder, position);
 
-
-        Picasso.with(context)
-                .load(Uri.parse(p.getImgFile()))
+        Glide.with(context)
+                .load(p.getImgFile())
+                .placeholder(R.drawable.cargando)
                 .into(viewHolder.imagenProducto);
         return v;
     }
 
-    private void fijarDatos(Producto producto,ViewHolder viewHolder,String idioma,int position)
+    private void fijarDatos(Producto producto,ViewHolder viewHolder,int position)
     {
 
 

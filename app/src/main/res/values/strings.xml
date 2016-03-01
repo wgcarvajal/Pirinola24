@@ -38,7 +38,7 @@
     <string name="seleccione_ciudad">Seleccione una ciudad</string>
     <string name="compruebe_conexion">Compruebe su conexión a internet...</string>
     <string name="enviando_pedido">Enviando pedido</string>
-    <string name="por_favor_espere">Por favor espere....</string>
+    <string name="por_favor_espere">Por favor espere un momento....</string>
     <string name="confirmacion_pedido_enviado">Su pedido ha sido enviado con éxito, en contados minutos le llamaremos a confirmarlo. ¡Gracias por su compra....!</string>
     <string name="volver_cargar_vista">Volver a cargar la vista</string>
     <string name="txt_repetir_password">Repetir clave</string>
@@ -62,6 +62,7 @@
     <string name="txt_seleccione_telefono">Seleccione teléfono</string>
     <string name="txt_seleccione_direccion">Seleccione dirección</string>
     <string name="txt_enviando">Enviando...</string>
+    <string name="txt_cargando_datos">Cargando...</string>
     <string name="txt_registro_exitoso">Registro exitoso</string>
     <string name="btn_facebook">Iniciar sesión con facebook</string>
     <string name="txt_iniciando_con_facebook">Iniciando sesión con facebook</string>
@@ -72,6 +73,8 @@
     <string name="txt_ingrese_correo">Ingrese correo</string>
     <string name="confirmacion_envio_email">Solicitud enviada, revice su correo electrónico</string>
     <string name="correo_no_se_encuentra">Correo no se encuentra registrado</string>
+    <string name="campo_telefono_ya_esta">El número ya esta en la lista.</string>
+    <string name="campo_direccion_ya_esta">La dirección ya esta en la lista.</string>
 
 
 

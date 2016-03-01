@@ -3,18 +3,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="pirinola24.com.pirinola24.fragments.MascotaFragment"
-    android:background="@color/amarilloapp"
     >
 
     <TextView
         android:id="@+id/tituloSubcategoria"
         android:layout_width="match_parent"
         android:gravity="center"
-        android:textColor="@color/vinotintoapp"
+        android:textColor="@color/blanco"
         android:layout_marginBottom="@dimen/margin_medium"
         android:layout_marginTop="@dimen/margin_small"
         android:textSize="@dimen/tam_titulo_subcategoria"
         android:layout_height="@dimen/tam_img_titulo_subcategoria"
+        android:background="@color/negroTransparente"
         />
         <ImageView
             android:id="@+id/btn_menu_principal"

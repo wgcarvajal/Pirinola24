@@ -9,7 +9,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
-import android.os.AsyncTask;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -174,12 +173,12 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
                         {
                             data.add(p);
                             contador=contador+(fila.getInt(fila.getColumnIndex("prodcantidad"))*p.getPrecio());
-                            adapter.notifyDataSetChanged();
-                            break;
+
                         }
                     }
 
                 } while (fila.moveToNext());
+                adapter.notifyDataSetChanged();
                 DecimalFormat format= new DecimalFormat("###,###.##");
                 String valorTotal=format.format(contador);
                 valorTotal=valorTotal.replace(",",".");
@@ -251,7 +250,7 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
             BackendlessUser currentUser = Backendless.UserService.CurrentUser();
             if (currentUser != null)
             {
-                Intent intent = new Intent(this,RegistradoActivity.class);
+                Intent intent = new Intent(this,SeleccionarciudadActivity.class);
                 startActivityForResult(intent, MI_REQUEST_CODE);
             }
             else
@@ -527,7 +526,7 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
                 {
                     Menu m = navView.getMenu();
                     mostrandoMenu(m);
-                    Intent intent = new Intent(this,RegistradoActivity.class);
+                    Intent intent = new Intent(this,SeleccionarciudadActivity.class);
                     startActivityForResult(intent, MI_REQUEST_CODE_REGISTRADO);
                 }
             }

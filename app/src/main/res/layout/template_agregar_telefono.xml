@@ -29,27 +29,36 @@
         android:layout_marginTop="@dimen/super_margin_small">
 
 
-        <ImageView
+        <TextView
             android:id="@+id/btn_cancelar"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/bton_cancelar"
+            android:layout_height="@dimen/tam_btn_enviar"
             android:layout_weight="1"
             android:layout_marginLeft="@dimen/margin_medium"
             android:layout_marginTop="@dimen/super_margin_small"
             android:layout_marginBottom="@dimen/margin_small"
-            android:layout_marginRight="@dimen/margin_small"/>
+            android:layout_marginRight="@dimen/margin_small"
+            android:gravity="center"
+            android:text="@string/txt_cancelar"
+            android:background="@drawable/btn_realizar_pedido"
+            android:textColor="@color/amarilloapp"
+            android:textSize="@dimen/size_letra_boton_realizar_pedido"
+            />
 
-        <ImageView
+        <TextView
             android:id="@+id/btn_aceptar"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/bton_aceptar"
+            android:layout_height="@dimen/tam_btn_enviar"
             android:layout_weight="1"
             android:layout_marginRight="@dimen/margin_medium"
             android:layout_marginTop="@dimen/super_margin_small"
             android:layout_marginBottom="@dimen/margin_small"
             android:layout_marginLeft="@dimen/margin_small"
+            android:gravity="center"
+            android:text="@string/txt_aceptar"
+            android:background="@drawable/btn_realizar_pedido"
+            android:textColor="@color/amarilloapp"
+            android:textSize="@dimen/size_letra_boton_realizar_pedido"
             />
 
 

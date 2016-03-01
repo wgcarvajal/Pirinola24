@@ -5,12 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MainActivity"
-    android:background="@color/vinotintoapp">
-
+    tools:context=".MainActivity">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/fondo"
+                android:scaleType="centerCrop"
+                />
             <TextView
                 android:id="@+id/txt_sin_conexion"
                 android:layout_width="match_parent"
@@ -41,6 +47,7 @@
                 android:id="@+id/pager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+
                 />
             <com.viewpagerindicator.CirclePageIndicator
                 android:id="@+id/pagerIndicator"
