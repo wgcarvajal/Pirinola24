@@ -4,11 +4,8 @@
     android:shape="rectangle"
     >
     <!-- The fill color -->
-    <solid android:color="@color/amarilloapp" />
+    <solid android:color="@color/blanco" />
     <!-- Just to add a border -->
-    <stroke
-        android:color="@color/verdeapp"
-        android:width="2dp"
-        />
+
     <corners android:radius="@dimen/radio_corners_toast"></corners>
 </shape>

@@ -66,7 +66,7 @@
     <string name="txt_registro_exitoso">Registro exitoso</string>
     <string name="btn_facebook">Iniciar sesión con facebook</string>
     <string name="txt_iniciando_con_facebook">Iniciando sesión con facebook</string>
-    <string name="txt_contacto_sugerencias">Contáctanos</string>
+    <string name="txt_contacto_sugerencias">Contáctenos</string>
     <string name="txt_cancelar">Cancelar</string>
     <string name="txt_aceptar">Aceptar</string>
     <string name="txt_enviar">Enviar</string>
@@ -102,6 +102,9 @@
 
     <string name="txt_mensaje_usuario_no_puede_ser_logueado">El correo electrónico se registro bajo la autenticación por facebook.</string>
     <string name="title_activity_seleccionarciudad">SeleccionarciudadActivity</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

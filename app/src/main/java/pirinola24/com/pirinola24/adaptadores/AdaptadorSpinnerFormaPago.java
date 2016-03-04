@@ -60,7 +60,7 @@ public class AdaptadorSpinnerFormaPago extends ArrayAdapter {
         item.setText(data.get(position));
         if(position==0)
         {
-            item.setTextColor(Color.parseColor("#033a0f"));
+            item.setTextColor(Color.parseColor("#000000"));
         }
         item.setTypeface(TF);
 

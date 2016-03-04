@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
@@ -16,9 +17,17 @@ import android.widget.TextView;
 
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
+
+import javax.security.auth.callback.Callback;
+
 import pirinola24.com.pirinola24.R;
 import pirinola24.com.pirinola24.basededatos.AdminSQliteOpenHelper;
 import pirinola24.com.pirinola24.modelo.Producto;
@@ -38,7 +47,7 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
     {
         public ImageView imagenProducto;
         public TextView txtconteo;
-        public ImageView btnDisminuir;
+        public TextView btnDisminuir;
         public ImageView btnDescripcion;
     }
 
@@ -82,10 +91,10 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
+    public View getView(int position, final View convertView, ViewGroup parent)
     {
         View v = convertView;
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
 
         if(convertView == null)
         {
@@ -93,7 +102,7 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
             viewHolder=new ViewHolder();
             viewHolder.imagenProducto=(ImageView) v.findViewById(R.id.img_producto);
             viewHolder.txtconteo=(TextView) v.findViewById(R.id.txtconteo);
-            viewHolder.btnDisminuir=(ImageView) v.findViewById(R.id.btn_disminuir);
+            viewHolder.btnDisminuir=(TextView) v.findViewById(R.id.btn_disminuir);
             viewHolder.btnDescripcion=(ImageView)v.findViewById(R.id.btn_descripcion);
             Typeface TF = FontCache.get(font_pathOds,context);
             viewHolder.txtconteo.setTypeface(TF);
@@ -116,6 +125,7 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
                 .load(p.getImgFile())
                 .placeholder(R.drawable.placeholder)
                 .into(viewHolder.imagenProducto);
+
 
         return v;
     }
@@ -181,7 +191,7 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
             case R.id.btn_disminuir:
                 TextView txtconteo=(TextView)v.getTag(R.id.txtconteo);
                 String prodid = data.get(Integer.parseInt(v.getTag().toString())).getObjectId();
-                DisminuirCantidadTask disminuirCantidadTask= new DisminuirCantidadTask(txtconteo,(ImageView)v,context);
+                DisminuirCantidadTask disminuirCantidadTask= new DisminuirCantidadTask(txtconteo,(TextView)v,context);
                 disminuirCantidadTask.execute(data.get(Integer.parseInt(v.getTag().toString())).getObjectId());
             break;
             case R.id.btn_descripcion:
@@ -197,14 +207,14 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
     public class DisminuirCantidadTask extends AsyncTask<String,Void,Void>
     {
         private WeakReference<TextView> textViewWeakReference;
-        private WeakReference<ImageView> imageViewWeakReference;
+        private WeakReference<TextView> imageViewWeakReference;
         private Context context;
         private int cantidad=0;
 
-        public DisminuirCantidadTask(TextView textView,ImageView btn,Context context)
+        public DisminuirCantidadTask(TextView textView,TextView btn,Context context)
         {
             this.textViewWeakReference= new WeakReference<TextView>(textView);
-            this.imageViewWeakReference= new WeakReference<ImageView>(btn);
+            this.imageViewWeakReference= new WeakReference<TextView>(btn);
             this.context=context;
         }
         @Override

@@ -13,9 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/size_nombre_descripcion_producto"
-        android:textColor="@color/vinotintoapp"
+        android:textColor="@color/blanco"
         android:gravity="center"
-        android:layout_marginTop="@dimen/super_margin_small"
+        android:background="@color/rojo"
 
         />
 
@@ -37,8 +37,8 @@
         android:textSize="@dimen/size_descripcion_producto"
         android:layout_gravity="center"
         android:textAllCaps="false"
-        android:textColor="@color/amarilloapp"
-        android:background="@drawable/btn_realizar_pedido"
+        android:textColor="@color/negro"
+        android:background="@color/amarilloapp"
         android:layout_marginBottom="@dimen/margin_small"
         />
 

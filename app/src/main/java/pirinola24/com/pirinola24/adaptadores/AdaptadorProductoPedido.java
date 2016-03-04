@@ -47,7 +47,7 @@ public class AdaptadorProductoPedido extends BaseAdapter implements View.OnClick
 
         public ImageView imagenProducto;
         public TextView txtconteo;
-        public ImageView btnDisminuir;
+        public TextView btnDisminuir;
 
     }
 
@@ -98,7 +98,7 @@ public class AdaptadorProductoPedido extends BaseAdapter implements View.OnClick
 
             viewHolder.imagenProducto=(ImageView) v.findViewById(R.id.img_producto);
             viewHolder.txtconteo=(TextView) v.findViewById(R.id.txtconteo);
-            viewHolder.btnDisminuir=(ImageView) v.findViewById(R.id.btn_disminuir);
+            viewHolder.btnDisminuir=(TextView) v.findViewById(R.id.btn_disminuir);
 
 
             Typeface TF = FontCache.get(font_pathOds,context);

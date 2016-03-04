@@ -5,49 +5,51 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="pirinola24.com.pirinola24.PedidoActivity"
-    android:background="@color/amarilloapp">
+    android:background="@color/blanco"
+    >
+
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
+
+
 
         <TextView
             android:id="@+id/idtupedido"
             android:layout_width="match_parent"
             android:text="Tu pedido"
             android:layout_height="@dimen/tam_img_titulo_subcategoria"
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginBottom="@dimen/margin_medium"
             android:textSize="@dimen/tam_titulo_subcategoria"
-            android:textColor="@color/vinotintoapp"
+            android:textColor="@color/blanco"
+            android:background="@color/rojo"
             android:gravity="center"
             />
 
         <ImageView
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginBottom="@dimen/margin_medium"
-            android:layout_marginLeft="@dimen/margin_small"
             android:id="@+id/btn_menu_principal"
             android:layout_width="@dimen/tamano_icono_menu_principal"
             android:layout_height="@dimen/tam_img_icono_menu_carro"
             android:src="@mipmap/ic_menu_principal"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
             />
 
         <ImageView
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginBottom="@dimen/margin_medium"
-            android:layout_marginLeft="@dimen/margin_small"
             android:id="@+id/flecha_atras"
             android:layout_width="@dimen/tam_img_icono_menu_carro"
             android:layout_height="@dimen/tam_img_icono_menu_carro"
             android:src="@mipmap/ic_flecha_atras"
+            android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
             />
         <TextView
             android:id="@+id/txt_total_pedido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/text_total_pedido"
-            android:textColor="@color/vinotintoapp"
+            android:textColor="@color/rojo"
             android:textSize="@dimen/tam_text_total_pedido"
             android:layout_marginLeft="@dimen/margin_small"
             android:layout_below="@id/idtupedido"
@@ -58,7 +60,7 @@
             android:layout_height="wrap_content"
             android:text="@string/domicilio_incluido"
             android:layout_marginLeft="@dimen/margin_small"
-            android:textColor="@color/vinotintoapp"
+            android:textColor="@color/rojo"
             android:textSize="@dimen/size_tex_domicilio_incluido"
             android:layout_below="@id/txt_total_pedido"
             android:gravity="right"
@@ -68,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/tam_text_total_pedido"
-            android:textColor="@color/vinotintoapp"
+            android:textColor="@color/rojo"
             android:text="$0"
             android:layout_alignParentRight="true"
             android:layout_alignBottom="@id/txt_total_pedido"
@@ -78,7 +80,7 @@
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_finalizar_pedido"
             android:layout_width="wrap_content"
-            android:textColor="@color/amarilloapp"
+            android:textColor="@color/blanco"
             android:textSize="@dimen/size_letra_boton_realizar_pedido"
             android:text="Realizar pedido"
             app:textAllCaps="false"
@@ -113,7 +115,7 @@
         android:layout_width="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/pedido_nav"
-        android:background="@color/vinotintoapptrasparente"
+        android:background="@color/blanco"
         app:itemIconTint="@color/amarilloapp"
         app:headerLayout="@layout/navigation_header"
         app:itemTextAppearance="@style/NavDrawerTextStyle"

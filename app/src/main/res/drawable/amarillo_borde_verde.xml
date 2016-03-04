@@ -4,7 +4,7 @@
     android:shape="rectangle"
     >
     <!-- The fill color -->
-    <solid android:color="@color/amarilloapp" />
+    <solid android:color="@color/rojo" />
     <!-- Just to add a border -->
 
     <corners android:radius="10dp"></corners>

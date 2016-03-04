@@ -4,10 +4,10 @@
     android:shape="rectangle"
     >
     <!-- The fill color -->
-    <solid android:color="@color/verdeapp"/>
+    <solid android:color="@color/negro"/>
     <!-- Just to add a border -->
     <stroke
-        android:color="@color/vinotintoapp"
+        android:color="@color/blanco"
         android:width="2dp"
         />
     <corners android:radius="@dimen/radio_corners_toast"></corners>

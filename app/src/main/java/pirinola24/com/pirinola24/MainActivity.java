@@ -43,6 +43,7 @@ import com.viewpagerindicator.PageIndicator;
 import java.util.*;
 
 import pirinola24.com.pirinola24.adaptadores.PagerAdapter;
+import pirinola24.com.pirinola24.fragments.AnuncioFragment;
 import pirinola24.com.pirinola24.fragments.FragmentGeneric;
 import pirinola24.com.pirinola24.fragments.ProductoFragment;
 import pirinola24.com.pirinola24.fragments.ProductoGridFragment;
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnRecargarVista.setOnClickListener(this);
         text_compruebe_conexion.setVisibility(View.GONE);
         btnRecargarVista.setVisibility(View.GONE);
+        findViewById(R.id.pagerIndicator).setVisibility(View.GONE);
 
         Typeface TF = FontCache.get(fontStackyard,this);
         text_compruebe_conexion.setTypeface(TF);
@@ -104,6 +106,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Menu m = navView.getMenu();
         aplicandoTipoLetraItemMenu(m, fontStackyard);
         ocultandoMenu(m);
+
+
         loadData();
 
     }
@@ -129,12 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (int i=0;i<m.size();i++) {
             MenuItem mi = m.getItem(i);
             SubMenu subMenu = mi.getSubMenu();
-            if (subMenu!=null && subMenu.size() >0 ) {
-                for (int j=0; j <subMenu.size();j++) {
-                    MenuItem subMenuItem = subMenu.getItem(j);
-                    subMenuItem.setVisible(true);
-                }
-            }
+
             mi.setVisible(true);
         }
     }
@@ -145,12 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         for (int i=0;i<m.size();i++) {
             MenuItem mi = m.getItem(i);
             SubMenu subMenu = mi.getSubMenu();
-            if (subMenu!=null && subMenu.size() >0 ) {
-                for (int j=0; j <subMenu.size();j++) {
-                    MenuItem subMenuItem = subMenu.getItem(j);
-                    applyFontToMenuItem(subMenuItem, tipoLetra);
-                }
-            }
+
             applyFontToMenuItem(mi, tipoLetra);
 
         }
@@ -173,6 +167,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         productoGridFragment.init(sub.getObjectId(),sub.getSubcatnombre());
                         data.add(productoGridFragment);
                     break;
+
+                    case Subcategoria.ANUNCIO:
+                        AnuncioFragment anuncioFragment = new AnuncioFragment();
+                        anuncioFragment.init(sub.getSubcatnombre(),sub.getObjectId());
+                        data.add(anuncioFragment);
+                    break;
                 }
 
             }
@@ -186,6 +186,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Menu men=m.getItem(2).getSubMenu();
                 men.getItem(0).setVisible(false);
             }
+            findViewById(R.id.pagerIndicator).setVisibility(View.VISIBLE);
         }
         else
         {
@@ -272,26 +273,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void crearFragments()
     {
-        for (Subcategoria sub : AppUtil.listaSubcategorias)
-        {
-            switch (sub.getTipoFragment())
-            {
-                case Subcategoria.CONDESCRIPCION:
-                    ProductoFragment productoFragment = new ProductoFragment();
-                    productoFragment.init(sub.getObjectId(), sub.getSubcatnombre());
-                    data.add(productoFragment);
-                    break;
-                case Subcategoria.SINDESCRIPCION:
-                    ProductoGridFragment productoGridFragment = new ProductoGridFragment();
-                    productoGridFragment.init(sub.getObjectId(), sub.getSubcatnombre());
-                    data.add(productoGridFragment);
-                    break;
-            }
 
-        }
-        adapter.notifyDataSetChanged();
         final Menu m = navView.getMenu();
         mostrandoMenu(m);
+        findViewById(R.id.pagerIndicator).setVisibility(View.VISIBLE);
         Backendless.UserService.isValidLogin(new AsyncCallback<Boolean>() {
             @Override
             public void handleResponse(Boolean response) {
@@ -309,25 +294,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         public void handleFault(BackendlessFault fault)
                         {
                             m.getItem(2).setVisible(false);
-                            Menu men = m.getItem(2).getSubMenu();
-                            men.getItem(0).setVisible(false);
+
 
                         }
                     });
                 } else {
                     m.getItem(2).setVisible(false);
-                    Menu men = m.getItem(2).getSubMenu();
-                    men.getItem(0).setVisible(false);
+
                 }
             }
             @Override
             public void handleFault(BackendlessFault fault)
             {
                 m.getItem(2).setVisible(false);
-                Menu men = m.getItem(2).getSubMenu();
-                men.getItem(0).setVisible(false);
+
             }
         });
+        for (Subcategoria sub : AppUtil.listaSubcategorias)
+        {
+            switch (sub.getTipoFragment())
+            {
+                case Subcategoria.CONDESCRIPCION:
+                    ProductoFragment productoFragment = new ProductoFragment();
+                    productoFragment.init(sub.getObjectId(), sub.getSubcatnombre());
+                    data.add(productoFragment);
+                    break;
+                case Subcategoria.SINDESCRIPCION:
+                    ProductoGridFragment productoGridFragment = new ProductoGridFragment();
+                    productoGridFragment.init(sub.getObjectId(), sub.getSubcatnombre());
+                    data.add(productoGridFragment);
+                    break;
+
+                case Subcategoria.ANUNCIO:
+                    AnuncioFragment anuncioFragment = new AnuncioFragment();
+                    anuncioFragment.init(sub.getSubcatnombre(),sub.getObjectId());
+                    data.add(anuncioFragment);
+                    break;
+            }
+
+        }
+        adapter.notifyDataSetChanged();
+
 
     }
 
@@ -421,8 +428,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (currentUser == null)
             {
                 m.getItem(2).setVisible(false);
-                Menu men=m.getItem(2).getSubMenu();
-                men.getItem(0).setVisible(false);
+
             }
         }
     }
@@ -477,8 +483,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txtdescripcion.setText(descripcion);
         txtnombre.setText(nombre);
         txtnombre.setTypeface(TF);
-        txtdescripcion.setTypeface(TF);
         btnCerrar.setTypeface(TF);
+
+
+        TF = FontCache.get(font_path_ASimple,this);
+        txtdescripcion.setTypeface(TF);
         btnCerrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -552,8 +561,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 LoginManager.getInstance().logOut();
                 Menu m = navView.getMenu();
                 m.getItem(2).setVisible(false);
-                Menu men = m.getItem(2).getSubMenu();
-                men.getItem(0).setVisible(false);
                 mostrarMensaje(R.string.txt_sesion_cerrada);
 
             }

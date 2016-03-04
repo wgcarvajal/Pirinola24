@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
 
-    >
+
+
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
 
         <ImageView
             android:id="@+id/img_producto"
@@ -38,27 +43,40 @@
                 android:layout_height="@dimen/tam_btn_cantidad_producto"
                 android:text="0"
                 android:textSize="@dimen/tam_text_cantidad_producto"
-                android:textColor="#ffffff"
+                android:textColor="@color/blanco"
                 android:background="@drawable/text_view_redondo"
                 android:gravity="center"
 
                 />
-            <ImageView
+            <TextView
                 android:id="@+id/btn_disminuir"
                 android:layout_width="@dimen/tam_btn_cantidad_producto"
                 android:layout_height="@dimen/tam_btn_cantidad_producto"
-                android:src="@mipmap/ic_disminuir"
+                android:text="─"
+                android:textColor="@color/blanco"
                 android:background="@drawable/img_view_redondo"
                 android:layout_marginTop="@dimen/margin_small"
+                android:gravity="center"
                 />
 
 
         </LinearLayout>
 
+</RelativeLayout>
 
 
 
- </RelativeLayout>
+
+
+
+
+
+
+
+
+
+
+
 
 
 

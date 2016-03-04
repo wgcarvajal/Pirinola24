@@ -40,7 +40,7 @@ public class AdaptadorProductoGrid extends BaseAdapter implements View.OnClickLi
 
         public ImageView imagenProducto;
         public TextView txtconteo;
-        public ImageView btnDisminuir;
+        public TextView btnDisminuir;
     }
 
 
@@ -89,7 +89,7 @@ public class AdaptadorProductoGrid extends BaseAdapter implements View.OnClickLi
             viewHolder=new ViewHolder();
             viewHolder.imagenProducto=(ImageView) v.findViewById(R.id.img_producto);
             viewHolder.txtconteo=(TextView) v.findViewById(R.id.txtconteo);
-            viewHolder.btnDisminuir=(ImageView) v.findViewById(R.id.btn_disminuir);
+            viewHolder.btnDisminuir=(TextView) v.findViewById(R.id.btn_disminuir);
             Typeface TF = FontCache.get(font_pathOds,context);
             viewHolder.txtconteo.setTypeface(TF);
             viewHolder.txtconteo.setText("0");
@@ -171,7 +171,7 @@ public class AdaptadorProductoGrid extends BaseAdapter implements View.OnClickLi
     {
         TextView txtconteo=(TextView)v.getTag(R.id.txtconteo);
         String prodid = data.get(Integer.parseInt(v.getTag().toString())).getObjectId();
-        DisminuirCantidadTask disminuirCantidadTask= new DisminuirCantidadTask(txtconteo,(ImageView)v,context);
+        DisminuirCantidadTask disminuirCantidadTask= new DisminuirCantidadTask(txtconteo,(TextView)v,context);
         disminuirCantidadTask.execute(data.get(Integer.parseInt(v.getTag().toString())).getObjectId());
 
     }
@@ -179,14 +179,14 @@ public class AdaptadorProductoGrid extends BaseAdapter implements View.OnClickLi
     public class DisminuirCantidadTask extends AsyncTask<String,Void,Void>
     {
         private WeakReference<TextView> textViewWeakReference;
-        private WeakReference<ImageView> imageViewWeakReference;
+        private WeakReference<TextView> imageViewWeakReference;
         private Context context;
         private int cantidad=0;
 
-        public DisminuirCantidadTask(TextView textView,ImageView btn,Context context)
+        public DisminuirCantidadTask(TextView textView,TextView btn,Context context)
         {
             this.textViewWeakReference= new WeakReference<TextView>(textView);
-            this.imageViewWeakReference= new WeakReference<ImageView>(btn);
+            this.imageViewWeakReference= new WeakReference<TextView>(btn);
             this.context=context;
         }
         @Override

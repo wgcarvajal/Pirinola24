@@ -160,7 +160,7 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
         TextView textconteo= (TextView) view.findViewById(R.id.txtconteo);
-        ImageView btnDisminuir= (ImageView) view.findViewById(R.id.btn_disminuir);
+        TextView btnDisminuir= (TextView) view.findViewById(R.id.btn_disminuir);
         AgregarProductoPedidoTask agregarProductoPedidoTask= new AgregarProductoPedidoTask(textconteo,btnDisminuir);
         agregarProductoPedidoTask.execute(data.get(position));
     }
@@ -168,9 +168,9 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
     public class AgregarProductoPedidoTask extends AsyncTask<Producto,Void,Integer>
     {
         private WeakReference<TextView> txtcontedo;
-        private WeakReference<ImageView> btndisminuir;
+        private WeakReference<TextView> btndisminuir;
 
-        public AgregarProductoPedidoTask(TextView conteo,ImageView disminuir)
+        public AgregarProductoPedidoTask(TextView conteo,TextView disminuir)
         {
             txtcontedo= new WeakReference<>(conteo);
             btndisminuir= new WeakReference<>(disminuir);

@@ -3,56 +3,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="pirinola24.com.pirinola24.fragments.MascotaFragment"
+    android:background="@color/blanco"
     >
-
-    <TextView
-        android:id="@+id/tituloSubcategoria"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:textColor="@color/blanco"
-        android:layout_marginBottom="@dimen/margin_medium"
-        android:layout_marginTop="@dimen/margin_small"
-        android:textSize="@dimen/tam_titulo_subcategoria"
-        android:layout_height="@dimen/tam_img_titulo_subcategoria"
-        android:background="@color/negroTransparente"
-        />
+        <TextView
+            android:id="@+id/tituloSubcategoria"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:textColor="@color/blanco"
+            android:textSize="@dimen/tam_titulo_subcategoria"
+            android:layout_height="@dimen/tam_img_titulo_subcategoria"
+            android:background="@color/rojo"
+            />
         <ImageView
             android:id="@+id/btn_menu_principal"
             android:layout_width="@dimen/tam_img_icono_menu_carro"
             android:layout_height="@dimen/tam_img_icono_menu_carro"
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginBottom="@dimen/margin_medium"
             android:layout_marginLeft="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
             android:src="@mipmap/ic_menu_principal"
             />
-
-
-
         <ImageView
             android:id="@+id/carrito_compras"
             android:layout_width="@dimen/tam_img_icono_menu_carro"
             android:layout_height="@dimen/tam_img_icono_menu_carro"
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginBottom="@dimen/margin_medium"
             android:layout_marginRight="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
             android:layout_alignParentRight="true"
             android:src="@mipmap/ic_carro_compras"
             />
-
-
     <GridView
         android:id="@+id/gridProductos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:numColumns="2"
-        android:layout_marginLeft="@dimen/margin_small"
-        android:layout_marginRight="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/margin_medium"
-        android:verticalSpacing="@dimen/margin_medium"
+        android:verticalSpacing="@dimen/margin_small"
         android:horizontalSpacing="@dimen/margin_small"
         android:cacheColorHint="@color/transparente"
         android:layout_below="@id/tituloSubcategoria"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:layout_marginLeft="@dimen/super_margin_small"
+        android:layout_marginRight="@dimen/super_margin_small"
+        android:layout_marginTop="@dimen/super_margin_small">
 
     </GridView>
 

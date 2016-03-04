@@ -10,7 +10,7 @@
         android:id="@+id/txt_mensaje_toast"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/amarilloapp"
+        android:textColor="@color/blanco"
         android:text="prueba"
         android:layout_margin="@dimen/margin_small"
         android:textSize="@dimen/size_text_mensaje_toast"

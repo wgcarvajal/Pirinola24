@@ -59,7 +59,7 @@
     <dimen name="size_text_btn_continuar_no_registrado">15sp</dimen>
     <dimen name="margin_muy_poca">3dp</dimen>
     <dimen name="tam_scrollview_observaciones">150dp</dimen>
-    <dimen name="size_text_compruebe_conexion">36sp</dimen>
+    <dimen name="size_text_compruebe_conexion">40sp</dimen>
     <dimen name="margin_input_registrase">26dp</dimen>
     <dimen name="margin_medium">30dp</dimen>
     <dimen name="margin_grande">40dp</dimen>
@@ -91,12 +91,12 @@
     <dimen name="tam_btn_descripcion">40dp</dimen>
 
     <dimen name="size_nombre_descripcion_producto">30sp</dimen>
-    <dimen name="size_descripcion_producto">26sp</dimen>
+    <dimen name="size_descripcion_producto">22sp</dimen>
 
     <dimen name="ancho_btn_cerrar_descripcion_producto">75dp</dimen>
     <dimen name="largo_btn_descripcion_producto">45dp</dimen>
 
-    <dimen name="size_tu_opinion">28sp</dimen>
+    <dimen name="size_tu_opinion">30sp</dimen>
 
     <dimen name="alto_btn_realizar_pedido">55dp</dimen>
 

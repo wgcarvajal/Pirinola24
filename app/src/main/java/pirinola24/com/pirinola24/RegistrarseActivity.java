@@ -34,6 +34,7 @@ public class RegistrarseActivity extends AppCompatActivity implements View.OnCli
     private TextView txtpassword;
     private TextView txtrepetirpassword;
     private TextView btnRegistrarse;
+    private TextView txtTitulo;
     private ImageView btnAtras;
     private ProgressDialog pd = null;
 
@@ -45,6 +46,7 @@ public class RegistrarseActivity extends AppCompatActivity implements View.OnCli
 
         txtnombre=(TextView)findViewById(R.id.txt_nombre);
         txtemail=(TextView)findViewById(R.id.txt_email);
+        txtTitulo=(TextView)findViewById(R.id.registro);
         txtpassword=(TextView)findViewById(R.id.txt_password);
         txtrepetirpassword=(TextView)findViewById(R.id.txt_repetirpassword);
         btnRegistrarse=(TextView)findViewById(R.id.btnRegistrarse);
@@ -59,6 +61,7 @@ public class RegistrarseActivity extends AppCompatActivity implements View.OnCli
 
         TF=FontCache.get(fontStackyard,this);
         btnRegistrarse.setTypeface(TF);
+        txtTitulo.setTypeface(TF);
 
         btnAtras.setOnClickListener(this);
         btnRegistrarse.setOnClickListener(this);

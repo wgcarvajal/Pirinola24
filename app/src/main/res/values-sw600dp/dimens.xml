@@ -88,7 +88,7 @@
     <dimen name="tam_btn_descripcion">50dp</dimen>
 
     <dimen name="size_nombre_descripcion_producto">35sp</dimen>
-    <dimen name="size_descripcion_producto">29sp</dimen>
+    <dimen name="size_descripcion_producto">24sp</dimen>
 
     <dimen name="ancho_btn_cerrar_descripcion_producto">79dp</dimen>
     <dimen name="largo_btn_descripcion_producto">48dp</dimen>

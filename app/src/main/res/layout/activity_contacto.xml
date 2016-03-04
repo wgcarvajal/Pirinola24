@@ -4,29 +4,33 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="pirinola24.com.pirinola24.ContactoActivity"
-    android:background="@color/amarilloapp">
-        <ImageView
-            android:id="@+id/flecha_atras"
-            android:layout_width="@dimen/tam_img_icono_menu_carro"
-            android:layout_height="@dimen/tam_img_icono_menu_carro"
-            android:layout_marginTop="@dimen/margin_small"
-            android:layout_marginBottom="@dimen/margin_medium"
-            android:layout_marginLeft="@dimen/margin_small"
-            android:src="@mipmap/ic_flecha_atras"
-            />
+    >
+
 
         <TextView
             android:id="@+id/contactanos"
             android:layout_width="match_parent"
             android:layout_height="@dimen/tam_img_titulo_subcategoria"
             android:textSize="@dimen/tam_titulo_subcategoria"
-            android:text="Contáctanos"
-            android:textColor="@color/vinotintoapp"
+            android:text="Contáctenos"
+            android:textColor="@color/blanco"
             android:gravity="center"
-            android:layout_marginTop="@dimen/margin_small"
+            android:background="@color/rojo"
             android:layout_marginBottom="@dimen/margin_medium"
-
+            android:layout_marginLeft="@dimen/super_margin_small"
+            android:layout_marginRight="@dimen/super_margin_small"
+            android:layout_marginTop="@dimen/super_margin_small"
             />
+
+    <ImageView
+        android:id="@+id/flecha_atras"
+        android:layout_width="@dimen/tam_img_icono_menu_carro"
+        android:layout_height="@dimen/tam_img_icono_menu_carro"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:layout_marginLeft="@dimen/margin_small"
+        android:src="@mipmap/ic_flecha_atras"
+        />
 
 
 
@@ -59,9 +63,9 @@
             <TextView
                 android:id="@+id/txtOpinion"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/tam_alto_caja_texto"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/imagen_login"
-                android:textColor="@color/verdeapp"
+                android:textColor="@color/negro"
                 android:textSize="@dimen/size_tu_opinion"
                 android:text="@string/txt_tu_opinion_importante"
                 android:gravity="center"
@@ -74,9 +78,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/tam_alto_caja_texto"
                 android:layout_below="@id/txtOpinion"
-                android:textColor="@color/vinotintoapp"
+                android:textColor="@color/rojo"
                 android:hint="@string/txt_hint_correo_electronico"
-                android:textColorHint="@color/verdeapp"
+                android:textColorHint="@color/negro"
                 android:layout_marginTop="@dimen/margin_text_correo_electronico"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_small"
@@ -94,8 +98,8 @@
                 android:layout_height="@dimen/tam_alto_caja_texto"
                 android:layout_below="@id/txt_email"
                 android:hint="@string/txt_nombre"
-                android:textColorHint="@color/verdeapp"
-                android:textColor="@color/vinotintoapp"
+                android:textColorHint="@color/negro"
+                android:textColor="@color/rojo"
                 android:layout_marginTop="@dimen/margin_small"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_small"
@@ -127,8 +131,8 @@
                     android:inputType="textMultiLine"
                     android:hint="@string/txt_mensaje_contacto"
                     android:textSize="@dimen/size_text_caja_texto"
-                    android:textColor="@color/vinotintoapp"
-                    android:textColorHint="@color/verdeapp"
+                    android:textColor="@color/rojo"
+                    android:textColorHint="@color/negro"
                     android:gravity="center"
                     android:ellipsize="end"/>
 
@@ -141,7 +145,7 @@
                 android:layout_below="@id/scrollView_observaciones"
                 android:layout_height="@dimen/tam_btn_enviar"
                 app:textAllCaps="false"
-                android:textColor="@color/amarilloapp"
+                android:textColor="@color/blanco"
                 android:text="Enviar"
                 android:textSize="@dimen/size_letra_boton_realizar_pedido"
                 android:background="@drawable/btn_realizar_pedido"

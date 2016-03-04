@@ -60,7 +60,7 @@
     <dimen name="size_text_btn_continuar_no_registrado">10sp</dimen>
     <dimen name="margin_muy_poca">2dp</dimen>
     <dimen name="tam_scrollview_observaciones">100dp</dimen>
-    <dimen name="size_text_compruebe_conexion">26sp</dimen>
+    <dimen name="size_text_compruebe_conexion">30sp</dimen>
     <dimen name="margin_input_registrase">20dp</dimen>
     <dimen name="margin_medium">20dp</dimen>
 
@@ -78,7 +78,7 @@
     <dimen name="tam_descripcion_productogrid">13sp</dimen>
     <dimen name="tam_precio_productogrid">16sp</dimen>
     <dimen name="tam_img_icono_menu_carro">30dp</dimen>
-    <dimen name="tam_img_titulo_subcategoria">40dp</dimen>
+    <dimen name="tam_img_titulo_subcategoria">50dp</dimen>
     <dimen name="size_radio_indicator_circulo">3dp</dimen>
     <dimen name="size_borde_indicator_circulo">1dp</dimen>
     <dimen name="size_radio_btn_realizarpedido">6dp</dimen>
@@ -88,10 +88,10 @@
     <dimen name="size_link_ingresar">20sp</dimen>
     <dimen name="tam_btn_descripcion">30dp</dimen>
     <dimen name="size_nombre_descripcion_producto">25sp</dimen>
-    <dimen name="size_descripcion_producto">22sp</dimen>
+    <dimen name="size_descripcion_producto">16sp</dimen>
     <dimen name="ancho_btn_cerrar_descripcion_producto">70dp</dimen>
     <dimen name="largo_btn_descripcion_producto">40dp</dimen>
-    <dimen name="size_tu_opinion">18sp</dimen>
+    <dimen name="size_tu_opinion">22sp</dimen>
     <dimen name="alto_btn_realizar_pedido">40dp</dimen>
     <dimen name="size_letra_boton_realizar_pedido">25sp</dimen>
     <dimen name="tam_btn_enviar">30dp</dimen>

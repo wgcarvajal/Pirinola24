@@ -4,13 +4,10 @@
     android:shape="rectangle"
     >
     <!-- The fill color -->
-    <solid android:color="@color/vinotintoapp" />
+    <solid android:color="@color/rojo" />
     <!-- Just to add a border -->
 
-    <stroke
-        android:color="@color/verdeapp"
-        android:width="2dp"
-        />
+
 
 
 

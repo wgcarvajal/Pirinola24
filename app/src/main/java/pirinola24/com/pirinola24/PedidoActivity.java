@@ -115,9 +115,7 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
             {
                 btnMenuPrincipal.setVisibility(View.GONE);
                 m.getItem(2).setVisible(false);
-                MenuItem mI= m.getItem(2);
-                Menu submenu= mI.getSubMenu();
-                submenu.getItem(0).setVisible(false);
+
             }
 
         }
@@ -127,9 +125,7 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
             if(currentUser==null)
             {
                 m.getItem(2).setVisible(false);
-                MenuItem mI= m.getItem(2);
-                Menu submenu= mI.getSubMenu();
-                submenu.getItem(0).setVisible(false);
+
             }
         }
 
@@ -193,13 +189,7 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
 
         for (int i=0;i<m.size();i++) {
             MenuItem mi = m.getItem(i);
-            SubMenu subMenu = mi.getSubMenu();
-            if (subMenu!=null && subMenu.size() >0 ) {
-                for (int j=0; j <subMenu.size();j++) {
-                    MenuItem subMenuItem = subMenu.getItem(j);
-                    applyFontToMenuItem(subMenuItem,tipoLetra);
-                }
-            }
+
             applyFontToMenuItem(mi,tipoLetra);
         }
     }
@@ -306,8 +296,6 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
                 LoginManager.getInstance().logOut();
                 Menu m=navView.getMenu();
                 m.getItem(2).setVisible(false);
-                Menu men=m.getItem(2).getSubMenu();
-                men.getItem(0).setVisible(false);
                 mostrarMensaje(R.string.txt_sesion_cerrada);
                 if(!m.getItem(1).isVisible())
                 {
@@ -460,9 +448,7 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
                     flechaAtras.setVisibility(View.VISIBLE);
                     btnMenuPrincipal.setVisibility(View.GONE);
                     m.getItem(2).setVisible(false);
-                    MenuItem mI=m.getItem(2);
-                    Menu submenu=mI.getSubMenu();
-                    submenu.getItem(0).setVisible(false);
+
                 }
             }
         });
@@ -496,13 +482,7 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
     {
         for (int i=0;i<m.size();i++) {
             MenuItem mi = m.getItem(i);
-            SubMenu subMenu = mi.getSubMenu();
-            if (subMenu!=null && subMenu.size() >0 ) {
-                for (int j=0; j <subMenu.size();j++) {
-                    MenuItem subMenuItem = subMenu.getItem(j);
-                    subMenuItem.setVisible(true);
-                }
-            }
+
             mi.setVisible(true);
 
         }
@@ -565,9 +545,7 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
             flechaAtras.setVisibility(View.VISIBLE);
             btnMenuPrincipal.setVisibility(View.GONE);
             m.getItem(2).setVisible(false);
-            MenuItem mI=m.getItem(2);
-            Menu submenu=mI.getSubMenu();
-            submenu.getItem(0).setVisible(false);
+
         }
     }
 

@@ -11,7 +11,7 @@
         android:layout_height="@dimen/tam_alto_caja_texto"
         android:text="hola"
         android:textSize="@dimen/size_text_caja_texto"
-        android:textColor="@color/vinotintoapp"
+        android:textColor="@color/rojo"
         android:gravity="center"/>
 
 

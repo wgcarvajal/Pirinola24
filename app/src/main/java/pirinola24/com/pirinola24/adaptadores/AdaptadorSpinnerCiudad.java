@@ -65,7 +65,7 @@ public class AdaptadorSpinnerCiudad extends ArrayAdapter
         {
             item.setText(lista.get(position));
             item.setTag("0");
-            item.setTextColor(Color.parseColor("#033a0f"));
+            item.setTextColor(Color.parseColor("#000000"));
         }
         else
         {

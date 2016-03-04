@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="pirinola24.com.pirinola24.RegistradoActivity"
-    android:background="@color/amarilloapp"
+    android:background="@color/blanco"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
@@ -12,12 +12,15 @@
         android:id="@+id/textlugar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/vinotintoapp"
-        android:layout_marginLeft="@dimen/margin_small"
+        android:textColor="@color/blanco"
+        android:layout_marginLeft="@dimen/super_margin_small"
         android:textSize="@dimen/tam_titulo_subcategoria"
-        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginTop="@dimen/super_margin_small"
+        android:layout_marginRight="@dimen/super_margin_small"
         android:layout_marginBottom="@dimen/super_margin_small"
+        android:background="@color/rojo"
         android:gravity="center"
+
         />
 
 
@@ -184,7 +187,7 @@
         android:layout_marginLeft="@dimen/margin_small"
         android:layout_marginBottom="@dimen/super_margin_small"
         app:textAllCaps="false"
-        android:textColor="@color/amarilloapp"
+        android:textColor="@color/blanco"
         android:text="Enviar pedido"
         android:textSize="@dimen/size_letra_boton_realizar_pedido"
         android:background="@drawable/btn_realizar_pedido"
@@ -197,12 +200,12 @@
         android:layout_width="match_parent"
         android:text="Compruebe su conexión a internet...."
         android:textSize="@dimen/size_text_compruebe_conexion"
-        android:textColor="@color/amarilloapp"
+        android:textColor="@color/blanco"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginLeft="@dimen/margin_small"
         android:layout_marginRight="@dimen/margin_small"
-        android:background="@drawable/background_mensaje_toast"
+        android:background="@drawable/sin_conexion_seleccionar_ciudad"
         android:padding="@dimen/margin_small"
         />
     <android.support.v7.widget.AppCompatButton
@@ -210,7 +213,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/tam_alto_btn"
         android:text="@string/volver_cargar_vista"
-        android:textColor="@color/amarilloapp"
+        android:textColor="@color/blanco"
         android:layout_alignParentBottom="true"
         android:background="@drawable/btn_realizar_pedido"
         android:textSize="@dimen/size_letra_boton_realizar_pedido"

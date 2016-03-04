@@ -2,21 +2,38 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
+<group android:checkableBehavior="single"
+    android:id="@+id/grupogeneral"
+    >
+    <item
+        android:id="@+id/nav_mi_pedido"
+        android:title="@string/texto_menu_mi_pedido"
+        android:icon="@mipmap/ic_carro_compras"
+        />
+    <item
+        android:id="@+id/nav_contacto_sugerencias"
+        android:title="@string/txt_contacto_sugerencias"
+        android:icon="@mipmap/ic_contactenos"
+        />
 
-        <item
-            android:id="@+id/nav_mi_pedido"
-            android:title="@string/texto_menu_mi_pedido"
-            />
-        <item
-            android:id="@+id/nav_contacto_sugerencias"
-            android:title="@string/txt_contacto_sugerencias"
+</group>
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/grupocuenta">
+
+
+        <item android:title="@string/txt_cerrar_sesion"
+            android:id="@+id/nav_cerrar_sesion"
+            android:icon="@mipmap/ic_cerrar_sesion"
             />
 
-        <item android:title="@string/txt_cuenta">
-            <menu>
-                <item android:title="@string/txt_cerrar_sesion"
-                    android:id="@+id/nav_cerrar_sesion"/>
-            </menu>
-        </item>
+    </group>
+
+
+
+
+
+
+
 
 </menu>
