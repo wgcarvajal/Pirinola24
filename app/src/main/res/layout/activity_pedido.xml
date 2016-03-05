@@ -58,7 +58,6 @@
             android:id="@+id/txt_domicilio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/domicilio_incluido"
             android:layout_marginLeft="@dimen/margin_small"
             android:textColor="@color/rojo"
             android:textSize="@dimen/size_tex_domicilio_incluido"

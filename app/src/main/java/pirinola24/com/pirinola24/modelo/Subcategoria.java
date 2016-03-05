@@ -19,6 +19,8 @@ public class Subcategoria
     private String imgTitulo;
     private int posicion;
     private String subcatnombre;
+    private int domicilio;
+    private int minimopedido;
     private int tipoFragment;
 
     public String getObjectId() {
@@ -61,4 +63,19 @@ public class Subcategoria
         this.tipoFragment = tipoFragment;
     }
 
+    public int getDomicilio() {
+        return domicilio;
+    }
+
+    public void setDomicilio(int domicilio) {
+        this.domicilio = domicilio;
+    }
+
+    public int getMinimopedido() {
+        return minimopedido;
+    }
+
+    public void setMinimopedido(int minimopedido) {
+        this.minimopedido = minimopedido;
+    }
 }

@@ -7,7 +7,7 @@
     android:background="@color/blanco">
 
     <TextView
-        android:id="@+id/ingrese"
+        android:id="@+id/titulonoregistrado"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tam_img_titulo_subcategoria"
         android:layout_marginTop="@dimen/super_margin_small"
@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
-        android:layout_below="@id/flecha_atras"
+        android:layout_below="@id/titulonoregistrado"
         android:layout_marginBottom="@dimen/margin_small"
         >
 

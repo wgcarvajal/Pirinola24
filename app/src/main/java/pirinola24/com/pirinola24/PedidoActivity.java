@@ -36,6 +36,7 @@ import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.bumptech.glide.util.Util;
 import com.facebook.login.LoginManager;
 
 import java.text.DecimalFormat;
@@ -133,6 +134,14 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
         textDomicilio.setTypeface(TF);
         veinticuatro.setTypeface(TF);
 
+        int valdomicilio=AppUtil.listaSubcategorias.get(0).getDomicilio();
+        DecimalFormat format= new DecimalFormat("###,###.##");
+        String valordomicilio=format.format(valdomicilio);
+        valordomicilio=valordomicilio.replace(",",".");
+
+
+        textDomicilio.setText(getResources().getString(R.string.domicilio_incluido)+valordomicilio+")");
+
         TF= FontCache.get(fontStackyard,this);
         textTotalPedido.setTypeface(TF);
         tituloMenuHeader.setTypeface(TF);
@@ -160,7 +169,7 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
             if (fila.moveToFirst())
             {
 
-                int contador=2000;
+                int contador=AppUtil.listaSubcategorias.get(0).getDomicilio();
                 do {
 
                     for(Producto p: AppUtil.data)
@@ -220,14 +229,20 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
         String substring=textValorTotalPedido.getText().toString().substring(1);
         substring =substring.replace(".","");
         int total= Integer.parseInt(substring);
-        if(total<10000)
+        if(total<AppUtil.listaSubcategorias.get(0).getMinimopedido())
         {
             LayoutInflater inflater = getLayoutInflater();
             View layout = inflater.inflate(R.layout.template_mensaje_toast,
                     (ViewGroup) findViewById(R.id.toast_layout));
 
             TextView text = (TextView) layout.findViewById(R.id.txt_mensaje_toast);
-            text.setText(getResources().getString(R.string.mensaje_pedido_minimo));
+
+            int valminimo=AppUtil.listaSubcategorias.get(0).getMinimopedido();
+            DecimalFormat format= new DecimalFormat("###,###.##");
+            String valorminimo=format.format(valminimo);
+            valorminimo=valorminimo.replace(",",".");
+
+            text.setText(getResources().getString(R.string.mensaje_pedido_minimo)+valorminimo);
 
             Toast toast = new Toast(this);
             toast.setGravity(Gravity.CENTER, 0, 0);
@@ -377,7 +392,7 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
         String substring = valorTotalpedido.substring(1);
         substring =substring.replace(".","");
         int contador= Integer.parseInt(substring)-precio;
-        if(contador==2000)
+        if(contador==AppUtil.listaSubcategorias.get(0).getDomicilio())
         {
             contador=0;
             Menu m = navView.getMenu();

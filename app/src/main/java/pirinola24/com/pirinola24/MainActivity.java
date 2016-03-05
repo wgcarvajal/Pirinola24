@@ -183,13 +183,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (currentUser == null)
             {
                 m.getItem(2).setVisible(false);
-                Menu men=m.getItem(2).getSubMenu();
-                men.getItem(0).setVisible(false);
             }
             findViewById(R.id.pagerIndicator).setVisibility(View.VISIBLE);
         }
         else
         {
+            pd = ProgressDialog.show(this,getResources().getString(R.string.txt_cargando_datos), getResources().getString(R.string.por_favor_espere), true, false);
             CargarDatosRemotosTask cargarDatosRemotosTask=new CargarDatosRemotosTask();
             cargarDatosRemotosTask.execute();
         }
@@ -203,6 +202,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         subcategoriaSelect.add("imgTitulo");
         subcategoriaSelect.add("tipoFragment");
         subcategoriaSelect.add("subcatnombre");
+        subcategoriaSelect.add("domicilio");
+        subcategoriaSelect.add("minimopedido");
+
 
         dataQuerysubcategoria.setProperties(subcategoriaSelect);
         QueryOptions queryOptionsSubcategoria= new QueryOptions();
@@ -242,30 +244,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     {
                                         AppUtil.data.add(p);
                                     }
-
+                                    if(pd!=null)
+                                    {
+                                        pd.dismiss();
+                                    }
                                     crearFragments();
                                 }
 
                                 @Override
                                 public void handleFault(BackendlessFault fault) {
+                                    if(pd!=null)
+                                    {
+                                        pd.dismiss();
+                                    }
                                     mostrarMensajeComprobarConexion();
                                 }
                             });
                         }
                         else
                         {
+                            if(pd!=null)
+                            {
+                                pd.dismiss();
+                            }
                             crearFragments();
                         }
                     }
                     @Override
                     public void handleFault(BackendlessFault fault)
                     {
+                        if(pd!=null)
+                        {
+                            pd.dismiss();
+                        }
                         mostrarMensajeComprobarConexion();
                     }
                 });
             }
             @Override
-            public void handleFault(BackendlessFault fault) {
+            public void handleFault(BackendlessFault fault)
+            {
+                if(pd!=null)
+                {
+                    pd.dismiss();
+                }
                 mostrarMensajeComprobarConexion();
             }
         });
@@ -360,6 +382,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         text_compruebe_conexion.setVisibility(View.GONE);
         btnRecargarVista.setVisibility(View.GONE);
+        pd = ProgressDialog.show(this,getResources().getString(R.string.txt_cargando_datos), getResources().getString(R.string.por_favor_espere), true, false);
         CargarDatosRemotosTask cargarDatosRemotosTask=new CargarDatosRemotosTask();
         cargarDatosRemotosTask.execute();
     }
@@ -521,6 +544,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             else
             {
+                if(pd!=null)
+                {
+                    pd.dismiss();
+                }
                 mostrarMensajeComprobarConexion();
             }
 

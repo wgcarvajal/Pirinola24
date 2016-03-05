@@ -50,6 +50,7 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
     private TextView textDireccion;
     private TextView textBarrio;
     private TextView textTelefono;
+    private TextView titulo;
     private ScrollView scrollgeneral;
     private ImageView btnAtras;
     private Button btnEnviarPedido;
@@ -74,7 +75,7 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         textBarrio=(TextView)findViewById(R.id.txt_barrio);
         textTelefono=(TextView)findViewById(R.id.txt_telefono);
         sinconexion=(TextView)findViewById(R.id.txt_sin_conexion);
-
+        titulo=(TextView)findViewById(R.id.titulonoregistrado);
 
 
         btnAtras=(ImageView)findViewById(R.id.flecha_atras);
@@ -95,6 +96,7 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         btnEnviarPedido.setTypeface(TF);
         volver_cargar.setTypeface(TF);
         sinconexion.setTypeface(TF);
+        titulo.setTypeface(TF);
 
 
         String [] objetos= getResources().getStringArray(R.array.forma_pago);

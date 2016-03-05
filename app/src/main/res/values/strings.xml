@@ -17,10 +17,10 @@
     <string name="regresar_a_carta">Atras</string>
     <string name="text_total_pedido">Total: </string>
     <string name="text_btn_finalizar_pedido">Realizar pedido</string>
-    <string name="domicilio_incluido">(Domicilio incluido $2.000)</string>
+    <string name="domicilio_incluido">(Domicilio incluido $</string>
     <string name="menaje_desea_vaciar_pedido">Deseas vaciar el pedido?</string>
     <string name="mensaje_pedido_vacio">Se ha vaciado el pedido.</string>
-    <string name="mensaje_pedido_minimo">Valor minimo del pedido $10.000</string>
+    <string name="mensaje_pedido_minimo">Valor minimo del pedido $</string>
     <string name="txt_hint_correo_electronico">Correo electrónico</string>
     <string name="text_autenticarse">Iniciar sesión</string>
     <string name="text_recuperar_clave">¿Olvidaste tu clave?</string>
