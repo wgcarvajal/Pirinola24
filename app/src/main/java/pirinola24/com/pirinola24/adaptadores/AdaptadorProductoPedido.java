@@ -14,7 +14,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -46,6 +48,7 @@ public class AdaptadorProductoPedido extends BaseAdapter implements View.OnClick
     {
 
         public ImageView imagenProducto;
+        public ImageView placeholder;
         public TextView txtconteo;
         public TextView btnDisminuir;
 
@@ -89,7 +92,7 @@ public class AdaptadorProductoPedido extends BaseAdapter implements View.OnClick
     public View getView(int position, View convertView, ViewGroup parent)
     {
         View v = convertView;
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
 
         if(convertView == null)
         {
@@ -97,6 +100,7 @@ public class AdaptadorProductoPedido extends BaseAdapter implements View.OnClick
             viewHolder=new ViewHolder();
 
             viewHolder.imagenProducto=(ImageView) v.findViewById(R.id.img_producto);
+            viewHolder.placeholder=(ImageView)v.findViewById(R.id.placeholder);
             viewHolder.txtconteo=(TextView) v.findViewById(R.id.txtconteo);
             viewHolder.btnDisminuir=(TextView) v.findViewById(R.id.btn_disminuir);
 
@@ -115,18 +119,31 @@ public class AdaptadorProductoPedido extends BaseAdapter implements View.OnClick
         Producto p = (Producto) getItem(position);
         fijarDatos(p, viewHolder, position);
 
-        Glide.with(context)
+        viewHolder.placeholder.setVisibility(View.VISIBLE);
+        viewHolder.placeholder.setImageResource(R.drawable.carga);
+
+        Picasso.with(context)
                 .load(p.getImgFile())
-                .placeholder(R.drawable.cargando)
-                .into(viewHolder.imagenProducto);
+                .into(viewHolder.imagenProducto, new Callback() {
+
+                    @Override
+                    public void onSuccess() {
+                        viewHolder.placeholder.setImageDrawable(null);
+                        viewHolder.placeholder.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
+
         return v;
     }
 
     private void fijarDatos(Producto producto,ViewHolder viewHolder,int position)
     {
-
-
-
         viewHolder.btnDisminuir.setTag(position);
         viewHolder.btnDisminuir.setOnClickListener(this);
         FijarCantidadTask fijarCantidadTask=new FijarCantidadTask(context,viewHolder);

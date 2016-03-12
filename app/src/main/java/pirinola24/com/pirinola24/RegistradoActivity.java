@@ -12,6 +12,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 import com.backendless.Backendless;
 import com.backendless.BackendlessCollection;
 import com.backendless.BackendlessUser;
+import com.backendless.Messaging;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.BackendlessDataQuery;
@@ -240,7 +242,26 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
 
         Backendless.Persistence.save(pedido, new AsyncCallback<Pedido>() {
             @Override
-            public void handleResponse(Pedido response) {
+            public void handleResponse(Pedido response)
+            {
+
+                Messaging.DEVICE_ID=response.getObjectId();
+                Backendless.Messaging.registerDevice("892757423063", new AsyncCallback<Void>()
+                {
+                    @Override
+                    public void handleResponse(Void response)
+                    {
+                        Log.i("device:", "registrado");
+                    }
+
+                    @Override
+                    public void handleFault(BackendlessFault fault)
+                    {
+                        Log.i("device error:",fault.getMessage());
+                    }
+                });
+
+
                 AdminSQliteOpenHelper admin = new AdminSQliteOpenHelper(getApplicationContext(), "admin", null, 1);
                 SQLiteDatabase db = admin.getReadableDatabase();
                 Cursor fila = db.rawQuery("select prodid,prodcantidad from pedido", null);

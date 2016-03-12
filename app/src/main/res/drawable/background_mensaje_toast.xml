@@ -4,7 +4,7 @@
     android:shape="rectangle"
     >
     <!-- The fill color -->
-    <solid android:color="@color/negro"/>
+    <solid android:color="@color/verdeapp"/>
     <!-- Just to add a border -->
     <stroke
         android:color="@color/blanco"

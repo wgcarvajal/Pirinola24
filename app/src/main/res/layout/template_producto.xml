@@ -8,8 +8,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
+
         >
 
+
+        <pl.droidsonroids.gif.GifImageView
+            android:id="@+id/placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/alto_template_producto"
+            android:scaleType="center"
+            />
 
         <ImageView
             android:id="@+id/img_producto"
@@ -17,6 +25,7 @@
             android:layout_height="@dimen/alto_template_producto"
             android:scaleType="fitXY"
             />
+
         <ImageView
             android:id="@+id/btn_descripcion"
             android:layout_width="@dimen/tam_btn_descripcion"

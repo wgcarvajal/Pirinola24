@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.view.LayoutInflater;
@@ -16,17 +15,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
-import com.bumptech.glide.request.Request;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SizeReadyCallback;
-import com.bumptech.glide.request.target.Target;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
-
-import javax.security.auth.callback.Callback;
 
 import pirinola24.com.pirinola24.R;
 import pirinola24.com.pirinola24.basededatos.AdminSQliteOpenHelper;
@@ -46,6 +39,7 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
     public class ViewHolder
     {
         public ImageView imagenProducto;
+        public ImageView placeholder;
         public TextView txtconteo;
         public TextView btnDisminuir;
         public ImageView btnDescripcion;
@@ -101,6 +95,7 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
             v = mInflater.inflate(R.layout.template_producto,parent,false);
             viewHolder=new ViewHolder();
             viewHolder.imagenProducto=(ImageView) v.findViewById(R.id.img_producto);
+            viewHolder.placeholder=(ImageView)v.findViewById(R.id.placeholder);
             viewHolder.txtconteo=(TextView) v.findViewById(R.id.txtconteo);
             viewHolder.btnDisminuir=(TextView) v.findViewById(R.id.btn_disminuir);
             viewHolder.btnDescripcion=(ImageView)v.findViewById(R.id.btn_descripcion);
@@ -120,12 +115,26 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
         fijarDatos(p, viewHolder, position);
 
 
+        viewHolder.placeholder.setVisibility(View.VISIBLE);
+        viewHolder.btnDescripcion.setVisibility(View.GONE);
+        viewHolder.placeholder.setImageResource(R.drawable.carga);
 
-        Glide.with(context)
+        Picasso.with(context)
                 .load(p.getImgFile())
-                .placeholder(R.drawable.placeholder)
-                .into(viewHolder.imagenProducto);
+                .into(viewHolder.imagenProducto, new Callback() {
 
+                    @Override
+                    public void onSuccess() {
+                        viewHolder.placeholder.setImageDrawable(null);
+                        viewHolder.placeholder.setVisibility(View.GONE);
+                        viewHolder.btnDescripcion.setVisibility(View.VISIBLE);
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
 
         return v;
     }

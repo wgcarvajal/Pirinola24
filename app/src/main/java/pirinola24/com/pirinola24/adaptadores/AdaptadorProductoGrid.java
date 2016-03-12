@@ -14,7 +14,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -39,6 +40,7 @@ public class AdaptadorProductoGrid extends BaseAdapter implements View.OnClickLi
     {
 
         public ImageView imagenProducto;
+        public ImageView placeholder;
         public TextView txtconteo;
         public TextView btnDisminuir;
     }
@@ -81,13 +83,14 @@ public class AdaptadorProductoGrid extends BaseAdapter implements View.OnClickLi
     public View getView(int position, View convertView, ViewGroup parent)
     {
         View v = convertView;
-        ViewHolder viewHolder;
+        final ViewHolder viewHolder;
 
         if(convertView == null)
         {
             v = mInflater.inflate(R.layout.template_producto_grid,parent,false);
             viewHolder=new ViewHolder();
             viewHolder.imagenProducto=(ImageView) v.findViewById(R.id.img_producto);
+            viewHolder.placeholder=(ImageView)v.findViewById(R.id.placeholder);
             viewHolder.txtconteo=(TextView) v.findViewById(R.id.txtconteo);
             viewHolder.btnDisminuir=(TextView) v.findViewById(R.id.btn_disminuir);
             Typeface TF = FontCache.get(font_pathOds,context);
@@ -107,10 +110,26 @@ public class AdaptadorProductoGrid extends BaseAdapter implements View.OnClickLi
 
 
 
-        Glide.with(context)
+        viewHolder.placeholder.setVisibility(View.VISIBLE);
+        viewHolder.placeholder.setImageResource(R.drawable.carga);
+
+        Picasso.with(context)
                 .load(p.getImgFile())
-                .placeholder(R.drawable.cargando)
-                .into(viewHolder.imagenProducto);
+                .into(viewHolder.imagenProducto, new Callback() {
+
+                    @Override
+                    public void onSuccess() {
+                        viewHolder.placeholder.setImageDrawable(null);
+                        viewHolder.placeholder.setVisibility(View.GONE);
+
+                    }
+
+                    @Override
+                    public void onError() {
+
+                    }
+                });
+
 
         return v;
     }

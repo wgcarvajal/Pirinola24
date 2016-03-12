@@ -11,19 +11,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.backendless.Backendless;
-import com.backendless.BackendlessCollection;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
 import com.backendless.persistence.BackendlessDataQuery;
 import com.backendless.persistence.QueryOptions;
-import com.bumptech.glide.Glide;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import pirinola24.com.pirinola24.R;
 import pirinola24.com.pirinola24.modelo.Anuncio;
-import pirinola24.com.pirinola24.modelo.Subcategoria;
 import pirinola24.com.pirinola24.util.AppUtil;
 import pirinola24.com.pirinola24.util.FontCache;
 
@@ -34,6 +33,8 @@ public class AnuncioFragment extends FragmentGeneric
     private String subcategoriaId;
     private TextView titulo;
     private ImageView anuncio;
+    private ImageView placeholder;
+
     private String fontStackyard="font/Stackyard.ttf";
 
     public AnuncioFragment()
@@ -75,6 +76,7 @@ public class AnuncioFragment extends FragmentGeneric
 
         titulo=(TextView) v.findViewById(R.id.tituloAnuncio);
         anuncio=(ImageView)v.findViewById(R.id.idanuncio);
+        placeholder=(ImageView)v.findViewById(R.id.placeholder);
 
         Typeface TF= FontCache.get(fontStackyard,inflater.getContext());
         titulo.setTypeface(TF);
@@ -102,9 +104,27 @@ public class AnuncioFragment extends FragmentGeneric
                 Log.i("ya habia", "un anuncio guardado");
                 bandera=1;
 
-                Glide.with(getContext())
+               placeholder.setVisibility(View.VISIBLE);
+               placeholder.setImageResource(R.drawable.carga);
+
+                Picasso.with(getContext())
                         .load(a.getUrlImagen())
-                        .into(anuncio);
+                        .into(anuncio, new Callback() {
+
+                            @Override
+                            public void onSuccess()
+                            {
+                                placeholder.setImageDrawable(null);
+                                placeholder.setVisibility(View.GONE);
+
+                            }
+                            @Override
+                            public void onError()
+                            {
+
+                            }
+                        });
+
             }
 
         }
@@ -133,10 +153,25 @@ public class AnuncioFragment extends FragmentGeneric
             {
                 AppUtil.listaAnuncios.add(response);
 
-                Glide.with(getContext())
-                        .load(response.getUrlImagen())
-                        .into(anuncio);
+                placeholder.setVisibility(View.VISIBLE);
+                placeholder.setImageResource(R.drawable.carga);
 
+                Picasso.with(getContext())
+                        .load(response.getUrlImagen())
+                        .into(anuncio, new Callback() {
+
+                            @Override
+                            public void onSuccess() {
+                                placeholder.setImageDrawable(null);
+                                placeholder.setVisibility(View.GONE);
+
+                            }
+
+                            @Override
+                            public void onError() {
+
+                            }
+                        });
             }
 
             @Override

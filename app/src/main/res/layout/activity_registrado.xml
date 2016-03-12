@@ -28,7 +28,7 @@
             android:id="@+id/flecha_atras"
             android:layout_width="@dimen/tam_img_icono_menu_carro"
             android:layout_height="@dimen/tam_img_icono_menu_carro"
-            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginTop="@dimen/super_margin_small"
             android:layout_marginBottom="@dimen/margin_small"
             android:layout_marginLeft="@dimen/margin_small"
             android:src="@mipmap/ic_flecha_atras"

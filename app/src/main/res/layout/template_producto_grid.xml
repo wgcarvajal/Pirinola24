@@ -5,6 +5,13 @@
     android:layout_height="wrap_content"
     >
 
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tam_imagen_producto_grid"
+        android:scaleType="center"
+        />
+
     <ImageView
         android:id="@+id/img_producto"
         android:layout_width="match_parent"

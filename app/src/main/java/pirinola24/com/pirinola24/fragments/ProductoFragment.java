@@ -161,7 +161,7 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
     {
         TextView textconteo= (TextView) view.findViewById(R.id.txtconteo);
         TextView btnDisminuir= (TextView) view.findViewById(R.id.btn_disminuir);
-        AgregarProductoPedidoTask agregarProductoPedidoTask= new AgregarProductoPedidoTask(textconteo,btnDisminuir);
+        AgregarProductoPedidoTask agregarProductoPedidoTask= new AgregarProductoPedidoTask(textconteo,btnDisminuir,getContext());
         agregarProductoPedidoTask.execute(data.get(position));
     }
 
@@ -169,16 +169,18 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
     {
         private WeakReference<TextView> txtcontedo;
         private WeakReference<TextView> btndisminuir;
+        private  Context context;
 
-        public AgregarProductoPedidoTask(TextView conteo,TextView disminuir)
+        public AgregarProductoPedidoTask(TextView conteo,TextView disminuir, Context context)
         {
             txtcontedo= new WeakReference<>(conteo);
             btndisminuir= new WeakReference<>(disminuir);
+            this.context=context;
         }
         @Override
         protected Integer doInBackground(Producto... params)
         {
-            MediaPlayer m = MediaPlayer.create(getContext(),R.raw.sonido_click);
+            MediaPlayer m = MediaPlayer.create(context,R.raw.sonido_click);
             m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 public void onCompletion(MediaPlayer mp) {
                     mp.release();

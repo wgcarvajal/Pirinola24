@@ -7,7 +7,7 @@
     <dimen name="margin_small">10dp</dimen>
     <dimen name="ancho_btn_menu_principal">30dp</dimen>
     <dimen name="alto_btn_menu_principal">30dp</dimen>
-    <dimen name="tam_titulo_subcategoria">40sp</dimen>
+    <dimen name="tam_titulo_subcategoria">35sp</dimen>
     <dimen name="super_margin_small">5dp</dimen>
     <dimen name="alto_template_producto">190dp</dimen>
     <dimen name="alto_campo_nombre_producto">60dp</dimen>

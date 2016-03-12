@@ -18,5 +18,9 @@ public class BackendlessApplication extends Application
         FacebookSdk.sdkInitialize(this);
         String appVersion = "v1";
         Backendless.initApp(this, YOUR_APP_ID, YOUR_SECRET_KEY, appVersion);
+
+
+
+
     }
 }

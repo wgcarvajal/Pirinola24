@@ -21,7 +21,6 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -36,7 +35,6 @@ import com.backendless.Backendless;
 import com.backendless.BackendlessUser;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
-import com.bumptech.glide.util.Util;
 import com.facebook.login.LoginManager;
 
 import java.text.DecimalFormat;
@@ -356,6 +354,11 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
         MediaPlayer m = MediaPlayer.create(getApplicationContext(), R.raw.sonido_click);
+        m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            }
+        });
         m.start();
         String valorTotalpedido=textValorTotalPedido.getText().toString();
         String substring = valorTotalpedido.substring(1);

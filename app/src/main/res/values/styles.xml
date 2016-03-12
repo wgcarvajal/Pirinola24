@@ -9,7 +9,7 @@
     </style>
 
     <style name="NavDrawerTextStyle" parent="Base.TextAppearance.AppCompat">
-        <item name="android:textColor">@color/negro</item>
+        <item name="android:textColor">@color/verdeapp</item>
         <item name="android:textSize">@dimen/tam_letra_item_menu</item>
     </style>
 

@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pirinola24.com.pirinola24.NotificacionActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/blanco">
+
+    <TextView
+        android:id="@+id/tituloNotificacion"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tam_img_titulo_subcategoria"
+        android:layout_marginTop="@dimen/super_margin_small"
+        android:layout_marginRight="@dimen/super_margin_small"
+        android:layout_marginLeft="@dimen/super_margin_small"
+        android:textSize="@dimen/tam_titulo_subcategoria"
+        android:text="Notificación"
+        android:gravity="center"
+        android:textColor="@color/blanco"
+        android:background="@color/rojo"
+        />
+
+    
+    <TextView
+        android:id="@+id/mensaje"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tituloNotificacion"
+        android:textSize="@dimen/size_tu_opinion"
+        android:textColor="@color/verdeapp"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:gravity="center"
+        />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/cerrar_notifiacion"
+        android:layout_width="wrap_content"
+        android:textColor="@color/blanco"
+        android:textSize="@dimen/size_letra_boton_realizar_pedido"
+        android:text="Cerrar"
+        app:textAllCaps="false"
+        android:layout_height="wrap_content"
+        android:paddingRight="@dimen/margin_medium"
+        android:paddingLeft="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:background="@drawable/btn_realizar_pedido"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/mensaje"
+        />
+</RelativeLayout>
