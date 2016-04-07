@@ -16,6 +16,7 @@ import com.backendless.Backendless;
 import com.backendless.BackendlessCollection;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.BackendlessDataQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +76,14 @@ public class SeleccionarciudadActivity extends AppCompatActivity implements View
     private void loadCiudades()
     {
         pd = ProgressDialog.show(this, "", getResources().getString(R.string.por_favor_espere), true, false);
-        Backendless.Persistence.of(Ciudad.class).find(new AsyncCallback<BackendlessCollection<Ciudad>>() {
+        BackendlessDataQuery dataQueryciudades= new BackendlessDataQuery();
+        List<String>ciudadSelect=new ArrayList<>();
+        ciudadSelect.add("objectId");
+        ciudadSelect.add("nombre");
+        ciudadSelect.add("email");
+        dataQueryciudades.setProperties(ciudadSelect);
+        dataQueryciudades.setWhereClause("activado = TRUE");
+        Backendless.Persistence.of(Ciudad.class).find(dataQueryciudades,new AsyncCallback<BackendlessCollection<Ciudad>>() {
         @Override
         public void handleResponse(BackendlessCollection<Ciudad> response)
         {

@@ -39,7 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/textlugar"
-        android:text="Sino aparece la dirección o el teléfono en la lista puedes adicionarlos."
+        android:text="Sino aparece la dirección o el teléfono en las listas puedes adicionarlos."
         android:textColor="@color/verdeapp"
         android:textSize="@dimen/size_ciudad"
         android:layout_marginTop="@dimen/margin_grande"
@@ -51,13 +51,13 @@
 
 
     <ScrollView
+        android:id="@+id/scrollgeneral"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="none"
         android:layout_below="@id/txtexplicacion"
         android:layout_marginBottom="@dimen/margin_small"
         >
-
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -172,28 +172,58 @@
                 android:layout_marginBottom="@dimen/icono_ingrese_margin_bottom"
                 android:layout_marginRight="@dimen/icono_ingrese_margin_rigth"/>
 
+            <ScrollView
+                android:id="@+id/scrollView_observaciones"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tam_scrollview_observaciones"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_below="@id/sp_forma_pago"
+                android:scrollbars="none"
+                android:background="@drawable/caja_texto_ingrese"
+                >
 
+                <EditText
+                    android:id="@+id/txt_observaciones"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_muy_poca"
+                    android:maxLength="300"
+                    android:minHeight="@dimen/tam_scrollview_observaciones"
+                    android:inputType="textMultiLine"
+                    android:hint="@string/text_hint_observaciones"
+                    android:textSize="@dimen/size_text_caja_texto"
+                    android:textColor="@color/rojo"
+                    android:textColorHint="@color/negro"
+                    android:gravity="center"
+                    android:ellipsize="end"/>
+
+            </ScrollView>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btn_enviar_pedido"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tam_alto_btn"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginRight="@dimen/margin_small"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_marginBottom="@dimen/super_margin_small"
+                app:textAllCaps="false"
+                android:textColor="@color/blanco"
+                android:text="Enviar pedido"
+                android:layout_below="@id/scrollView_observaciones"
+                android:textSize="@dimen/size_letra_boton_realizar_pedido"
+                android:background="@drawable/btn_realizar_pedido"
+
+                />
 
         </RelativeLayout>
 
 
     </ScrollView>
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_enviar_pedido"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/tam_alto_btn"
-        android:layout_marginRight="@dimen/margin_small"
-        android:layout_marginLeft="@dimen/margin_small"
-        android:layout_marginBottom="@dimen/super_margin_small"
-        app:textAllCaps="false"
-        android:textColor="@color/blanco"
-        android:text="Enviar pedido"
-        android:textSize="@dimen/size_letra_boton_realizar_pedido"
-        android:background="@drawable/btn_realizar_pedido"
-        android:layout_alignParentBottom="true"
 
-        />
 
     <TextView
         android:id="@+id/txt_sin_conexion"

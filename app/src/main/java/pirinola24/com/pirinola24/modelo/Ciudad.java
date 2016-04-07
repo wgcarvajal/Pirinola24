@@ -6,6 +6,7 @@ public class Ciudad implements Serializable
 {
     private String objectId;
     private String nombre;
+    private String email;
 
     public String getObjectId()
     {
@@ -25,5 +26,13 @@ public class Ciudad implements Serializable
     public void setNombre(String nombre)
     {
         this.nombre = nombre;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

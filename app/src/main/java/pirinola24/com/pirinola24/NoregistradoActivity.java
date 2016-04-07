@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -28,20 +29,25 @@ import com.backendless.BackendlessCollection;
 import com.backendless.Messaging;
 import com.backendless.async.callback.AsyncCallback;
 import com.backendless.exceptions.BackendlessFault;
+import com.backendless.persistence.BackendlessDataQuery;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 import pirinola24.com.pirinola24.adaptadores.AdaptadorSpinnerCiudad;
 import pirinola24.com.pirinola24.adaptadores.AdaptadorSpinnerFormaPago;
 import pirinola24.com.pirinola24.basededatos.AdminSQliteOpenHelper;
 import pirinola24.com.pirinola24.modelo.Ciudad;
+import pirinola24.com.pirinola24.modelo.Formapago;
 import pirinola24.com.pirinola24.modelo.Itempedido;
 import pirinola24.com.pirinola24.modelo.Pedido;
+import pirinola24.com.pirinola24.modelo.Producto;
+import pirinola24.com.pirinola24.util.AppUtil;
 import pirinola24.com.pirinola24.util.FontCache;
 
-public class NoregistradoActivity extends AppCompatActivity implements View.OnClickListener
-{
+public class NoregistradoActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     private String font_path="font/A_Simple_Life.ttf";
     private String fontStackyard="font/Stackyard.ttf";
 
@@ -51,7 +57,9 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
     private TextView textDireccion;
     private TextView textBarrio;
     private TextView textTelefono;
+    private TextView observaciones;
     private TextView titulo;
+    private ImageView iconospinerciudad;
     private ScrollView scrollgeneral;
     private ImageView btnAtras;
     private Button btnEnviarPedido;
@@ -70,6 +78,8 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         spFormapago=(Spinner)findViewById(R.id.sp_forma_pago);
         spCiudad=(Spinner)findViewById(R.id.sp_ciudad);
         scrollgeneral=(ScrollView)findViewById(R.id.scrollview_no_registrado);
+        iconospinerciudad=(ImageView)findViewById(R.id.iconospinerciudad);
+        observaciones=(TextView)findViewById(R.id.txt_observaciones);
 
         textNombre=(TextView)findViewById(R.id.txt_nombre);
         textDireccion=(TextView)findViewById(R.id.txt_direccion);
@@ -92,6 +102,7 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         textDireccion.setTypeface(TF);
         textBarrio.setTypeface(TF);
         textTelefono.setTypeface(TF);
+        observaciones.setTypeface(TF);
 
         TF=FontCache.get(fontStackyard,this);
         btnEnviarPedido.setTypeface(TF);
@@ -110,16 +121,19 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         }
         adapter=new AdaptadorSpinnerFormaPago(this,R.layout.template_spinner_forma_pago,list);
         spFormapago.setAdapter(adapter);
+        spCiudad.setOnItemSelectedListener(this);
 
-        scrollgeneral.setVisibility(View.GONE);
-        sinconexion.setVisibility(View.GONE);
-        volver_cargar.setVisibility(View.GONE);
         cargarCiudades();
 
     }
 
     private void cargarCiudades()
     {
+        scrollgeneral.setVisibility(View.GONE);
+        spCiudad.setVisibility(View.GONE);
+        sinconexion.setVisibility(View.GONE);
+        volver_cargar.setVisibility(View.GONE);
+        iconospinerciudad.setVisibility(View.GONE);
         pd = ProgressDialog.show(this, getResources().getString(R.string.txt_cargando_datos), getResources().getString(R.string.por_favor_espere), true, false);
         CargarCiudadesTask cargarciudades = new CargarCiudadesTask();
         cargarciudades.execute();
@@ -128,20 +142,28 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
     private void cargarCiudadesBackendless()
     {
         final Context c= this;
-        Backendless.Persistence.of(Ciudad.class).find(new AsyncCallback<BackendlessCollection<Ciudad>>() {
+        BackendlessDataQuery dataQueryciudades= new BackendlessDataQuery();
+        List<String>ciudadSelect=new ArrayList<>();
+        ciudadSelect.add("objectId");
+        ciudadSelect.add("nombre");
+        ciudadSelect.add("email");
+        dataQueryciudades.setProperties(ciudadSelect);
+        dataQueryciudades.setWhereClause("activado = TRUE");
+        Backendless.Persistence.of(Ciudad.class).find(dataQueryciudades,new AsyncCallback<BackendlessCollection<Ciudad>>() {
             @Override
             public void handleResponse(BackendlessCollection<Ciudad> response) {
                 List<Ciudad> ciudades = response.getData();
-                List<String> listaCiudades = new ArrayList<>();
-                listaCiudades.add("Seleccione una ciudad");
+                List<Ciudad> listaCiudades = new ArrayList<>();
+                Ciudad seleccioneCiudad = new Ciudad();
+                seleccioneCiudad.setNombre("Seleccione una ciudad");
+                listaCiudades.add(seleccioneCiudad);
                 for (Ciudad ciu : ciudades) {
-                    listaCiudades.add(ciu.getNombre());
+                    listaCiudades.add(ciu);
                 }
-                adaptadorCiudad = new AdaptadorSpinnerCiudad(c, R.layout.template_spinner_forma_pago, ciudades, listaCiudades);
+                adaptadorCiudad = new AdaptadorSpinnerCiudad(c, R.layout.template_spinner_forma_pago, listaCiudades);
                 spCiudad.setAdapter(adaptadorCiudad);
-                scrollgeneral.setVisibility(View.VISIBLE);
-                volver_cargar.setVisibility(View.GONE);
-                sinconexion.setVisibility(View.GONE);
+                spCiudad.setVisibility(View.VISIBLE);
+                iconospinerciudad.setVisibility(View.VISIBLE);
                 if (pd != null) {
                     pd.dismiss();
                 }
@@ -185,13 +207,14 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
-    private void enviarBackendless(String nombre,String direccion,String barrio,String telefono,String formaPago,String idciudad)
+    private void enviarBackendless(String nombre,String direccion,String barrio,String telefono,String formaPago,String observacion,String idciudad, final String correo, final String ciudad)
     {
         Pedido pedido= new Pedido();
         pedido.setPeddireccion(direccion+" "+barrio);
         pedido.setPedformapago(formaPago);
         pedido.setPedtelefono(telefono);
         pedido.setPedpersonanombre(nombre);
+        pedido.setPedobservaciones(observacion);
         pedido.setCiudad(idciudad);
 
         Backendless.Persistence.save(pedido, new AsyncCallback<Pedido>() {
@@ -212,6 +235,35 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
                     }
                 });
 
+                ArrayList<String> recipients = new ArrayList<String>();
+                recipients.add(correo);
+                String asunto = "Nuevo pedido";
+                String fp;
+                if (response.getPedformapago().equals("tc")) {
+                    fp = "Tarjeta";
+                } else {
+                    fp = "Efectivo";
+                }
+                SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                ft.setTimeZone(TimeZone.getTimeZone("GMT-5:00"));
+
+                String mailBody = "<h1>Nuevo pedido</h1>" +
+                        "<b>Fecha y hora : </b>" + ft.format(response.getCreated()) + "<br>" +
+                        "<b>Nombre cliente : </b>" + response.getPedpersonanombre() + "<br>" +
+                        "<b>Teléfono : </b>" + response.getPedtelefono() + "<br>" +
+                        "<b>Dirección : </b>" + response.getPeddireccion() + "<br>" +
+                        "<b>Ciudad : </b>" + ciudad + "<br>" +
+                        "<b>Forma de Pago : </b>" + fp + "<br>" +
+                        "<b>Observaciones : </b>" + response.getPedobservaciones() + "<br><br><br>" +
+                        "<table border='1'>" +
+                        "<tr>" +
+                        "<th>Producto</th>" +
+                        "<th>cantidad</th>" +
+                        "<th>Precio</th>" +
+                        "<th>Total</th>" +
+                        "</tr>";
+
+                int totalPedido = 0;
                 AdminSQliteOpenHelper admin = new AdminSQliteOpenHelper(getApplicationContext(), "admin", null, 1);
                 SQLiteDatabase db = admin.getReadableDatabase();
                 Cursor fila = db.rawQuery("select prodid,prodcantidad from pedido", null);
@@ -234,7 +286,41 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
 
                                 }
                             });
+                            Producto producto = new Producto();
+
+                            for (Producto p : AppUtil.data) {
+                                if (p.getObjectId().equals(fila.getString(fila.getColumnIndex("prodid")))) {
+                                    producto = p;
+                                    break;
+                                }
+                            }
+                            int total = producto.getPrecio() * fila.getInt(fila.getColumnIndex("prodcantidad"));
+                            totalPedido = totalPedido + total;
+                            mailBody = mailBody +
+                                    "<tr>" +
+                                    "<td>" + producto.getProdnombre() + "</td>" +
+                                    "<td>" + fila.getInt(fila.getColumnIndex("prodcantidad")) + "</td>" +
+                                    "<td>" + producto.getPrecio() + "</td>" +
+                                    "<td>" + total + "</td>" +
+                                    "</tr>";
                         } while (fila.moveToNext());
+
+                        mailBody = mailBody + "</table>" +
+                                "<h2>Costo domicilio :  </h2> 2.000" +
+                                "<h2>Subtotal :  </h2>" + totalPedido +
+                                "<h2>Total Pedido:</h2>" + (totalPedido + 2000);
+                        Backendless.Messaging.sendHTMLEmail(asunto, mailBody, recipients, new AsyncCallback<Void>() {
+                            @Override
+                            public void handleResponse(Void response) {
+
+                            }
+
+                            @Override
+                            public void handleFault(BackendlessFault fault) {
+                                    Log.i("error mensaje:",fault.getMessage());
+                            }
+                        });
+
                         setResult(Activity.RESULT_OK);
                         if (pd != null) {
                             pd.dismiss();
@@ -251,6 +337,7 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
                 if (pd != null) {
                     pd.dismiss();
                 }
+                Log.i("error al eviar:",fault.getMessage());
                 mostrarMensaje(R.string.compruebe_conexion);
             }
         });
@@ -263,7 +350,10 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         String direccion=textDireccion.getText().toString();
         String barrio=textBarrio.getText().toString();
         String telefono=textTelefono.getText().toString();
-        String idCiudad=(String)spCiudad.getSelectedView().findViewById(R.id.txt_item_spinner_forma_pago).getTag();
+        String idCiudad=((Ciudad)spCiudad.getSelectedItem()).getObjectId();
+        String correo=((Ciudad)spCiudad.getSelectedItem()).getEmail();
+        String ciudad=((Ciudad)spCiudad.getSelectedItem()).getNombre();
+        String observacion=observaciones.getText().toString();
         int indiceSpinerSeleccionado= spFormapago.getSelectedItemPosition();
         if(nombre.equals("")||direccion.equals("")||telefono.equals("")||barrio.equals(""))
         {
@@ -283,18 +373,10 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
                 }
                 else
                 {
-                    String formaPago;
-                    if (indiceSpinerSeleccionado == 1) {
-                        formaPago = "tc";
-                    } else {
-                        formaPago = "ef";
-                    }
-
-                    String google = "www.google.com.co";
-                    String yahoo = "www.yahoo.com";
+                    String formaPago=((Formapago)spFormapago.getSelectedItem()).getAbreviatura();
                     pd = ProgressDialog.show(this, getResources().getString(R.string.enviando_pedido), getResources().getString(R.string.por_favor_espere), true, false);
                     EnviarPedidoTask env = new EnviarPedidoTask();
-                    env.execute(nombre, direccion, barrio, telefono, formaPago,idCiudad);
+                    env.execute(nombre, direccion, barrio, telefono,formaPago,observacion,idCiudad,correo,ciudad);
                 }
             }
         }
@@ -316,6 +398,72 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(layout);
         toast.show();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id)
+    {
+        if(position==0)
+        {
+            scrollgeneral.setVisibility(View.GONE);
+        }
+        else
+        {
+            scrollgeneral.setVisibility(View.GONE);
+            cargarFormulario(((Ciudad)spCiudad.getSelectedItem()).getObjectId());
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    private void cargarFormulario(String ciudadid)
+    {
+        BackendlessDataQuery dataQueryformapago= new BackendlessDataQuery();
+        List<String>formapagoSelect=new ArrayList<>();
+        formapagoSelect.add("objectId");
+        formapagoSelect.add("nombre");
+        formapagoSelect.add("abreviatura");
+        dataQueryformapago.setProperties(formapagoSelect);
+        dataQueryformapago.setWhereClause("activado = TRUE AND ciudad='"+ciudadid+"'");
+        pd = ProgressDialog.show(this, getResources().getString(R.string.txt_cargando_vista), getResources().getString(R.string.por_favor_espere), true, false);
+
+        final Context context= this;
+        Backendless.Persistence.of(Formapago.class).find(dataQueryformapago, new AsyncCallback<BackendlessCollection<Formapago>>() {
+            @Override
+            public void handleResponse(final BackendlessCollection<Formapago> fp) {
+
+
+
+                Formapago fm = new Formapago();
+                fm.setNombre("Seleccione forma de pago");
+                List<Formapago> lista = new ArrayList<>();
+                lista.add(fm);
+                for (Formapago fpago : fp.getData()) {
+                    lista.add(fpago);
+                }
+                adapter = new AdaptadorSpinnerFormaPago(context, R.layout.template_spinner_forma_pago, lista);
+                spFormapago.setAdapter(adapter);
+                scrollgeneral.setVisibility(View.VISIBLE);
+                if (pd != null) {
+                    pd.dismiss();
+                }
+
+            }
+
+            @Override
+            public void handleFault(BackendlessFault fault) {
+                if (pd != null) {
+                    pd.dismiss();
+                }
+                sinconexion.setVisibility(View.VISIBLE);
+                volver_cargar.setVisibility(View.VISIBLE);
+                spCiudad.setVisibility(View.GONE);
+                iconospinerciudad.setVisibility(View.GONE);
+            }
+        });
     }
 
     public class CargarCiudadesTask extends  AsyncTask<Void,Void,Boolean>
@@ -354,7 +502,10 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         private String barrio;
         private String telefono;
         private String formaPago;
+        private String observacion;
         private String idciudad;
+        private String correo;
+        private String ciudad;
 
         @Override
         protected Boolean doInBackground(String... params)
@@ -364,7 +515,10 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
             barrio=params[2];
             telefono=params[3];
             formaPago=params[4];
-            idciudad=params[5];
+            observacion=params[5];
+            idciudad=params[6];
+            correo=params[7];
+            ciudad=params[8];
             return hayConexionInternet();
         }
 
@@ -374,7 +528,7 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
             super.onPostExecute(resultado);
             if(resultado)
             {
-                enviarBackendless(nombre, direccion, barrio, telefono, formaPago,idciudad);
+                enviarBackendless(nombre, direccion, barrio, telefono, formaPago,observacion,idciudad,correo,ciudad);
             }
             else
             {

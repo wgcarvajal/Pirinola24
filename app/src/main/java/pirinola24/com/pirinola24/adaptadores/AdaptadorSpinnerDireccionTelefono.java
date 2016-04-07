@@ -11,19 +11,18 @@ import android.widget.TextView;
 import java.util.List;
 
 import pirinola24.com.pirinola24.R;
-import pirinola24.com.pirinola24.modelo.Formapago;
 import pirinola24.com.pirinola24.util.FontCache;
 
 /**
- * Created by geovanny on 20/01/16.
+ * Created by geovanny on 6/04/16.
  */
-public class AdaptadorSpinnerFormaPago extends ArrayAdapter {
-
+public class AdaptadorSpinnerDireccionTelefono extends ArrayAdapter
+{
     private String font_path="font/A_Simple_Life.ttf";
-    private List<Formapago> data;
+    private List<String> data;
     private Context context;
 
-    public AdaptadorSpinnerFormaPago(Context context, int resource, List objects) {
+    public AdaptadorSpinnerDireccionTelefono(Context context, int resource, List objects) {
         super(context, resource, objects);
 
         this.context=context;
@@ -57,8 +56,8 @@ public class AdaptadorSpinnerFormaPago extends ArrayAdapter {
         }
 
         TextView item=(TextView)v.findViewById(R.id.txt_item_spinner_forma_pago);
-        Typeface TF = FontCache.get(font_path,context); //Typeface.createFromAsset(context.getAssets(), font_path);
-        item.setText(((Formapago)data.get(position)).getNombre());
+        Typeface TF = FontCache.get(font_path, context); //Typeface.createFromAsset(context.getAssets(), font_path);
+        item.setText(data.get(position));
         if(position==0)
         {
             item.setTextColor(Color.parseColor("#000000"));
@@ -69,4 +68,3 @@ public class AdaptadorSpinnerFormaPago extends ArrayAdapter {
         return v;
     }
 }
-

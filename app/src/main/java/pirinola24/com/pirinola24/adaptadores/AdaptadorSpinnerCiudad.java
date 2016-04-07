@@ -21,15 +21,12 @@ public class AdaptadorSpinnerCiudad extends ArrayAdapter
 {
     private String font_path="font/A_Simple_Life.ttf";
     private List<Ciudad> data;
-    private List<String> lista;
     private Context context;
 
-    public AdaptadorSpinnerCiudad(Context context, int resource, List<Ciudad> objects,List<String> lista) {
-        super(context, resource, lista);
-
+    public AdaptadorSpinnerCiudad(Context context, int resource, List<Ciudad> objects) {
+        super(context, resource, objects);
         this.context=context;
         this.data=objects;
-        this.lista=lista;
     }
 
 
@@ -60,18 +57,13 @@ public class AdaptadorSpinnerCiudad extends ArrayAdapter
 
         TextView item=(TextView)v.findViewById(R.id.txt_item_spinner_forma_pago);
         Typeface TF = FontCache.get(font_path, context);
+        item.setText(data.get(position).getNombre());
 
         if(position==0)
         {
-            item.setText(lista.get(position));
-            item.setTag("0");
             item.setTextColor(Color.parseColor("#000000"));
         }
-        else
-        {
-            item.setText(data.get(position-1).getNombre());
-            item.setTag(data.get(position-1).getObjectId());
-        }
+
         item.setTypeface(TF);
         return v;
     }

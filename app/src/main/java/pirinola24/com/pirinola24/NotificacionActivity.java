@@ -54,8 +54,6 @@ public class NotificacionActivity extends AppCompatActivity implements View.OnCl
         switch (v.getId())
         {
             case R.id.cerrar_notifiacion:
-                Intent intent = new Intent(this,MainActivity.class);
-                startActivity(intent);
                 finish();
             break;
         }

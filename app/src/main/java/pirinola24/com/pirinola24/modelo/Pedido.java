@@ -1,5 +1,7 @@
 package pirinola24.com.pirinola24.modelo;
 
+import java.util.Date;
+
 public class Pedido
 {
     private String objectId;
@@ -10,6 +12,7 @@ public class Pedido
     private String pedpersonanombre;
     private String pedtelefono;
     private String ciudad;
+    private Date created;
 
     public String getPedtelefono()
     {
@@ -90,5 +93,13 @@ public class Pedido
     public void setCiudad(String ciudad)
     {
         this.ciudad = ciudad;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 }

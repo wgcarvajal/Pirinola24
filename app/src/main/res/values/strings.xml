@@ -32,7 +32,7 @@
     <string name="txt_barrio">Barrio</string>
     <string name="txt_telefono">Teléfono</string>
     <string name="text_enviar_pedido">Enviar pedido</string>
-    <string name="text_hint_observaciones">Observaciones (Opcional).\n ejemplo: Hamburguesa sin cebolla.</string>
+    <string name="text_hint_observaciones">Observaciones (Opcional).\n ejemplo: Traer cambio.</string>
     <string name="campos_obligatorios">Todos los campos son obligatorios menos el de observaciones</string>
     <string name="seleccione_forma_pago">Seleccione una forma de pago</string>
     <string name="seleccione_ciudad">Seleccione una ciudad</string>
