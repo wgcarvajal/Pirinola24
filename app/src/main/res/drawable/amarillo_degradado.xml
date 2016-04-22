@@ -3,12 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle"
     >
-    <!-- The fill color -->
+
+
+
     <gradient
         android:angle="180"
-        android:startColor="@color/vinotinto"
+        android:startColor="@color/amarillo_aplicacion"
 
-        android:endColor="@color/rojo_aplicacion"
+        android:endColor="#FF8000"
         android:type="linear"
         />
 

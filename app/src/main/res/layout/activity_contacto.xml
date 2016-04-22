@@ -15,11 +15,7 @@
             android:text="Contáctenos"
             android:textColor="@color/blanco"
             android:gravity="center"
-            android:background="@color/rojo"
-            android:layout_marginBottom="@dimen/margin_medium"
-            android:layout_marginLeft="@dimen/super_margin_small"
-            android:layout_marginRight="@dimen/super_margin_small"
-            android:layout_marginTop="@dimen/super_margin_small"
+            android:background="@drawable/rojo_blanco_gradiente"
             />
 
     <ImageView
@@ -50,11 +46,11 @@
 
             <ImageView
                 android:id="@+id/imagen_login"
-                android:layout_width="@dimen/tam_ancho_imagen_login"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/tam_alto_imagen_login"
                 android:layout_marginTop="@dimen/margin_top_imagen_login"
                 android:layout_marginBottom="@dimen/margin_imagen_login"
-                android:src="@mipmap/ic_logo_gorra"
+                android:src="@drawable/pirinola_icono"
                 android:scaleType="fitXY"
                 android:layout_centerHorizontal="true"
 
@@ -65,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/imagen_login"
-                android:textColor="@color/negro"
+                android:textColor="@color/verdeapp"
                 android:textSize="@dimen/size_tu_opinion"
                 android:text="@string/txt_tu_opinion_importante"
                 android:gravity="center"
@@ -86,7 +82,7 @@
                 android:layout_marginRight="@dimen/margin_small"
                 android:inputType="textEmailAddress"
                 android:textSize="@dimen/size_text_caja_texto"
-                android:background="@drawable/caja_texto_ingrese"
+                android:background="@drawable/amarillo_degradado"
                 android:gravity="center"
                 android:ellipsize="end"
                 android:singleLine="true"
@@ -104,7 +100,7 @@
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_small"
                 android:textSize="@dimen/size_text_caja_texto"
-                android:background="@drawable/caja_texto_ingrese"
+                android:background="@drawable/amarillo_degradado"
                 android:gravity="center"
                 android:ellipsize="end"
                 android:inputType="textPersonName"
@@ -118,7 +114,7 @@
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_below="@id/txt_nombre"
                 android:scrollbars="none"
-                android:background="@drawable/caja_texto_ingrese"
+                android:background="@drawable/amarillo_degradado"
                 >
 
                 <EditText

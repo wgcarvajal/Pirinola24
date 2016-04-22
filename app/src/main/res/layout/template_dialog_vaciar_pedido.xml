@@ -18,7 +18,7 @@
             android:id="@+id/img_gorrita"
             android:layout_width="@dimen/tam_imagen_gorra"
             android:layout_height="@dimen/tam_imagen_gorra"
-            android:src="@mipmap/ic_gorrita"/>
+            android:src="@mipmap/ic_logo_pirinola"/>
 
         <TextView
             android:id="@+id/txtmensaje"
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/tam_text_mensaje_dialog_vaciar"
             android:text="@string/menaje_desea_vaciar_pedido"
-            android:textColor="@color/verdeapp"
+            android:textColor="@color/rojo"
             android:textSize="@dimen/size_tu_opinion"
             />
 

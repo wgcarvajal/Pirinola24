@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     public final static int MI_REQUEST_SE_LOGUIO_USUARIO=101;
 
     private String font_path="font/A_Simple_Life.ttf";
-    private String fontStackyard="font/Stackyard.ttf";
+    private String matura_mt="font/matura_mt.ttf";
     private ImageView btnAtras;
     private TextView btnIniciarSesion;
     private TextView btnRegistrarse;
@@ -85,14 +85,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Typeface TF = FontCache.get(font_path,this);
         txtpassword.setTypeface(TF);
         txtemail.setTypeface(TF);
-
-        TF = FontCache.get(fontStackyard,this);
         txtrecuperarClave.setTypeface(TF);
+
+
+        TF = FontCache.get(matura_mt,this);
+
         tituloVista.setTypeface(TF);
         btnIniciarSesion.setTypeface(TF);
         btnRegistrarse.setTypeface(TF);
         btnFacebook.setTypeface(TF);
         btnContNoRegistrado.setTypeface(TF);
+
 
         callbackManager = CallbackManager.Factory.create();
     }
@@ -148,7 +151,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         final EditText txtemail =(EditText)dialog.findViewById(R.id.txt_email);
 
         txtemail.setTypeface(TF);
-        TF=FontCache.get(fontStackyard,this);
+        TF=FontCache.get(matura_mt,this);
         btnCancelar.setTypeface(TF);
         btnEnviar.setTypeface(TF);
         final Context context=this;

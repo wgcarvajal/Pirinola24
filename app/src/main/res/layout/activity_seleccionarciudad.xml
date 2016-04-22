@@ -11,14 +11,11 @@
     <TextView
         android:id="@+id/idlistaciudades"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/tam_img_titulo_subcategoria"
         android:text="Lista de ciudades"
         android:gravity="center"
         android:textColor="@color/blanco"
-        android:background="@color/rojo"
-        android:layout_marginLeft="@dimen/super_margin_small"
-        android:layout_marginRight="@dimen/super_margin_small"
-        android:layout_marginTop="@dimen/super_margin_small"
+        android:background="@drawable/rojo_blanco_gradiente"
         android:textSize="@dimen/tam_titulo_subcategoria"
         android:layout_marginBottom="@dimen/margin_medium"
         />
@@ -71,7 +68,7 @@
         android:layout_centerInParent="true"
         android:layout_marginLeft="@dimen/margin_small"
         android:layout_marginRight="@dimen/margin_small"
-        android:background="@drawable/sin_conexion_seleccionar_ciudad"
+        android:background="@drawable/amarillo_degradado"
         android:padding="@dimen/margin_small"
         />
     <android.support.v7.widget.AppCompatButton

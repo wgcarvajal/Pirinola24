@@ -10,7 +10,7 @@
     <color name="grisTransparente">#66555555</color>
     <color name="gris">#999999</color>
     <color name="grisoscuro">#555555</color>
-    <color name="vinotinto">#7C0808</color>
+    <color name="vinotinto">#610B0B</color>
 
     <color name="negroTransparente">#BB000000</color>
     <color name="vinotintoapp">#9B0310</color>
@@ -25,4 +25,9 @@
     <color name="cafe">#140907</color>
 
     <color name="rosadito">#db987d</color>
+
+
+    <color name="amarillo_aplicacion">#fce900</color>
+    <color name="rojo_aplicacion">#ea1c24</color>
+    <color name="verde_aplicacion">#3c8476</color>
 </resources>

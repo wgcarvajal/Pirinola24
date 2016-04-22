@@ -22,7 +22,7 @@ public class AdaptadorCiudad extends BaseAdapter
     private Context context;
     private List<Ciudad> data;
     private LayoutInflater mInflater;
-    private String fontStackyard="font/Stackyard.ttf";
+    private String font_path="font/A_Simple_Life.ttf";
 
 
     public AdaptadorCiudad(Context context, List<Ciudad> data)
@@ -70,7 +70,7 @@ public class AdaptadorCiudad extends BaseAdapter
 
         if(convertView == null)
         {
-            Typeface TF= FontCache.get(fontStackyard,context);
+            Typeface TF= FontCache.get(font_path,context);
             viewHolder= new ViewHolder();
             v = mInflater.inflate(R.layout.template_ciudad,parent,false);
             viewHolder.txtnombreciudad=(TextView)v.findViewById(R.id.nombreciudad);

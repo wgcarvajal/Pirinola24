@@ -56,7 +56,7 @@ import pirinola24.com.pirinola24.util.FontCache;
 public class RegistradoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private String font_path="font/A_Simple_Life.ttf";
-    private String fontStackyard="font/Stackyard.ttf";
+    private String matura_mt="font/matura_mt.ttf";
 
     private ImageView btnFlechaAtras;
     private Spinner spDireccion;
@@ -100,14 +100,15 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
         explicacion=(TextView)findViewById(R.id.txtexplicacion);
         scrollgeneral=(ScrollView)findViewById(R.id.scrollgeneral);
 
-        Typeface TF=FontCache.get(fontStackyard,this);
+        Typeface TF=FontCache.get(matura_mt,this);
         btnVolverCargar.setTypeface(TF);
         btnEnviarPedido.setTypeface(TF);
-        txtSinConexion.setTypeface(TF);
         txtlugar.setTypeface(TF);
-        explicacion.setTypeface(TF);
+
         TF=FontCache.get(font_path,this);
         observaciones.setTypeface(TF);
+        explicacion.setTypeface(TF);
+        txtSinConexion.setTypeface(TF);
 
         btnVolverCargar.setOnClickListener(this);
         btnFlechaAtras.setOnClickListener(this);
@@ -384,7 +385,7 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
 
         Typeface TF = FontCache.get(font_path,this);
         txtTelefono.setTypeface(TF);
-        TF= FontCache.get(fontStackyard,this);
+        TF= FontCache.get(matura_mt,this);
         btnAceptar.setTypeface(TF);
         btnCancelar.setTypeface(TF);
 
@@ -524,7 +525,7 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
         txtbarrio.setTypeface(TF);
         final Context context=this;
 
-        TF= FontCache.get(fontStackyard,this);
+        TF= FontCache.get(matura_mt,this);
         btnAceptar.setTypeface(TF);
         btnCancelar.setTypeface(TF);
 

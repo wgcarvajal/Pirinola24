@@ -10,15 +10,11 @@
         android:id="@+id/titulonoregistrado"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tam_img_titulo_subcategoria"
-        android:layout_marginTop="@dimen/super_margin_small"
-        android:layout_marginRight="@dimen/super_margin_small"
-        android:layout_marginLeft="@dimen/super_margin_small"
-        android:layout_marginBottom="@dimen/margin_medium"
         android:textSize="@dimen/tam_titulo_subcategoria"
         android:text="Formulario de envio"
         android:gravity="center"
         android:textColor="@color/blanco"
-        android:background="@color/rojo"
+        android:background="@drawable/rojo_blanco_gradiente"
         />
 
 
@@ -35,10 +31,11 @@
 
     <ImageView
         android:id="@+id/imagen_login"
-        android:layout_width="@dimen/tam_ancho_imagen_login"
+        android:layout_width="@dimen/tam_alto_imagen_login"
         android:layout_height="@dimen/tam_alto_imagen_login"
-        android:layout_marginBottom="@dimen/margin_imagen_login"
-        android:src="@mipmap/ic_logo_gorra"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:src="@drawable/pirinola_icono"
         android:layout_below="@id/titulonoregistrado"
         android:scaleType="fitXY"
         android:layout_centerHorizontal="true"
@@ -55,11 +52,12 @@
         android:layout_marginRight="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_small"
         android:layout_marginBottom="@dimen/margin_small"
-        android:popupBackground="@color/amarilloapp"
+        android:popupBackground="@drawable/amarillo_degradado"
 
         />
 
     <ImageView
+        android:id="@+id/iconospinerciudad"
         android:layout_width="@dimen/tam_icono_caja_text"
         android:layout_height="@dimen/tam_icono_caja_text"
         android:src="@mipmap/ic_fecla_abajo"
@@ -95,7 +93,7 @@
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_small"
                 android:textSize="@dimen/size_text_caja_texto"
-                android:background="@drawable/caja_texto_ingrese"
+                android:background="@drawable/amarillo_degradado"
                 android:gravity="center"
                 android:ellipsize="end"
                 android:inputType="textPersonName"
@@ -114,7 +112,7 @@
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_small"
                 android:textSize="@dimen/size_text_caja_texto"
-                android:background="@drawable/caja_texto_ingrese"
+                android:background="@drawable/amarillo_degradado"
                 android:gravity="center"
                 android:ellipsize="end"
                 android:inputType="textPostalAddress"
@@ -133,7 +131,7 @@
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_small"
                 android:textSize="@dimen/size_text_caja_texto"
-                android:background="@drawable/caja_texto_ingrese"
+                android:background="@drawable/amarillo_degradado"
                 android:gravity="center"
                 android:ellipsize="end"
                 android:inputType="textPersonName"
@@ -151,7 +149,7 @@
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_small"
                 android:textSize="@dimen/size_text_caja_texto"
-                android:background="@drawable/caja_texto_ingrese"
+                android:background="@drawable/amarillo_degradado"
                 android:gravity="center"
                 android:ellipsize="end"
                 android:inputType="phone"
@@ -168,12 +166,11 @@
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_small"
-                android:popupBackground="@color/amarilloapp"
+                android:popupBackground="@drawable/amarillo_degradado"
 
                 />
 
             <ImageView
-                android:id="@+id/iconospinerciudad"
                 android:layout_width="@dimen/tam_icono_caja_text"
                 android:layout_height="@dimen/tam_icono_caja_text"
                 android:src="@mipmap/ic_fecla_abajo"
@@ -191,7 +188,7 @@
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_below="@id/sp_forma_pago"
                 android:scrollbars="none"
-                android:background="@drawable/caja_texto_ingrese"
+                android:background="@drawable/amarillo_degradado"
                 >
 
                 <EditText
@@ -243,7 +240,7 @@
         android:layout_centerInParent="true"
         android:layout_marginLeft="@dimen/margin_small"
         android:layout_marginRight="@dimen/margin_small"
-        android:background="@drawable/sin_conexion_seleccionar_ciudad"
+        android:background="@drawable/amarillo_degradado"
         android:padding="@dimen/margin_small"
         />
     <android.support.v7.widget.AppCompatButton

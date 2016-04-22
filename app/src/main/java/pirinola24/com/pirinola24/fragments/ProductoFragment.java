@@ -45,6 +45,7 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
     private ImageView carritoCompras;
     private ImageView menuPrincipal;
     private String fontStackyard="font/Stackyard.ttf";
+    private String matura_mt="font/matura_mt.ttf";
 
 
     public ProductoFragment() {
@@ -114,7 +115,7 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
         menuPrincipal.setOnClickListener(this);
 
         titulo.setText(subcategoriaNombre);
-        Typeface TF= FontCache.get(fontStackyard,v.getContext());
+        Typeface TF= FontCache.get(matura_mt,v.getContext());
         titulo.setTypeface(TF);
         return v;
     }

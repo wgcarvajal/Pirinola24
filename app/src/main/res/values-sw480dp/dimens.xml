@@ -8,7 +8,7 @@
     <dimen name="margin_small">20dp</dimen>
     <dimen name="ancho_btn_menu_principal">50dp</dimen>
     <dimen name="alto_btn_menu_principal">50dp</dimen>
-    <dimen name="tam_titulo_subcategoria">45sp</dimen>
+    <dimen name="tam_titulo_subcategoria">35sp</dimen>
     <dimen name="super_margin_small">10dp</dimen>
     <dimen name="alto_template_producto">270dp</dimen>
     <dimen name="alto_campo_nombre_producto">100dp</dimen>
@@ -16,7 +16,7 @@
     <dimen name="alto_campo_descripcion_producto">75dp</dimen>
     <dimen name="tamano_icono_menu_principal">60dp</dimen>
     <dimen name="tamano_icono_carro_pedido">80dp</dimen>
-    <dimen name="tam_logo_menu_header">100dp</dimen>
+    <dimen name="tam_logo_menu_header">130dp</dimen>
     <dimen name="tam_titulo_menu_header">100dp</dimen>
     <dimen name="tam_letra_titulo_menu_header">50sp</dimen>
     <dimen name="tam_letra_veinticuatro_header">40sp</dimen>
@@ -28,7 +28,7 @@
     <dimen name="tam_text_total_pedido">45sp</dimen>
     <dimen name="tam_text_btn_finalizar_pedido">35sp</dimen>
     <dimen name="navigation_icon_size">108dp</dimen>
-    <dimen name="tam_letra_item_menu">35sp</dimen>
+    <dimen name="tam_letra_item_menu">25sp</dimen>
     <dimen name="tam_text_nombre_producto_pedido">100dp</dimen>
     <dimen name="size_text_nombre_producto_pedido">21sp</dimen>
     <dimen name="tam_imagen_producto_pedido">200dp</dimen>
@@ -45,7 +45,7 @@
     <dimen name="tam_flecha_atras">65dp</dimen>
     <dimen name="tam_ancho_flecha_atras">75dp</dimen>
     <dimen name="tam_ancho_imagen_login">150dp</dimen>
-    <dimen name="tam_alto_imagen_login">80dp</dimen>
+    <dimen name="tam_alto_imagen_login">100dp</dimen>
     <dimen name="margin_top_imagen_login">30dp</dimen>
     <dimen name="margin_imagen_login">30dp</dimen>
     <dimen name="margin_text_correo_electronico">20dp</dimen>
@@ -63,7 +63,7 @@
     <dimen name="margin_input_registrase">26dp</dimen>
     <dimen name="margin_medium">30dp</dimen>
     <dimen name="margin_grande">40dp</dimen>
-    <dimen name="size_ciudad">35sp</dimen>
+    <dimen name="size_ciudad">25sp</dimen>
     <dimen name="tam_icono_ciudad">40dp</dimen>
 
 
@@ -86,7 +86,7 @@
 
     <dimen name="icono_ingrese_margin_bottom">9dp</dimen>
     <dimen name="icono_ingrese_margin_rigth">6dp</dimen>
-    <dimen name="size_link_ingresar">26sp</dimen>
+    <dimen name="size_link_ingresar">16sp</dimen>
 
     <dimen name="tam_btn_descripcion">40dp</dimen>
 
@@ -96,11 +96,14 @@
     <dimen name="ancho_btn_cerrar_descripcion_producto">75dp</dimen>
     <dimen name="largo_btn_descripcion_producto">45dp</dimen>
 
-    <dimen name="size_tu_opinion">30sp</dimen>
+    <dimen name="size_tu_opinion">18sp</dimen>
 
     <dimen name="alto_btn_realizar_pedido">55dp</dimen>
 
-    <dimen name="size_letra_boton_realizar_pedido">40sp</dimen>
+    <dimen name="size_letra_boton_realizar_pedido">30sp</dimen>
     <dimen name="tam_btn_enviar">50dp</dimen>
+    <dimen name="size_letra_boton_login">20sp</dimen>
+    <dimen name="tamano_pirinola_carga_producto">60dp</dimen>
+    <dimen name="tamano_pirinola_carga_producto_grid">45dp</dimen>
 
 </resources>

@@ -65,12 +65,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<FragmentGeneric> data= new ArrayList<>();
     private NavigationView navView;
     private DrawerLayout drawer;
-    private TextView tituloMenuHeader;
-    private TextView veinticuatro;
     private TextView text_compruebe_conexion;
     private Button btnRecargarVista;
     private String font_path_ASimple="font/A_Simple_Life.ttf";
     private String fontStackyard="font/Stackyard.ttf";
+    private String matura_mt="font/matura_mt.ttf";
     private ProgressDialog pd = null;
 
     @Override
@@ -78,8 +77,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        tituloMenuHeader=(TextView)findViewById(R.id.titulo_header_menu);
-        veinticuatro=(TextView)findViewById(R.id.veinticuatro);
         text_compruebe_conexion=(TextView)findViewById(R.id.txt_sin_conexion);
         btnRecargarVista=(Button)findViewById(R.id.volver_cargar);
         drawer=(DrawerLayout)findViewById(R.id.drawer);
@@ -95,16 +92,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Typeface TF = FontCache.get(fontStackyard,this);
         text_compruebe_conexion.setTypeface(TF);
-        tituloMenuHeader.setTypeface(TF);
         btnRecargarVista.setTypeface(TF);
-        TF = FontCache.get(font_path_ASimple,this);
-        veinticuatro.setTypeface(TF);
+
+
         adapter = new PagerAdapter(getSupportFragmentManager(), data);
         pager.setAdapter(adapter);
         pager.setPageTransformer(true, new CubeOutTransformer());
         pagerIndicator.setViewPager(pager);
         Menu m = navView.getMenu();
-        aplicandoTipoLetraItemMenu(m, fontStackyard);
+        aplicandoTipoLetraItemMenu(m, matura_mt);
         ocultandoMenu(m);
 
 
@@ -157,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             {
                 switch (sub.getTipoFragment())
                 {
-                    case Subcategoria.CONDESCRIPCION:
+                    case Subcategoria.DOSFILASCONDESCRIPCION:
                         ProductoFragment productoFragment = new ProductoFragment();
                         productoFragment.init(sub.getObjectId(),sub.getSubcatnombre());
                         data.add(productoFragment);
@@ -336,7 +332,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             switch (sub.getTipoFragment())
             {
-                case Subcategoria.CONDESCRIPCION:
+                case Subcategoria.DOSFILASCONDESCRIPCION:
                     ProductoFragment productoFragment = new ProductoFragment();
                     productoFragment.init(sub.getObjectId(), sub.getSubcatnombre());
                     data.add(productoFragment);
@@ -498,7 +494,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final Dialog dialog= new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.template_descripcion_producto);
-        Typeface TF = FontCache.get(fontStackyard,this);
+        Typeface TF = FontCache.get(matura_mt,this);
 
         Button btnCerrar=(Button)dialog.findViewById(R.id.btn_cerrar_descripcion);
         TextView txtdescripcion =(TextView)dialog.findViewById(R.id.descricionProductoDescripcion);

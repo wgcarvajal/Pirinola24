@@ -39,7 +39,7 @@
     <string name="compruebe_conexion">Compruebe su conexión a internet...</string>
     <string name="enviando_pedido">Enviando pedido</string>
     <string name="por_favor_espere">Por favor espere un momento....</string>
-    <string name="confirmacion_pedido_enviado">Su pedido ha sido enviado con éxito, en contados minutos le llamaremos a confirmarlo. ¡Gracias por su compra....!</string>
+    <string name="confirmacion_pedido_enviado">Hemos recibido su pedido, en contados minutos le llamaremos para confirmar el pedido...... ¡Gracias por elegirnos....!</string>
     <string name="volver_cargar_vista">Volver a cargar la vista</string>
     <string name="txt_repetir_password">Repetir clave</string>
     <string name="todos_campos_obligatorios">Todos los campos son obligatorios.</string>

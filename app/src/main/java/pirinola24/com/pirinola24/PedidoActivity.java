@@ -56,9 +56,9 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
 
     private String font_path_ASimple="font/A_Simple_Life.ttf";
     private String fontStackyard="font/Stackyard.ttf";
+    private String matura_mt="font/matura_mt.ttf";
+
     private String fontURW="font/urwbookmanl.ttf";
-    private TextView tituloMenuHeader;
-    private TextView veinticuatro;
     private TextView textTotalPedido;
     private TextView textDomicilio;
     private TextView tituloTupedido;
@@ -79,11 +79,9 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedido);
-        tituloMenuHeader=(TextView)findViewById(R.id.titulo_header_menu);
         textTotalPedido=(TextView)findViewById(R.id.txt_total_pedido);
         textValorTotalPedido=(TextView)findViewById(R.id.txt_valor_total_pedido);
         textDomicilio=(TextView)findViewById(R.id.txt_domicilio);
-        veinticuatro=(TextView)findViewById(R.id.veinticuatro);
         btnMenuPrincipal=(ImageView)findViewById(R.id.btn_menu_principal);
         btnFinalizarPedido=(Button)findViewById(R.id.btn_finalizar_pedido);
         flechaAtras=(ImageView)findViewById(R.id.flecha_atras);
@@ -130,7 +128,6 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
 
         Typeface TF = FontCache.get(font_path_ASimple, this);
         textDomicilio.setTypeface(TF);
-        veinticuatro.setTypeface(TF);
 
         int valdomicilio=AppUtil.listaSubcategorias.get(0).getDomicilio();
         DecimalFormat format= new DecimalFormat("###,###.##");
@@ -142,15 +139,20 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
 
         TF= FontCache.get(fontStackyard,this);
         textTotalPedido.setTypeface(TF);
-        tituloMenuHeader.setTypeface(TF);
-        btnFinalizarPedido.setTypeface(TF);
-        tituloTupedido.setTypeface(TF);
-        aplicandoTipoLetraItemMenu(m, fontStackyard);
+
+
+
+        aplicandoTipoLetraItemMenu(m, matura_mt);
         TF=FontCache.get(fontURW,this);
         textValorTotalPedido.setTypeface(TF);
         adapter= new AdaptadorProductoPedido(this,data);
         gridProductosPedido.setAdapter(adapter);
         gridProductosPedido.setOnItemClickListener(this);
+
+
+        TF= FontCache.get(matura_mt,this);
+        tituloTupedido.setTypeface(TF);
+        btnFinalizarPedido.setTypeface(TF);
         loadData();
 
     }
@@ -423,10 +425,11 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
         TextView btnCancelar=(TextView)dialog.findViewById(R.id.btn_cancelar);
         TextView mensaje =(TextView)dialog.findViewById(R.id.txtmensaje);
 
-        Typeface TF= FontCache.get(fontStackyard,this);
-        mensaje.setTypeface(TF);
+        Typeface TF= FontCache.get(matura_mt,this);
         btnAceptar.setTypeface(TF);
         btnCancelar.setTypeface(TF);
+        TF= FontCache.get(font_path_ASimple,this);
+        mensaje.setTypeface(TF);
         final Context context=this;
         btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override

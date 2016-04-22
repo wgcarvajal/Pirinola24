@@ -9,7 +9,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/amarilloapp">
+            android:background="@drawable/amarillo_degradado">
 
 
             <TextView
@@ -45,7 +45,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="3dp"
-                    android:background="@color/rojo"
+                    android:background="@drawable/rojo_blanco_gradiente"
                     android:layout_alignParentBottom="true"
                     />
 
@@ -67,7 +67,7 @@
             android:layout_gravity="start"
             app:menu="@menu/main_nav"
             android:background="@color/blanco"
-            app:itemIconTint="@color/amarilloapp"
+            app:itemIconTint="@color/verdeapp"
             app:headerLayout="@layout/navigation_header"
             app:itemTextAppearance="@style/NavDrawerTextStyle"
 

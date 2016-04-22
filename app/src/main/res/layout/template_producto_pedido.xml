@@ -7,9 +7,10 @@
     >
     <pl.droidsonroids.gif.GifImageView
         android:id="@+id/placeholder"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/tam_imagen_producto_pedido"
-        android:scaleType="center"
+        android:layout_width="@dimen/tamano_pirinola_carga_producto_grid"
+        android:layout_height="@dimen/tamano_pirinola_carga_producto_grid"
+        android:layout_centerInParent="true"
+        android:scaleType="fitXY"
         />
     <ImageView
         android:id="@+id/img_producto"

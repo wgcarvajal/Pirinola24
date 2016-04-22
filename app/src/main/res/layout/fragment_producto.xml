@@ -12,7 +12,7 @@
             android:textColor="@color/blanco"
             android:textSize="@dimen/tam_titulo_subcategoria"
             android:layout_height="@dimen/tam_img_titulo_subcategoria"
-            android:background="@color/rojo"
+            android:background="@drawable/rojo_blanco_gradiente"
             />
         <ImageView
             android:id="@+id/btn_menu_principal"

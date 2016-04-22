@@ -36,7 +36,7 @@ public class ContactoActivity extends AppCompatActivity implements View.OnClickL
     private Button btnEnviar;
 
     private String font_path_ASimple="font/A_Simple_Life.ttf";
-    private String fontStackyard="font/Stackyard.ttf";
+    private String matura_mt="font/matura_mt.ttf";
 
     private ProgressDialog pd = null;
 
@@ -61,9 +61,10 @@ public class ContactoActivity extends AppCompatActivity implements View.OnClickL
         textMensaje.setTypeface(TF);
         textNombre.setTypeface(TF);
         textEmail.setTypeface(TF);
-
-        TF = FontCache.get(fontStackyard,this);
         textOpinion.setTypeface(TF);
+
+        TF = FontCache.get(matura_mt,this);
+
         btnEnviar.setTypeface(TF);
         contactanos.setTypeface(TF);
     }

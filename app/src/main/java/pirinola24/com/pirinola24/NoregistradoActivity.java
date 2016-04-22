@@ -50,6 +50,7 @@ import pirinola24.com.pirinola24.util.FontCache;
 public class NoregistradoActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     private String font_path="font/A_Simple_Life.ttf";
     private String fontStackyard="font/Stackyard.ttf";
+    private String matura_mt="font/matura_mt.ttf";
 
     private Spinner spFormapago;
     private Spinner spCiudad;
@@ -103,11 +104,11 @@ public class NoregistradoActivity extends AppCompatActivity implements View.OnCl
         textBarrio.setTypeface(TF);
         textTelefono.setTypeface(TF);
         observaciones.setTypeface(TF);
+        sinconexion.setTypeface(TF);
 
-        TF=FontCache.get(fontStackyard,this);
+        TF=FontCache.get(matura_mt,this);
         btnEnviarPedido.setTypeface(TF);
         volver_cargar.setTypeface(TF);
-        sinconexion.setTypeface(TF);
         titulo.setTypeface(TF);
 
 

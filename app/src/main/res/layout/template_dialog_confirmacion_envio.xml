@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/amarillo_degradado"
     >
 
 
@@ -17,9 +18,10 @@
 
         <ImageView
             android:id="@+id/img_gorrita"
-            android:layout_width="@dimen/tam_imagen_gorra"
-            android:layout_height="@dimen/tam_imagen_gorra"
-            android:src="@mipmap/ic_gorrita"/>
+            android:layout_width="@dimen/tam_alto_imagen_login"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_small"
+            android:src="@drawable/pirinola_icono"/>
 
         <TextView
             android:id="@+id/txtmensaje"

@@ -15,7 +15,7 @@
         android:textSize="@dimen/size_nombre_descripcion_producto"
         android:textColor="@color/blanco"
         android:gravity="center"
-        android:background="@color/rojo"
+        android:background="@drawable/rojo_blanco_gradiente"
 
         />
 
@@ -38,7 +38,7 @@
         android:layout_gravity="center"
         android:textAllCaps="false"
         android:textColor="@color/negro"
-        android:background="@color/amarilloapp"
+        android:background="@drawable/amarillo_degradado"
         android:layout_marginBottom="@dimen/margin_small"
         />
 

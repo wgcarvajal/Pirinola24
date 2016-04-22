@@ -66,7 +66,7 @@
             android:gravity="center"
             android:text="@string/txt_cancelar"
             android:background="@drawable/btn_realizar_pedido"
-            android:textColor="@color/amarilloapp"
+            android:textColor="@color/blanco"
             android:textSize="@dimen/size_letra_boton_realizar_pedido"
             />
 
@@ -82,7 +82,7 @@
             android:gravity="center"
             android:text="@string/txt_aceptar"
             android:background="@drawable/btn_realizar_pedido"
-            android:textColor="@color/amarilloapp"
+            android:textColor="@color/blanco"
             android:textSize="@dimen/size_letra_boton_realizar_pedido"
             />
 

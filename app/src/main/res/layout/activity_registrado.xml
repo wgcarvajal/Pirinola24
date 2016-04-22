@@ -11,14 +11,11 @@
     <TextView
         android:id="@+id/textlugar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/tam_img_titulo_subcategoria"
         android:textColor="@color/blanco"
-        android:layout_marginLeft="@dimen/super_margin_small"
         android:textSize="@dimen/tam_titulo_subcategoria"
-        android:layout_marginTop="@dimen/super_margin_small"
-        android:layout_marginRight="@dimen/super_margin_small"
         android:layout_marginBottom="@dimen/super_margin_small"
-        android:background="@color/rojo"
+        android:background="@drawable/rojo_blanco_gradiente"
         android:gravity="center"
 
         />
@@ -80,7 +77,7 @@
                         android:layout_height="@dimen/tam_alto_caja_texto"
                         android:layout_marginLeft="@dimen/margin_small"
                         android:layout_marginRight="@dimen/margin_small"
-                        android:popupBackground="@color/amarilloapp"
+                        android:popupBackground="@drawable/amarillo_degradado"
                         />
                     <ImageView
                         android:layout_width="@dimen/tam_icono_caja_text"
@@ -123,7 +120,7 @@
                         android:layout_height="@dimen/tam_alto_caja_texto"
                         android:layout_marginLeft="@dimen/margin_small"
                         android:layout_marginRight="@dimen/margin_small"
-                        android:popupBackground="@color/amarilloapp"
+                        android:popupBackground="@drawable/amarillo_degradado"
                         />
                     <ImageView
                         android:layout_width="@dimen/tam_icono_caja_text"
@@ -181,7 +178,7 @@
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_below="@id/sp_forma_pago"
                 android:scrollbars="none"
-                android:background="@drawable/caja_texto_ingrese"
+                android:background="@drawable/amarillo_degradado"
                 >
 
                 <EditText
@@ -235,7 +232,7 @@
         android:layout_centerInParent="true"
         android:layout_marginLeft="@dimen/margin_small"
         android:layout_marginRight="@dimen/margin_small"
-        android:background="@drawable/sin_conexion_seleccionar_ciudad"
+        android:background="@drawable/amarillo_degradado"
         android:padding="@dimen/margin_small"
         />
     <android.support.v7.widget.AppCompatButton

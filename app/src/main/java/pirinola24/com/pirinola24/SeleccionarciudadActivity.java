@@ -34,7 +34,8 @@ public class SeleccionarciudadActivity extends AppCompatActivity implements View
     private TextView titulo;
     private TextView seleccionarCiudad;
     private ImageView flechaAtras;
-    private String fontStackyard="font/Stackyard.ttf";
+    private String matura_mt="font/matura_mt.ttf";
+    private String font_path_ASimple="font/A_Simple_Life.ttf";
     private TextView sinconexion;
     private Button recargarvista;
     private ProgressDialog pd = null;
@@ -52,11 +53,12 @@ public class SeleccionarciudadActivity extends AppCompatActivity implements View
         flechaAtras=(ImageView)findViewById(R.id.flecha_atras);
 
 
-        Typeface TF= FontCache.get(fontStackyard,this);
+        Typeface TF= FontCache.get(matura_mt,this);
         titulo.setTypeface(TF);
+        recargarvista.setTypeface(TF);
+        TF= FontCache.get(font_path_ASimple,this);
         seleccionarCiudad.setTypeface(TF);
         sinconexion.setTypeface(TF);
-        recargarvista.setTypeface(TF);
         recargarvista.setOnClickListener(this);
         flechaAtras.setOnClickListener(this);
 

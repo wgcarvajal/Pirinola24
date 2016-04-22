@@ -23,7 +23,7 @@
             android:layout_height="@dimen/tam_img_titulo_subcategoria"
             android:textSize="@dimen/tam_titulo_subcategoria"
             android:textColor="@color/blanco"
-            android:background="@color/rojo"
+            android:background="@drawable/rojo_blanco_gradiente"
             android:gravity="center"
             />
 
@@ -115,7 +115,7 @@
         android:layout_gravity="start"
         app:menu="@menu/pedido_nav"
         android:background="@color/blanco"
-        app:itemIconTint="@color/amarilloapp"
+        app:itemIconTint="@color/verdeapp"
         app:headerLayout="@layout/navigation_header"
         app:itemTextAppearance="@style/NavDrawerTextStyle"
         />
