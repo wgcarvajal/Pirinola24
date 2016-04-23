@@ -86,6 +86,7 @@
     <dimen name="tam_btn_realizarpedido">300dp</dimen>
     <dimen name="size_link_ingresar">18sp</dimen>
     <dimen name="tam_btn_descripcion">50dp</dimen>
+    <dimen name="tam_btn_descripcion_grid">35dp</dimen>
 
     <dimen name="size_nombre_descripcion_producto">35sp</dimen>
     <dimen name="size_descripcion_producto">24sp</dimen>

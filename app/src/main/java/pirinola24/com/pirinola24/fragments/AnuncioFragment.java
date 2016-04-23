@@ -35,7 +35,7 @@ public class AnuncioFragment extends FragmentGeneric
     private ImageView anuncio;
     private ImageView placeholder;
 
-    private String fontStackyard="font/Stackyard.ttf";
+    private String matura_mt="font/matura_mt.ttf";
 
     public AnuncioFragment()
     {
@@ -78,7 +78,7 @@ public class AnuncioFragment extends FragmentGeneric
         anuncio=(ImageView)v.findViewById(R.id.idanuncio);
         placeholder=(ImageView)v.findViewById(R.id.placeholder);
 
-        Typeface TF= FontCache.get(fontStackyard,inflater.getContext());
+        Typeface TF= FontCache.get(matura_mt,inflater.getContext());
         titulo.setTypeface(TF);
         titulo.setText(title);
 

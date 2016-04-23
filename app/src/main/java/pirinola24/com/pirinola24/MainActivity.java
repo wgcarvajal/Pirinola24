@@ -47,6 +47,7 @@ import pirinola24.com.pirinola24.fragments.AnuncioFragment;
 import pirinola24.com.pirinola24.fragments.FragmentGeneric;
 import pirinola24.com.pirinola24.fragments.ProductoFragment;
 import pirinola24.com.pirinola24.fragments.ProductoGridFragment;
+import pirinola24.com.pirinola24.fragments.ProductoGridTresFilasConDescripcionFragment;
 import pirinola24.com.pirinola24.modelo.Producto;
 import pirinola24.com.pirinola24.modelo.Subcategoria;
 import pirinola24.com.pirinola24.typeface.CustomTypefaceSpan;
@@ -54,7 +55,7 @@ import pirinola24.com.pirinola24.util.AppUtil;
 import pirinola24.com.pirinola24.util.FontCache;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, ProductoGridFragment.OnComunicationFragmentGrid, ProductoFragment.OnComunicationFragment {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, ProductoGridFragment.OnComunicationFragmentGrid, ProductoFragment.OnComunicationFragment , ProductoGridTresFilasConDescripcionFragment.OnComunicationFragmentGridCondescripcion {
 
     public final static int MI_REQUEST_CODE = 1;
 
@@ -163,6 +164,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         productoGridFragment.init(sub.getObjectId(),sub.getSubcatnombre());
                         data.add(productoGridFragment);
                     break;
+
+                    case Subcategoria.TRESFILASCONDESCRIPCION:
+                        ProductoGridTresFilasConDescripcionFragment productoGridConDescripcionFragment = new ProductoGridTresFilasConDescripcionFragment();
+                        productoGridConDescripcionFragment.init(sub.getObjectId(),sub.getSubcatnombre());
+                        data.add(productoGridConDescripcionFragment);
+                        break;
 
                     case Subcategoria.ANUNCIO:
                         AnuncioFragment anuncioFragment = new AnuncioFragment();
@@ -343,6 +350,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     data.add(productoGridFragment);
                     break;
 
+                case Subcategoria.TRESFILASCONDESCRIPCION:
+                    ProductoGridTresFilasConDescripcionFragment productoGridConDescripcionFragment = new ProductoGridTresFilasConDescripcionFragment();
+                    productoGridConDescripcionFragment.init(sub.getObjectId(),sub.getSubcatnombre());
+                    data.add(productoGridConDescripcionFragment);
+                    break;
+
                 case Subcategoria.ANUNCIO:
                     AnuncioFragment anuncioFragment = new AnuncioFragment();
                     anuncioFragment.init(sub.getSubcatnombre(),sub.getObjectId());
@@ -385,9 +398,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void applyFontToMenuItem(MenuItem mi,String rutaTipoLetra)
     {
-        Typeface font = FontCache.get(rutaTipoLetra,this);//Typeface.createFromAsset(getAssets(), rutaTipoLetra);
+        Typeface font = FontCache.get(rutaTipoLetra, this);//Typeface.createFromAsset(getAssets(), rutaTipoLetra);
         SpannableString mNewTitle = new SpannableString(mi.getTitle());
-        mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        mNewTitle.setSpan(new CustomTypefaceSpan("", font), 0, mNewTitle.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         mi.setTitle(mNewTitle);
     }
 
@@ -486,7 +499,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onAbrirDescripcionProducto(String nombre,String descripcion)
     {
-        abrirDescripcionProducto(nombre,descripcion);
+        abrirDescripcionProducto(nombre, descripcion);
+    }
+
+
+    @Override
+    public void onIrAlPedidoFragmentGridCondescripcion()
+    {
+        irAPedido();
+
+    }
+
+    @Override
+    public void onAbrirMenuPrincipalFragmentGridCondescripcion()
+    {
+        abrirMenuPrincipal();
+    }
+
+    @Override
+    public void onAbrirDescripcionProductoGridCondescripcion(String nombre, String descripcion)
+    {
+        abrirDescripcionProducto(nombre, descripcion);
     }
 
     private void abrirDescripcionProducto(String nombre,String descripcion)
@@ -516,7 +549,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         dialog.show();
     }
-
 
 
     class CargarDatosRemotosTask extends AsyncTask<Void, Void, Boolean>

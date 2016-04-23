@@ -1,11 +1,9 @@
 package pirinola24.com.pirinola24;
 
-import android.content.Intent;
+
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,7 +12,7 @@ import pirinola24.com.pirinola24.util.FontCache;
 
 public class NotificacionActivity extends AppCompatActivity implements View.OnClickListener {
     private String font_path="font/A_Simple_Life.ttf";
-    private String fontStackyard="font/Stackyard.ttf";
+    private String matura_mt="font/matura_mt.ttf";
     private TextView titulo;
     private TextView mensaje;
     private Button cerrar;
@@ -29,8 +27,9 @@ public class NotificacionActivity extends AppCompatActivity implements View.OnCl
         mensaje=(TextView)findViewById(R.id.mensaje);
         cerrar=(Button)findViewById(R.id.cerrar_notifiacion);
 
-        Typeface TF=FontCache.get(fontStackyard,this);
+        Typeface TF=FontCache.get(matura_mt,this);
         titulo.setTypeface(TF);
+        cerrar.setTypeface(TF);
         TF = FontCache.get(font_path, this);
         mensaje.setTypeface(TF);
 

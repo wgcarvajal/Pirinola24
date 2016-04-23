@@ -87,6 +87,7 @@
     <dimen name="icono_ingrese_margin_rigth">5dp</dimen>
     <dimen name="size_link_ingresar">12sp</dimen>
     <dimen name="tam_btn_descripcion">30dp</dimen>
+    <dimen name="tam_btn_descripcion_grid">25dp</dimen>
     <dimen name="size_nombre_descripcion_producto">25sp</dimen>
     <dimen name="size_descripcion_producto">16sp</dimen>
     <dimen name="ancho_btn_cerrar_descripcion_producto">70dp</dimen>

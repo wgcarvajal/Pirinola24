@@ -19,12 +19,25 @@
         android:background="@color/rojo"
         />
 
+    <ImageView
+        android:id="@+id/imagen_login"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/tam_alto_imagen_login"
+        android:layout_marginTop="@dimen/margin_imagen_login"
+        android:layout_marginBottom="@dimen/margin_imagen_login"
+        android:src="@drawable/pirinola_icono"
+        android:scaleType="fitXY"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tituloNotificacion"
+
+        />
+
     
     <TextView
         android:id="@+id/mensaje"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tituloNotificacion"
+        android:layout_below="@id/imagen_login"
         android:textSize="@dimen/size_tu_opinion"
         android:textColor="@color/verdeapp"
         android:layout_marginTop="@dimen/margin_medium"
