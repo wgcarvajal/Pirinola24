@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -241,6 +242,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             {
                 pd.dismiss();
                 dialog.dismiss();
+                Log.i("error: ", fault.getMessage());
                 if(fault.getCode()!=null && fault.getCode().equals("3075"))
                 {
                     mostrarMensaje(R.string.txt_mensaje_usuario_no_puede_ser_logueado);

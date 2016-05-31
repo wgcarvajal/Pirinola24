@@ -19,7 +19,7 @@
         android:text="Registro"
         android:gravity="center"
         android:textColor="@color/blanco"
-        android:background="@color/rojo"
+        android:background="@drawable/rojo_blanco_gradiente"
         />
 
 
@@ -53,11 +53,11 @@
 
             <ImageView
                 android:id="@+id/imagen_login"
-                android:layout_width="@dimen/tam_ancho_imagen_login"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/tam_alto_imagen_login"
                 android:layout_marginTop="@dimen/margin_top_imagen_login"
                 android:layout_marginBottom="@dimen/margin_imagen_login"
-                android:src="@mipmap/ic_logo_gorra"
+                android:src="@drawable/pirinola_icono"
                 android:scaleType="fitXY"
                 android:layout_centerHorizontal="true"
 

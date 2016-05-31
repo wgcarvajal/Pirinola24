@@ -20,8 +20,8 @@
     <dimen name="tam_letra_titulo_menu_header">30sp</dimen>
     <dimen name="tam_letra_veinticuatro_header">25sp</dimen>
     <dimen name="tam_letra_item_menu">20sp</dimen>
-    <dimen name="tam_btn_cantidad_producto">28dp</dimen>
-    <dimen name="tam_text_cantidad_producto">20sp</dimen>
+    <dimen name="tam_btn_cantidad_producto">35dp</dimen>
+    <dimen name="tam_text_cantidad_producto">25sp</dimen>
     <dimen name="tam_btn_cantidad_prod_grid">30dp</dimen>
     <dimen name="tam_text_cantidad_producto_grid">22sp</dimen>
     <dimen name="tam_ancho_icono_carro_pedido">80dp</dimen>
@@ -101,6 +101,8 @@
     <dimen name="size_letra_boton_login">15sp</dimen>
     <dimen name="tamano_pirinola_carga_producto">50dp</dimen>
     <dimen name="tamano_pirinola_carga_producto_grid">35dp</dimen>
+    <dimen name="marginbottom_btn_aumentar_disminuir_producto">30dp</dimen>
+    <dimen name="maginbottom_btn_aumentar_disminuir_producto_grid">23dp</dimen>
 
 
 </resources>

@@ -1,12 +1,8 @@
 package pirinola24.com.pirinola24.fragments;
 
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
-import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -18,13 +14,10 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import pirinola24.com.pirinola24.R;
 import pirinola24.com.pirinola24.adaptadores.AdaptadorProducto;
-import pirinola24.com.pirinola24.basededatos.AdminSQliteOpenHelper;
 import pirinola24.com.pirinola24.modelo.Producto;
 import pirinola24.com.pirinola24.util.AppUtil;
 import pirinola24.com.pirinola24.util.FontCache;
@@ -32,7 +25,7 @@ import pirinola24.com.pirinola24.util.FontCache;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ProductoFragment extends FragmentGeneric implements AdapterView.OnItemClickListener, View.OnClickListener,AdaptadorProducto.OnComunicationAdaptador {
+public class ProductoFragment extends FragmentGeneric implements AdapterView.OnItemClickListener, View.OnClickListener {
     private static final String LIST_STATE = "listState";
 
     private Parcelable mListState = null;
@@ -72,11 +65,6 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
         }
     }
 
-    @Override
-    public void onMostrarDescripcionProducto(String nombre,String descripcion)
-    {
-        onComunicationFragment.onAbrirDescripcionProducto(nombre,descripcion);
-    }
 
     public interface OnComunicationFragment
     {
@@ -160,66 +148,11 @@ public class ProductoFragment extends FragmentGeneric implements AdapterView.OnI
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id)
     {
-        TextView textconteo= (TextView) view.findViewById(R.id.txtconteo);
-        TextView btnDisminuir= (TextView) view.findViewById(R.id.btn_disminuir);
-        AgregarProductoPedidoTask agregarProductoPedidoTask= new AgregarProductoPedidoTask(textconteo,btnDisminuir,getContext());
-        agregarProductoPedidoTask.execute(data.get(position));
+        String nombre=data.get(position).getProdnombre();
+        String descripcion=data.get(position).getProddescripcion();
+        onComunicationFragment.onAbrirDescripcionProducto(nombre,descripcion);
     }
 
-    public class AgregarProductoPedidoTask extends AsyncTask<Producto,Void,Integer>
-    {
-        private WeakReference<TextView> txtcontedo;
-        private WeakReference<TextView> btndisminuir;
-        private  Context context;
-
-        public AgregarProductoPedidoTask(TextView conteo,TextView disminuir, Context context)
-        {
-            txtcontedo= new WeakReference<>(conteo);
-            btndisminuir= new WeakReference<>(disminuir);
-            this.context=context;
-        }
-        @Override
-        protected Integer doInBackground(Producto... params)
-        {
-            MediaPlayer m = MediaPlayer.create(context,R.raw.sonido_click);
-            m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                public void onCompletion(MediaPlayer mp) {
-                    mp.release();
-                }
-            });
-            m.start();
-            AdminSQliteOpenHelper admin = new AdminSQliteOpenHelper(getContext(),"admin",null,1);
-            SQLiteDatabase db = admin.getWritableDatabase();
-            Cursor fila = db.rawQuery("select prodcantidad from pedido where prodid = '" + params[0].getObjectId() + "'", null);
-            ContentValues registroPedido= new ContentValues();
-            int conteo=1;
-            if(fila.moveToFirst())
-            {
-                conteo=fila.getInt(0)+1;
-                registroPedido.put("prodcantidad",conteo);
-                db.update("pedido",registroPedido,"prodid = '"+params[0].getObjectId()+"'",null);
-            }
-            else
-            {
-                registroPedido.put("prodid",params[0].getObjectId());
-                registroPedido.put("prodprecio",params[0].getPrecio());
-                registroPedido.put("prodnombre",params[0].getProdnombre());
-                registroPedido.put("proddescripcion",params[0].getProddescripcion());
-                registroPedido.put("prodcantidad",conteo);
-                db.insert("pedido",null,registroPedido);
-            }
-            db.close();
-            return conteo;
-        }
-
-        @Override
-        protected void onPostExecute(Integer resultado) {
-            super.onPostExecute(resultado);
-            txtcontedo.get().setText("" + resultado);
-            txtcontedo.get().setVisibility(View.VISIBLE);
-            btndisminuir.get().setVisibility(View.VISIBLE);
-        }
-    }
 
     @Override
     public void actualizarData()

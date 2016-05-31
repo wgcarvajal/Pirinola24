@@ -48,7 +48,7 @@ import pirinola24.com.pirinola24.typeface.CustomTypefaceSpan;
 import pirinola24.com.pirinola24.util.AppUtil;
 import pirinola24.com.pirinola24.util.FontCache;
 
-public class PedidoActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemClickListener, AdaptadorProductoPedido.OnDisminuirTotal {
+public class PedidoActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, AdaptadorProductoPedido.OnDisminuirTotal {
 
     public final static int MI_REQUEST_CODE = 1;
     public final static int MI_REQUEST_CODE_REGISTRADO = 2;
@@ -147,7 +147,6 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
         textValorTotalPedido.setTypeface(TF);
         adapter= new AdaptadorProductoPedido(this,data);
         gridProductosPedido.setAdapter(adapter);
-        gridProductosPedido.setOnItemClickListener(this);
 
 
         TF= FontCache.get(matura_mt,this);
@@ -270,7 +269,7 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
 
     private void applyFontToMenuItem(MenuItem mi,String rutaTipoLetra)
     {
-        Typeface font = FontCache.get(rutaTipoLetra,this);
+        Typeface font = FontCache.get(rutaTipoLetra, this);
         SpannableString mNewTitle = new SpannableString(mi.getTitle());
         mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         mi.setTitle(mNewTitle);
@@ -306,20 +305,17 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
 
         Backendless.UserService.logout(new AsyncCallback<Void>() {
             @Override
-            public void handleResponse(Void response)
-            {
+            public void handleResponse(Void response) {
                 LoginManager.getInstance().logOut();
-                Menu m=navView.getMenu();
+                Menu m = navView.getMenu();
                 m.getItem(2).setVisible(false);
                 mostrarMensaje(R.string.txt_sesion_cerrada);
-                if(!m.getItem(1).isVisible())
-                {
+                if (!m.getItem(1).isVisible()) {
                     btnMenuPrincipal.setVisibility(View.GONE);
                     flechaAtras.setVisibility(View.VISIBLE);
                 }
 
-                if(pd!=null)
-                {
+                if (pd != null) {
                     pd.dismiss();
                 }
 
@@ -351,43 +347,19 @@ public class PedidoActivity extends AppCompatActivity implements View.OnClickLis
         toast.show();
     }
 
-
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+    public void onAumentarTotal(int precio)
     {
-        MediaPlayer m = MediaPlayer.create(getApplicationContext(), R.raw.sonido_click);
-        m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-            public void onCompletion(MediaPlayer mp) {
-                mp.release();
-            }
-        });
-        m.start();
         String valorTotalpedido=textValorTotalPedido.getText().toString();
         String substring = valorTotalpedido.substring(1);
         substring =substring.replace(".","");
         int contador= Integer.parseInt(substring);
-        contador= contador+ data.get(position).getPrecio();
+        contador= contador+ precio;
 
         DecimalFormat format= new DecimalFormat("###,###.##");
         String valorTotal=format.format(contador);
         valorTotal=valorTotal.replace(",",".");
         textValorTotalPedido.setText("$"+valorTotal);
-
-        TextView textconteo= (TextView) view.findViewById(R.id.txtconteo);
-        int conteo = Integer.parseInt(textconteo.getText().toString());
-        conteo= conteo+1;
-        textconteo.setText(conteo+"");
-
-        AdminSQliteOpenHelper admin = new AdminSQliteOpenHelper(this,"admin",null,1);
-        SQLiteDatabase db = admin.getWritableDatabase();
-
-        ContentValues registroPedido= new ContentValues();
-        registroPedido.put("prodcantidad",conteo);
-
-        int cant= db.update("pedido",registroPedido,"prodid = '"+data.get(position).getObjectId()+"'",null);
-
-        db.close();
-
     }
 
     @Override

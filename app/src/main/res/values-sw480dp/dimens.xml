@@ -106,5 +106,7 @@
     <dimen name="size_letra_boton_login">20sp</dimen>
     <dimen name="tamano_pirinola_carga_producto">60dp</dimen>
     <dimen name="tamano_pirinola_carga_producto_grid">45dp</dimen>
+    <dimen name="marginbottom_btn_aumentar_disminuir_producto">40dp</dimen>
+    <dimen name="maginbottom_btn_aumentar_disminuir_producto_grid">30dp</dimen>
 
 </resources>

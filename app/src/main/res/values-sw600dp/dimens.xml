@@ -20,7 +20,7 @@
     <dimen name="tam_titulo_menu_header">100dp</dimen>
     <dimen name="tam_letra_titulo_menu_header">60sp</dimen>
     <dimen name="tam_letra_veinticuatro_header">50sp</dimen>
-    <dimen name="tam_btn_cantidad_producto">55dp</dimen>
+    <dimen name="tam_btn_cantidad_producto">50dp</dimen>
     <dimen name="tam_text_cantidad_producto">45sp</dimen>
     <dimen name="tam_btn_cantidad_prod_grid">50dp</dimen>
     <dimen name="tam_text_cantidad_producto_grid">32sp</dimen>
@@ -101,5 +101,7 @@
     <dimen name="size_letra_boton_login">20sp</dimen>
     <dimen name="tamano_pirinola_carga_producto">60dp</dimen>
     <dimen name="tamano_pirinola_carga_producto_grid">50dp</dimen>
+    <dimen name="marginbottom_btn_aumentar_disminuir_producto">40dp</dimen>
+    <dimen name="maginbottom_btn_aumentar_disminuir_producto_grid">30dp</dimen>
 
 </resources>

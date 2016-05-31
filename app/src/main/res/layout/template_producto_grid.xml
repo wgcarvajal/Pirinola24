@@ -20,23 +20,35 @@
         android:scaleType="fitXY"
         />
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        >
-            <TextView
-                android:id="@+id/txtconteo"
-                android:layout_width="@dimen/tam_btn_cantidad_prod_grid"
-                android:layout_height="@dimen/tam_btn_cantidad_prod_grid"
-                android:text="0"
-                android:textSize="@dimen/tam_text_cantidad_producto_grid"
-                android:textColor="#ffffff"
-                android:background="@drawable/text_view_redondo"
-                android:gravity="center"
-                />
+    <TextView
+        android:id="@+id/btn_aumentar"
+        android:layout_width="@dimen/tam_btn_cantidad_prod_grid"
+        android:layout_height="@dimen/tam_btn_cantidad_prod_grid"
+        android:text="+"
+        android:textColor="@color/amarillo_aplicacion"
+        android:background="@drawable/img_view_redondo"
+        android:layout_marginTop="@dimen/margin_small"
+        android:textSize="@dimen/tam_text_cantidad_producto_grid"
+        android:gravity="center"
+        android:layout_alignBottom="@id/img_producto"
+        android:layout_marginBottom="@dimen/maginbottom_btn_aumentar_disminuir_producto_grid"
+        />
+
+
+        <TextView
+            android:id="@+id/txtconteo"
+            android:layout_width="@dimen/tam_btn_cantidad_prod_grid"
+            android:layout_height="@dimen/tam_btn_cantidad_prod_grid"
+            android:text="0"
+            android:textSize="@dimen/tam_text_cantidad_producto_grid"
+            android:textColor="@color/amarillo_aplicacion"
+            android:background="@drawable/text_view_redondo"
+            android:gravity="center"
+
+            android:layout_alignBottom="@id/img_producto"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/maginbottom_btn_aumentar_disminuir_producto_grid"
+            />
 
 
         <TextView
@@ -44,10 +56,14 @@
             android:layout_width="@dimen/tam_btn_cantidad_prod_grid"
             android:layout_height="@dimen/tam_btn_cantidad_prod_grid"
             android:text="─"
-            android:textColor="@color/blanco"
+            android:textColor="@color/amarillo_aplicacion"
             android:background="@drawable/img_view_redondo"
             android:layout_marginTop="@dimen/margin_small"
             android:gravity="center"
+            android:layout_alignBottom="@id/img_producto"
+            android:layout_marginBottom="@dimen/maginbottom_btn_aumentar_disminuir_producto_grid"
+            android:layout_alignRight="@id/img_producto"
+            android:textSize="@dimen/tam_text_cantidad_producto_grid"
             />
-    </LinearLayout>
+
 </RelativeLayout>

@@ -349,7 +349,7 @@ public class RegistradoActivity extends AppCompatActivity implements View.OnClic
                                 Log.i("error mensaje:",fault.getMessage());
                             }
                         });
-
+                        db.close();
                         setResult(Activity.RESULT_OK);
                         if (pd != null) {
                             pd.dismiss();

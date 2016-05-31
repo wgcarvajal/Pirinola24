@@ -19,6 +19,7 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.WeakReference;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import pirinola24.com.pirinola24.R;
@@ -40,6 +41,7 @@ public class AdaptadorProductoPedido extends BaseAdapter implements View.OnClick
     public interface OnDisminuirTotal
     {
         void onDisminuirTotal(int precio);
+        void onAumentarTotal(int precio);
     }
 
     OnDisminuirTotal onDisminuirTotal;
@@ -51,6 +53,7 @@ public class AdaptadorProductoPedido extends BaseAdapter implements View.OnClick
         public ImageView placeholder;
         public TextView txtconteo;
         public TextView btnDisminuir;
+        public TextView btnAumentar;
 
     }
 
@@ -103,12 +106,12 @@ public class AdaptadorProductoPedido extends BaseAdapter implements View.OnClick
             viewHolder.placeholder=(ImageView)v.findViewById(R.id.placeholder);
             viewHolder.txtconteo=(TextView) v.findViewById(R.id.txtconteo);
             viewHolder.btnDisminuir=(TextView) v.findViewById(R.id.btn_disminuir);
-
-
+            viewHolder.btnAumentar=(TextView) v.findViewById(R.id.btn_aumentar);
             Typeface TF = FontCache.get(font_pathOds,context);
             viewHolder.txtconteo.setTypeface(TF);
             viewHolder.txtconteo.setText("0");
-            viewHolder.btnDisminuir.setTag(R.id.txtconteo,viewHolder.txtconteo);
+            viewHolder.btnDisminuir.setTag(R.id.txtconteo, viewHolder.txtconteo);
+            viewHolder.btnAumentar.setTag(R.id.txtconteo,viewHolder.txtconteo);
             v.setTag(viewHolder);
         }
         else
@@ -145,7 +148,9 @@ public class AdaptadorProductoPedido extends BaseAdapter implements View.OnClick
     private void fijarDatos(Producto producto,ViewHolder viewHolder,int position)
     {
         viewHolder.btnDisminuir.setTag(position);
+        viewHolder.btnAumentar.setTag(position);
         viewHolder.btnDisminuir.setOnClickListener(this);
+        viewHolder.btnAumentar.setOnClickListener(this);
         FijarCantidadTask fijarCantidadTask=new FijarCantidadTask(context,viewHolder);
         fijarCantidadTask.execute(producto.getObjectId());
     }
@@ -188,75 +193,88 @@ public class AdaptadorProductoPedido extends BaseAdapter implements View.OnClick
     @Override
     public void onClick(View v)
     {
-        TextView txtconteo=(TextView)v.getTag(R.id.txtconteo);
-        int precio= data.get(Integer.parseInt(v.getTag().toString())).getPrecio();
-        String prodid = data.get(Integer.parseInt(v.getTag().toString())).getObjectId();
-        DisminuirCantidadTask disminuirCantidadTask= new DisminuirCantidadTask(txtconteo,context,Integer.parseInt(v.getTag().toString()),precio);
-        disminuirCantidadTask.execute(data.get(Integer.parseInt(v.getTag().toString())).getObjectId());
+        switch (v.getId())
+        {
+            case R.id.btn_aumentar:
+                TextView conteo=(TextView)v.getTag(R.id.txtconteo);
+                Producto prod= data.get(Integer.parseInt(v.getTag().toString()));
+                aumentarproducto(prod, conteo);
+                break;
+            case R.id.btn_disminuir:
+                TextView txtconteo=(TextView)v.getTag(R.id.txtconteo);
+                Producto p= data.get(Integer.parseInt(v.getTag().toString()));
+                disminuirproducto(p,txtconteo,Integer.parseInt(v.getTag().toString()));
+            break;
+        }
+
     }
 
-
-
-    public class DisminuirCantidadTask extends AsyncTask<String,Void,Void>
+    private void aumentarproducto(Producto producto,TextView txtconteo)
     {
-        private WeakReference<TextView> textViewWeakReference;
-        private Context context;
-        private int posicion;
-        private int cantidad=0;
-        private int precio=0;
-
-        public DisminuirCantidadTask(TextView textView,Context context,int posicion,int precio)
-        {
-            this.textViewWeakReference= new WeakReference<TextView>(textView);
-            this.posicion=posicion;
-            this.context=context;
-            this.precio=precio;
-        }
-        @Override
-        protected Void doInBackground(String... params)
-        {
-            MediaPlayer m = MediaPlayer.create(context, R.raw.sonido_click);
-            m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                public void onCompletion(MediaPlayer mp) {
-                    mp.release();
-                }
-            });
-            m.start();
-
-            AdminSQliteOpenHelper admin = new AdminSQliteOpenHelper(context,"admin",null,1);
-            SQLiteDatabase db = admin.getWritableDatabase();
-            Cursor fila = db.rawQuery("select prodcantidad from pedido where prodid = '" + params[0] + "'", null);
-            if(fila.moveToFirst())
-            {
-                this.cantidad=fila.getInt(0)-1;
-                if(cantidad==0)
-                {
-                    db.delete("pedido", "prodid ='" + params[0] + "'", null);
-                }
-                else
-                {
-                    ContentValues registroPedido= new ContentValues();
-                    registroPedido.put("prodcantidad",cantidad);
-                    db.update("pedido", registroPedido, "prodid = '" + params[0] + "'", null);
-                }
+        MediaPlayer m = MediaPlayer.create(context, R.raw.sonido_click);
+        m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
             }
-            db.close();
-            return null;
-        }
+        });
+        m.start();
+        int conteo = Integer.parseInt(txtconteo.getText().toString());
+        conteo= conteo+1;
+        txtconteo.setText(conteo+"");
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+        AdminSQliteOpenHelper admin = new AdminSQliteOpenHelper(context,"admin",null,1);
+        SQLiteDatabase db = admin.getWritableDatabase();
+
+        ContentValues registroPedido= new ContentValues();
+        registroPedido.put("prodcantidad",conteo);
+
+        int cant= db.update("pedido",registroPedido,"prodid = '"+producto.getObjectId()+"'",null);
+
+        db.close();
+        onDisminuirTotal.onAumentarTotal(producto.getPrecio());
+    }
+
+    private void disminuirproducto(Producto producto,TextView txtconteo,int posicion)
+    {
+        int cantidad=0;
+        MediaPlayer m = MediaPlayer.create(context, R.raw.sonido_click);
+        m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            }
+        });
+        m.start();
+
+        AdminSQliteOpenHelper admin = new AdminSQliteOpenHelper(context,"admin",null,1);
+        SQLiteDatabase db = admin.getWritableDatabase();
+        Cursor fila = db.rawQuery("select prodcantidad from pedido where prodid = '" + producto.getObjectId() + "'", null);
+        if(fila.moveToFirst())
+        {
+            cantidad=fila.getInt(0)-1;
             if(cantidad==0)
             {
-                data.remove(posicion);
-                notifyDataSetChanged();
+                db.delete("pedido", "prodid ='" + producto.getObjectId() + "'", null);
             }
             else
             {
-                textViewWeakReference.get().setText(cantidad + "");
+                ContentValues registroPedido= new ContentValues();
+                registroPedido.put("prodcantidad",cantidad);
+                db.update("pedido", registroPedido, "prodid = '" + producto.getObjectId() + "'", null);
             }
-            onDisminuirTotal.onDisminuirTotal(precio);
         }
+        db.close();
+
+        if(cantidad==0)
+        {
+            data.remove(posicion);
+            notifyDataSetChanged();
+        }
+        else
+        {
+            txtconteo.setText(cantidad + "");
+        }
+        onDisminuirTotal.onDisminuirTotal(producto.getPrecio());
     }
+
+
 }

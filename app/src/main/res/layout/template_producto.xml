@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-
-
-    <RelativeLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-
         >
 
 
@@ -27,51 +21,48 @@
             android:scaleType="fitXY"
             />
 
-        <ImageView
-            android:id="@+id/btn_descripcion"
-            android:layout_width="@dimen/tam_btn_descripcion"
-            android:layout_height="@dimen/tam_btn_descripcion"
-            android:src="@mipmap/ic_carta_descripcion"
-            android:layout_alignBottom="@id/img_producto"
-            android:layout_alignRight="@id/img_producto"
-            android:layout_marginRight="@dimen/super_margin_small"
 
-            />
+    <TextView
+        android:id="@+id/btn_aumentar"
+        android:layout_width="@dimen/tam_btn_cantidad_producto"
+        android:layout_height="@dimen/tam_btn_cantidad_producto"
+        android:text="+"
+        android:textSize="@dimen/tam_text_cantidad_producto"
+        android:textColor="@color/amarillo_aplicacion"
+        android:background="@drawable/img_view_redondo"
+        android:layout_marginTop="@dimen/margin_small"
+        android:gravity="center"
+        android:layout_alignBottom="@id/img_producto"
+        android:layout_marginBottom="@dimen/marginbottom_btn_aumentar_disminuir_producto"
+        />
 
+    <TextView
+        android:id="@+id/txtconteo"
+        android:layout_width="@dimen/tam_btn_cantidad_producto"
+        android:layout_height="@dimen/tam_btn_cantidad_producto"
+        android:text="0"
+        android:textSize="@dimen/tam_text_cantidad_producto"
+        android:textColor="@color/amarillo_aplicacion"
+        android:background="@drawable/text_view_redondo"
+        android:gravity="center"
+        android:layout_alignBottom="@id/img_producto"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/marginbottom_btn_aumentar_disminuir_producto"
+        />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-
-            >
-            <TextView
-                android:id="@+id/txtconteo"
-                android:layout_width="@dimen/tam_btn_cantidad_producto"
-                android:layout_height="@dimen/tam_btn_cantidad_producto"
-                android:text="0"
-                android:textSize="@dimen/tam_text_cantidad_producto"
-                android:textColor="@color/blanco"
-                android:background="@drawable/text_view_redondo"
-                android:gravity="center"
-
-                />
-            <TextView
-                android:id="@+id/btn_disminuir"
-                android:layout_width="@dimen/tam_btn_cantidad_producto"
-                android:layout_height="@dimen/tam_btn_cantidad_producto"
-                android:text="─"
-                android:textColor="@color/blanco"
-                android:background="@drawable/img_view_redondo"
-                android:layout_marginTop="@dimen/margin_small"
-                android:gravity="center"
-                />
-
-
-        </LinearLayout>
-
+    <TextView
+        android:id="@+id/btn_disminuir"
+        android:layout_width="@dimen/tam_btn_cantidad_producto"
+        android:layout_height="@dimen/tam_btn_cantidad_producto"
+        android:text="─"
+        android:textSize="@dimen/tam_text_cantidad_producto"
+        android:textColor="@color/amarillo_aplicacion"
+        android:background="@drawable/img_view_redondo"
+        android:gravity="center"
+        android:layout_alignBottom="@id/img_producto"
+        android:layout_alignRight="@id/img_producto"
+        android:layout_marginBottom="@dimen/marginbottom_btn_aumentar_disminuir_producto"
+        />
 </RelativeLayout>
 
 

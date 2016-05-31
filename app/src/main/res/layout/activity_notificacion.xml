@@ -16,7 +16,7 @@
         android:text="Notificación"
         android:gravity="center"
         android:textColor="@color/blanco"
-        android:background="@color/rojo"
+        android:background="@drawable/rojo_blanco_gradiente"
         />
 
     <ImageView

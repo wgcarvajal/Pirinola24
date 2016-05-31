@@ -71,7 +71,7 @@
     <string name="txt_aceptar">Aceptar</string>
     <string name="txt_enviar">Enviar</string>
     <string name="txt_ingrese_correo">Ingrese correo</string>
-    <string name="confirmacion_envio_email">Solicitud enviada, revice su correo electrónico</string>
+    <string name="confirmacion_envio_email">Solicitud enviada, revise su correo electrónico</string>
     <string name="correo_no_se_encuentra">Correo no se encuentra registrado</string>
     <string name="campo_telefono_ya_esta">El número ya esta en la lista.</string>
     <string name="campo_direccion_ya_esta">La dirección ya esta en la lista.</string>

@@ -47,7 +47,6 @@ import pirinola24.com.pirinola24.fragments.AnuncioFragment;
 import pirinola24.com.pirinola24.fragments.FragmentGeneric;
 import pirinola24.com.pirinola24.fragments.ProductoFragment;
 import pirinola24.com.pirinola24.fragments.ProductoGridFragment;
-import pirinola24.com.pirinola24.fragments.ProductoGridTresFilasConDescripcionFragment;
 import pirinola24.com.pirinola24.modelo.Producto;
 import pirinola24.com.pirinola24.modelo.Subcategoria;
 import pirinola24.com.pirinola24.typeface.CustomTypefaceSpan;
@@ -55,7 +54,7 @@ import pirinola24.com.pirinola24.util.AppUtil;
 import pirinola24.com.pirinola24.util.FontCache;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, ProductoGridFragment.OnComunicationFragmentGrid, ProductoFragment.OnComunicationFragment , ProductoGridTresFilasConDescripcionFragment.OnComunicationFragmentGridCondescripcion {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, ProductoGridFragment.OnComunicationFragmentGrid, ProductoFragment.OnComunicationFragment  {
 
     public final static int MI_REQUEST_CODE = 1;
 
@@ -165,12 +164,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         data.add(productoGridFragment);
                     break;
 
-                    case Subcategoria.TRESFILASCONDESCRIPCION:
-                        ProductoGridTresFilasConDescripcionFragment productoGridConDescripcionFragment = new ProductoGridTresFilasConDescripcionFragment();
-                        productoGridConDescripcionFragment.init(sub.getObjectId(),sub.getSubcatnombre());
-                        data.add(productoGridConDescripcionFragment);
-                        break;
-
                     case Subcategoria.ANUNCIO:
                         AnuncioFragment anuncioFragment = new AnuncioFragment();
                         anuncioFragment.init(sub.getSubcatnombre(),sub.getObjectId());
@@ -218,9 +211,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void handleResponse(BackendlessCollection<Subcategoria> response) {
 
-                AppUtil.listaSubcategorias= response.getData();
-                BackendlessDataQuery dataQueryProductos= new BackendlessDataQuery();
-                List<String> productoSelect=new ArrayList<>();
+                AppUtil.listaSubcategorias = response.getData();
+                BackendlessDataQuery dataQueryProductos = new BackendlessDataQuery();
+                List<String> productoSelect = new ArrayList<>();
                 productoSelect.add("objectId");
                 productoSelect.add("precio");
                 productoSelect.add("proddescripcion");
@@ -228,27 +221,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 productoSelect.add("subcategoria");
                 productoSelect.add("imgFile");
                 dataQueryProductos.setProperties(productoSelect);
-                QueryOptions queryOptionsProductos= new QueryOptions();
+                QueryOptions queryOptionsProductos = new QueryOptions();
                 queryOptionsProductos.setPageSize(100);
                 queryOptionsProductos.addSortByOption("posicion ASC");
                 dataQueryProductos.setQueryOptions(queryOptionsProductos);
                 Backendless.Persistence.of(Producto.class).find(dataQueryProductos, new AsyncCallback<BackendlessCollection<Producto>>() {
                     @Override
-                    public void handleResponse(BackendlessCollection<Producto> prods)
-                    {
-                        AppUtil.data=prods.getData();
-                        if(prods.getTotalObjects()>100)
-                        {
+                    public void handleResponse(BackendlessCollection<Producto> prods) {
+                        AppUtil.data = prods.getData();
+                        if (prods.getTotalObjects() > 100) {
                             prods.nextPage(new AsyncCallback<BackendlessCollection<Producto>>() {
                                 @Override
                                 public void handleResponse(BackendlessCollection<Producto> response) {
-                                    List<Producto> pds=response.getData();
-                                    for(Producto p :pds)
-                                    {
+                                    List<Producto> pds = response.getData();
+                                    for (Producto p : pds) {
                                         AppUtil.data.add(p);
                                     }
-                                    if(pd!=null)
-                                    {
+                                    if (pd != null) {
                                         pd.dismiss();
                                     }
                                     crearFragments();
@@ -256,39 +245,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                                 @Override
                                 public void handleFault(BackendlessFault fault) {
-                                    if(pd!=null)
-                                    {
+                                    if (pd != null) {
                                         pd.dismiss();
                                     }
                                     mostrarMensajeComprobarConexion();
                                 }
                             });
-                        }
-                        else
-                        {
-                            if(pd!=null)
-                            {
+                        } else {
+                            if (pd != null) {
                                 pd.dismiss();
                             }
                             crearFragments();
                         }
                     }
+
                     @Override
-                    public void handleFault(BackendlessFault fault)
-                    {
-                        if(pd!=null)
-                        {
+                    public void handleFault(BackendlessFault fault) {
+                        if (pd != null) {
                             pd.dismiss();
                         }
                         mostrarMensajeComprobarConexion();
                     }
                 });
             }
+
             @Override
-            public void handleFault(BackendlessFault fault)
-            {
-                if(pd!=null)
-                {
+            public void handleFault(BackendlessFault fault) {
+                if (pd != null) {
                     pd.dismiss();
                 }
                 mostrarMensajeComprobarConexion();
@@ -310,14 +293,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     String currentUserObjectId = UserIdStorageFactory.instance().getStorage().get();
                     Backendless.Data.of(BackendlessUser.class).findById(currentUserObjectId, new AsyncCallback<BackendlessUser>() {
                         @Override
-                        public void handleResponse(BackendlessUser response)
-                        {
+                        public void handleResponse(BackendlessUser response) {
                             Backendless.UserService.setCurrentUser(response);
                         }
 
                         @Override
-                        public void handleFault(BackendlessFault fault)
-                        {
+                        public void handleFault(BackendlessFault fault) {
                             m.getItem(2).setVisible(false);
 
 
@@ -328,9 +309,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
             }
+
             @Override
-            public void handleFault(BackendlessFault fault)
-            {
+            public void handleFault(BackendlessFault fault) {
                 m.getItem(2).setVisible(false);
 
             }
@@ -348,12 +329,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     ProductoGridFragment productoGridFragment = new ProductoGridFragment();
                     productoGridFragment.init(sub.getObjectId(), sub.getSubcatnombre());
                     data.add(productoGridFragment);
-                    break;
-
-                case Subcategoria.TRESFILASCONDESCRIPCION:
-                    ProductoGridTresFilasConDescripcionFragment productoGridConDescripcionFragment = new ProductoGridTresFilasConDescripcionFragment();
-                    productoGridConDescripcionFragment.init(sub.getObjectId(),sub.getSubcatnombre());
-                    data.add(productoGridConDescripcionFragment);
                     break;
 
                 case Subcategoria.ANUNCIO:
@@ -501,27 +476,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     {
         abrirDescripcionProducto(nombre, descripcion);
     }
-
-
     @Override
-    public void onIrAlPedidoFragmentGridCondescripcion()
-    {
-        irAPedido();
-
-    }
-
-    @Override
-    public void onAbrirMenuPrincipalFragmentGridCondescripcion()
-    {
-        abrirMenuPrincipal();
-    }
-
-    @Override
-    public void onAbrirDescripcionProductoGridCondescripcion(String nombre, String descripcion)
+    public void onAbrirDescripcionProductoGrid(String nombre,String descripcion)
     {
         abrirDescripcionProducto(nombre, descripcion);
     }
-
     private void abrirDescripcionProducto(String nombre,String descripcion)
     {
         final Dialog dialog= new Dialog(this);

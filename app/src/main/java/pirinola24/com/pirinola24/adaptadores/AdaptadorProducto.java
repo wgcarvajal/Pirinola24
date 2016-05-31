@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,20 +43,16 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
         public ImageView placeholder;
         public TextView txtconteo;
         public TextView btnDisminuir;
-        public ImageView btnDescripcion;
+        public TextView btnAumentar;
+
     }
 
-    public interface OnComunicationAdaptador
-    {
-        void onMostrarDescripcionProducto(String nombre,String descripcion);
-    }
-    OnComunicationAdaptador onComunicationAdaptador;
+
 
     public AdaptadorProducto(Context context, List<Producto> data,Object fragment)
     {
         mInflater=(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = context;
-        onComunicationAdaptador=(OnComunicationAdaptador)fragment;
         this.data = data;
     }
     @Override
@@ -98,11 +95,13 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
             viewHolder.placeholder=(ImageView)v.findViewById(R.id.placeholder);
             viewHolder.txtconteo=(TextView) v.findViewById(R.id.txtconteo);
             viewHolder.btnDisminuir=(TextView) v.findViewById(R.id.btn_disminuir);
-            viewHolder.btnDescripcion=(ImageView)v.findViewById(R.id.btn_descripcion);
+            viewHolder.btnAumentar=(TextView) v.findViewById(R.id.btn_aumentar);
             Typeface TF = FontCache.get(font_pathOds,context);
             viewHolder.txtconteo.setTypeface(TF);
             viewHolder.txtconteo.setText("0");
-            viewHolder.btnDisminuir.setTag(R.id.txtconteo,viewHolder.txtconteo);
+            viewHolder.btnDisminuir.setTag(R.id.txtconteo, viewHolder.txtconteo);
+            viewHolder.btnAumentar.setTag(R.id.btn_disminuir, viewHolder.btnDisminuir);
+            viewHolder.btnAumentar.setTag(R.id.txtconteo,viewHolder.txtconteo);
             v.setTag(viewHolder);
         }
         else
@@ -116,7 +115,6 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
 
 
         viewHolder.placeholder.setVisibility(View.VISIBLE);
-        viewHolder.btnDescripcion.setVisibility(View.GONE);
         viewHolder.placeholder.setImageResource(R.drawable.carga);
 
         Picasso.with(context)
@@ -127,7 +125,6 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
                     public void onSuccess() {
                         viewHolder.placeholder.setImageDrawable(null);
                         viewHolder.placeholder.setVisibility(View.GONE);
-                        viewHolder.btnDescripcion.setVisibility(View.VISIBLE);
                     }
 
                     @Override
@@ -145,9 +142,9 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
         viewHolder.txtconteo.setVisibility(View.GONE);
         viewHolder.btnDisminuir.setVisibility(View.GONE);
         viewHolder.btnDisminuir.setTag(position);
-        viewHolder.btnDescripcion.setTag(position);
+        viewHolder.btnAumentar.setTag(position);
         viewHolder.btnDisminuir.setOnClickListener(this);
-        viewHolder.btnDescripcion.setOnClickListener(this);
+        viewHolder.btnAumentar.setOnClickListener(this);
         FijarCantidadTask fijarCantidadTask=new FijarCantidadTask(context,viewHolder);
         fijarCantidadTask.execute(producto.getObjectId());
 
@@ -197,80 +194,99 @@ public class AdaptadorProducto extends BaseAdapter implements View.OnClickListen
     {
         switch (v.getId())
         {
+            case R.id.btn_aumentar:
+                TextView conteo=(TextView)v.getTag(R.id.txtconteo);
+                Producto prod = data.get(Integer.parseInt(v.getTag().toString()));
+                TextView disminuir=(TextView)v.getTag(R.id.btn_disminuir);
+                aumentarProducto(prod,conteo,disminuir);
+
+            break;
             case R.id.btn_disminuir:
                 TextView txtconteo=(TextView)v.getTag(R.id.txtconteo);
-                String prodid = data.get(Integer.parseInt(v.getTag().toString())).getObjectId();
-                DisminuirCantidadTask disminuirCantidadTask= new DisminuirCantidadTask(txtconteo,(TextView)v,context);
-                disminuirCantidadTask.execute(data.get(Integer.parseInt(v.getTag().toString())).getObjectId());
-            break;
-            case R.id.btn_descripcion:
-                int indice=Integer.parseInt(v.getTag().toString());
-                String nombreProducto=data.get(indice).getProdnombre();
-                String descripcionProducto=data.get(indice).getProddescripcion();
-               onComunicationAdaptador.onMostrarDescripcionProducto(nombreProducto,descripcionProducto);
+                Producto p = data.get(Integer.parseInt(v.getTag().toString()));
+                disminuirProducto(p,txtconteo,(TextView)v);
             break;
         }
 
     }
 
-    public class DisminuirCantidadTask extends AsyncTask<String,Void,Void>
+    private void disminuirProducto(Producto producto,TextView txtconteo,TextView txtdisminuir)
     {
-        private WeakReference<TextView> textViewWeakReference;
-        private WeakReference<TextView> imageViewWeakReference;
-        private Context context;
-        private int cantidad=0;
-
-        public DisminuirCantidadTask(TextView textView,TextView btn,Context context)
-        {
-            this.textViewWeakReference= new WeakReference<TextView>(textView);
-            this.imageViewWeakReference= new WeakReference<TextView>(btn);
-            this.context=context;
-        }
-        @Override
-        protected Void doInBackground(String... params)
-        {
-            MediaPlayer m = MediaPlayer.create(context, R.raw.sonido_click);
-            m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                public void onCompletion(MediaPlayer mp) {
-                    mp.release();
-                }
-            });
-            m.start();
-
-            AdminSQliteOpenHelper admin = new AdminSQliteOpenHelper(context,"admin",null,1);
-            SQLiteDatabase db = admin.getWritableDatabase();
-            Cursor fila = db.rawQuery("select prodcantidad from pedido where prodid = '" + params[0] + "'", null);
-            if(fila.moveToFirst())
-            {
-                this.cantidad=fila.getInt(0)-1;
-                if(cantidad==0)
-                {
-                    db.delete("pedido", "prodid ='" + params[0] + "'", null);
-                }
-                else
-                {
-                    ContentValues registroPedido= new ContentValues();
-                    registroPedido.put("prodcantidad",cantidad);
-                    db.update("pedido", registroPedido, "prodid = '" + params[0] + "'", null);
-                }
+        int cantidad=0;
+        MediaPlayer m = MediaPlayer.create(context, R.raw.sonido_click);
+        m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
             }
-            db.close();
-            return null;
-        }
+        });
+        m.start();
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
+        AdminSQliteOpenHelper admin = new AdminSQliteOpenHelper(context,"admin",null,1);
+        SQLiteDatabase db = admin.getWritableDatabase();
+        Cursor fila = db.rawQuery("select prodcantidad from pedido where prodid = '" + producto.getObjectId() + "'", null);
+        if(fila.moveToFirst())
+        {
+            cantidad=fila.getInt(0)-1;
             if(cantidad==0)
             {
-                imageViewWeakReference.get().setVisibility(View.GONE);
-                textViewWeakReference.get().setText(0+"");
-                textViewWeakReference.get().setVisibility(View.GONE);
+                db.delete("pedido", "prodid ='" + producto.getObjectId() + "'", null);
             }
             else
             {
-                textViewWeakReference.get().setText(cantidad + "");
+                ContentValues registroPedido= new ContentValues();
+                registroPedido.put("prodcantidad",cantidad);
+                db.update("pedido", registroPedido, "prodid = '" + producto.getObjectId() + "'", null);
             }
         }
+        db.close();
+
+        if(cantidad==0)
+        {
+            txtconteo.setVisibility(View.GONE);
+            txtconteo.setText(0 + "");
+            txtdisminuir.setVisibility(View.GONE);
+        }
+        else
+        {
+            txtconteo.setText(cantidad + "");
+        }
     }
+
+    private void aumentarProducto(Producto producto,TextView txtconteo,TextView btndisminuir)
+    {
+        MediaPlayer m = MediaPlayer.create(context,R.raw.sonido_click);
+        m.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                mp.release();
+            }
+        });
+        m.start();
+        AdminSQliteOpenHelper admin = new AdminSQliteOpenHelper(context,"admin",null,1);
+        SQLiteDatabase db = admin.getWritableDatabase();
+        Cursor fila = db.rawQuery("select prodcantidad from pedido where prodid = '" + producto.getObjectId() + "'", null);
+        ContentValues registroPedido= new ContentValues();
+        int conteo=1;
+        if(fila.moveToFirst())
+        {
+            conteo=fila.getInt(0)+1;
+            registroPedido.put("prodcantidad",conteo);
+            db.update("pedido",registroPedido,"prodid = '"+producto.getObjectId()+"'",null);
+        }
+        else
+        {
+            registroPedido.put("prodid",producto.getObjectId());
+            registroPedido.put("prodprecio",producto.getPrecio());
+            registroPedido.put("prodnombre",producto.getProdnombre());
+            registroPedido.put("proddescripcion",producto.getProddescripcion());
+            registroPedido.put("prodcantidad",conteo);
+            db.insert("pedido",null,registroPedido);
+        }
+        db.close();
+
+        txtconteo.setText("" + conteo);
+        txtconteo.setVisibility(View.VISIBLE);
+        btndisminuir.setVisibility(View.VISIBLE);
+    }
+
+
 }

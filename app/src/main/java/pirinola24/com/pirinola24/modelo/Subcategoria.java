@@ -5,8 +5,7 @@ public class Subcategoria
 {
     public static final int DOSFILASCONDESCRIPCION=1;
     public static final int SINDESCRIPCION=2;
-    public static final int TRESFILASCONDESCRIPCION=3;
-    public static final int ANUNCIO=4;
+    public static final int ANUNCIO=3;
 
     public static String TABLA="Subcategoria";
     public static String ID="objectId";
